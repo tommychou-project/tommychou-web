@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -83,11 +84,12 @@ export default function Home() {
               fontSize: "14px", fontFamily: "inherit", transition: "color 0.2s",
             }}>{link.label}</button>
           ))}
-          <button onClick={() => scrollTo("contact")} style={{
-            background: "#fff", color: "#080c12", border: "none",
-            padding: "8px 20px", borderRadius: "6px", cursor: "pointer",
-            fontSize: "13px", fontWeight: 600, fontFamily: "inherit",
-          }}>合作洽談</button>
+          <Link href="/contact" style={{
+  background: "#fff", color: "#080c12",
+  padding: "8px 20px", borderRadius: "6px",
+  fontSize: "13px", fontWeight: 600, fontFamily: "inherit",
+  textDecoration: "none",
+}}>合作洽談</Link>
         </div>
 
         {/* Mobile Hamburger */}
