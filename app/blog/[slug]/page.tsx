@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import postsData from "@/lib/posts-data.json";
 
 type PostData = { title: string; date: string; tag: string; readTime: string; excerpt: string; slug: string; content: string; };
-const posts = postsData as Record<string, PostData>;
+const posts = postsData as unknown as Record<string, PostData>;
 
 export function generateStaticParams() {
   return Object.keys(posts).map((slug) => ({ slug }));
