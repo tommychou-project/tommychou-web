@@ -332,26 +332,15 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {["你的名字", "Email", "合作類型（顧問 / 工作坊 / 演講）"].map((ph) => (
-              <input key={ph} placeholder={ph} style={{
-                background: "rgba(255,255,255,0.04)", border: "0.5px solid rgba(255,255,255,0.12)",
-                borderRadius: "8px", padding: "12px 16px", color: "#fff",
-                fontSize: "14px", fontFamily: "inherit", outline: "none", width: "100%",
-              }} />
-            ))}
-            <textarea placeholder="簡單說說你的需求..." style={{
-              background: "rgba(255,255,255,0.04)", border: "0.5px solid rgba(255,255,255,0.12)",
-              borderRadius: "8px", padding: "12px 16px", color: "#fff",
-              fontSize: "14px", height: "110px", resize: "none",
-              fontFamily: "inherit", outline: "none", width: "100%",
-            }} />
-            <button style={{
-              background: "#fff", color: "#080c12", border: "none",
-              padding: "13px 28px", borderRadius: "8px", cursor: "pointer",
-              fontSize: "14px", fontWeight: 600, fontFamily: "inherit", alignSelf: "flex-start",
-            }}>送出訊息</button>
-          </div>
+        <div style={{ minHeight: "300px" }}>
+  <script src="https://js-na2.hsforms.net/forms/embed/246099184.js" defer></script>
+  <div 
+    className="hs-form-frame" 
+    data-region="na2" 
+    data-form-id="4201d8f5-82aa-49ff-92f0-53921be15713" 
+    data-portal-id="246099184">
+  </div>
+</div>
         </div>
       </section>
 
