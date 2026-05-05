@@ -24,3 +24,43 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* HubSpot form dark theme */
+.hs-form-frame {
+  color-scheme: dark;
+}
+
+iframe.hs-form-iframe {
+  background: transparent !important;
+}
+
+.hs-form input,
+.hs-form textarea,
+.hs-form select {
+  background: rgba(255,255,255,0.04) !important;
+  border: 0.5px solid rgba(255,255,255,0.12) !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  padding: 12px 16px !important;
+}
+
+.hs-form label {
+  color: rgba(255,255,255,0.6) !important;
+}
+
+.hs-form .hs-button {
+  background: #fff !important;
+  color: #080c12 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 28px !important;
+  font-weight: 600 !important;
+}
+
+.hs-form .hs-richtext,
+.legal-consent-container {
+  color: rgba(255,255,255,0.4) !important;
+}
+
+.hs_cos_wrapper_type_form_iframe_widget {
+  display: none !important;
+}
