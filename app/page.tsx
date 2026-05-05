@@ -2,8 +2,10 @@
 import Link from "next/link";
 
 import { useEffect, useRef, useState } from "react";
+import { getAllPosts } from "@/lib/posts";
 
 export default function Home() {
+  const recentPosts = getAllPosts().slice(0, 4);
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -275,28 +277,25 @@ export default function Home() {
         <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Blog</div>
         <h2 style={{ fontSize: "clamp(24px,4vw,40px)", fontWeight: 500, marginBottom: "40px", letterSpacing: "-0.02em" }}>最新文章</h2>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {[
-            { title: "用 AI 打造影音自動化流水線，一個人頂一個團隊", date: "2025年4月", tag: "AI 自動化", time: "9 min" },
-            { title: "成長策略不是燒廣告：建立可持續的行銷飛輪", date: "2025年3月", tag: "成長策略", time: "7 min" },
-            { title: "短影音已死？不，是你的內容策略需要升級", date: "2025年2月", tag: "影音行銷", time: "6 min" },
-            { title: "顧問如何用個人品牌帶來穩定案源？", date: "2025年1月", tag: "個人品牌", time: "8 min" },
-          ].map((b, i) => (
-            <div key={b.title} style={{
-              padding: "22px 0",
-              borderBottom: i < 3 ? "0.5px solid rgba(255,255,255,0.06)" : "none",
-              display: "flex", justifyContent: "space-between", alignItems: "center",
-              cursor: "pointer", gap: "16px",
-            }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ color: "#fff", fontSize: "clamp(13px,2vw,15px)", fontWeight: 400, marginBottom: "6px" }}>{b.title}</div>
-                <div style={{ color: "rgba(255,255,255,0.25)", fontSize: "12px" }}>{b.date} · {b.time} read</div>
-              </div>
+          {recentPosts.map((b, i) => (
+            <Link key={b.slug} href={`/blog/${b.slug}`} style={{ textDecoration: "none" }}>
               <div style={{
-                color: "rgba(255,255,255,0.3)", fontSize: "11px", padding: "4px 10px",
-                borderRadius: "4px", border: "0.5px solid rgba(255,255,255,0.1)",
-                whiteSpace: "nowrap", flexShrink: 0,
-              }}>{b.tag}</div>
-            </div>
+                padding: "22px 0",
+                borderBottom: i < recentPosts.length - 1 ? "0.5px solid rgba(255,255,255,0.06)" : "none",
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                cursor: "pointer", gap: "16px",
+              }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ color: "#fff", fontSize: "clamp(13px,2vw,15px)", fontWeight: 400, marginBottom: "6px" }}>{b.title}</div>
+                  <div style={{ color: "rgba(255,255,255,0.25)", fontSize: "12px" }}>{b.date} · {b.readTime} read</div>
+                </div>
+                <div style={{
+                  color: "rgba(255,255,255,0.3)", fontSize: "11px", padding: "4px 10px",
+                  borderRadius: "4px", border: "0.5px solid rgba(255,255,255,0.1)",
+                  whiteSpace: "nowrap", flexShrink: 0,
+                }}>{b.tag}</div>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
