@@ -5,10 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import RecentPosts from "@/app/components/RecentPosts";
 import dynamic from "next/dynamic";
 
-const SplineBackground = dynamic(
-  () => import("./components/SplineBackground"),
-  { ssr: false }
-);
 
 export default function Home() {
   
@@ -154,7 +150,7 @@ export default function Home() {
         textAlign: "center", padding: "100px 48px 60px",
         position: "relative", zIndex: 1,
       }} className="hero-pad">
-          <SplineBackground />
+      
         <div style={{
           display: "inline-block", border: "0.5px solid rgba(255,255,255,0.18)",
           borderRadius: "20px", padding: "5px 16px", fontSize: "11px",

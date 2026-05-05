@@ -11,8 +11,6 @@
     "publish": "node scripts/build-posts.js && git add . && git commit -m \"新增/更新文章\" && git push"
   },
   "dependencies": {
-    "@splinetool/react-spline": "^4.1.0",
-    "@splinetool/runtime": "^1.12.91",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.3",
     "next": "16.2.4",
