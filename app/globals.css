@@ -64,3 +64,11 @@ iframe.hs-form-iframe {
 .hs_cos_wrapper_type_form_iframe_widget {
   display: none !important;
 }
+.hs-form-frame iframe {
+  background: transparent !important;
+  border: none !important;
+}
+
+.hs-form-frame {
+  background: transparent !important;
+}

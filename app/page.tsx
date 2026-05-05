@@ -332,7 +332,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-        <div style={{ minHeight: "300px" }}>
+       <div style={{ minHeight: "300px", background: "transparent" }}>
   <script src="https://js-na2.hsforms.net/forms/embed/246099184.js" defer></script>
   <div 
     className="hs-form-frame" 
