@@ -115,11 +115,12 @@ export default function Home() {
               borderBottom: "0.5px solid rgba(255,255,255,0.06)",
             }}>{link.label}</button>
           ))}
-          <button onClick={() => scrollTo("contact")} style={{
-            background: "#fff", color: "#080c12", border: "none",
-            padding: "12px", borderRadius: "8px", cursor: "pointer",
-            fontSize: "15px", fontWeight: 600, fontFamily: "inherit", marginTop: "8px",
-          }}>合作洽談</button>
+         <Link href="/contact" onClick={() => setMenuOpen(false)} style={{
+  background: "#fff", color: "#080c12",
+  padding: "12px", borderRadius: "8px",
+  fontSize: "15px", fontWeight: 600, fontFamily: "inherit",
+  marginTop: "8px", textDecoration: "none", display: "block", textAlign: "center",
+}}>合作洽談</Link>
         </div>
       )}
 
