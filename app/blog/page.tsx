@@ -167,10 +167,8 @@ export default function BlogPage() {
                   cursor: "pointer",
                   transition: "opacity 0.2s",
                 }}
-                onMouseEnter={(e) =>
                   (e.currentTarget.style.opacity = "0.7")
                 }
-                onMouseLeave={(e) =>
                   (e.currentTarget.style.opacity = "1")
                 }
               >
