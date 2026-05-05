@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build-posts": "node scripts/build-posts.js",
+    "publish": "node scripts/build-posts.js && git add . && git commit -m \"新增/更新文章\" && git push"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
