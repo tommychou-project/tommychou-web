@@ -335,14 +335,39 @@ export default function Home() {
               </p>
             </div>
           </div>
-       <div style={{ minHeight: "300px", background: "transparent" }}>
-  <script src="https://js-na2.hsforms.net/forms/embed/246099184.js" defer></script>
-  <div 
-    className="hs-form-frame" 
-    data-region="na2" 
-    data-form-id="4201d8f5-82aa-49ff-92f0-53921be15713" 
-    data-portal-id="246099184">
+     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+  {[
+    { label: "名字", placeholder: "Tommy", type: "text" },
+    { label: "Email *", placeholder: "tommy@example.com", type: "email" },
+    { label: "合作類型（顧問 / 工作坊 / 演講）", placeholder: "告訴我你的需求", type: "text" },
+  ].map((f) => (
+    <div key={f.label} style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+      <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>{f.label}</label>
+      <input type={f.type} placeholder={f.placeholder} style={{
+        width: "100%", background: "rgba(255,255,255,0.04)",
+        border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px",
+        padding: "12px 16px", color: "#fff", fontSize: "14px",
+        fontFamily: "inherit", outline: "none",
+      }} />
+    </div>
+  ))}
+  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+    <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>你的需求或想法</label>
+    <textarea placeholder="簡單說說你想解決什麼問題，或想聊什麼..." style={{
+      width: "100%", background: "rgba(255,255,255,0.04)",
+      border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px",
+      padding: "12px 16px", color: "#fff", fontSize: "14px",
+      fontFamily: "inherit", outline: "none", height: "120px", resize: "none",
+    }} />
   </div>
+  <Link href="/contact" style={{
+    background: "#fff", color: "#080c12", border: "none",
+    padding: "13px 28px", borderRadius: "8px", cursor: "pointer",
+    fontSize: "14px", fontWeight: 600, fontFamily: "inherit",
+    alignSelf: "flex-start", textDecoration: "none", display: "inline-block",
+  }}>
+    送出訊息 →
+  </Link>
 </div>
         </div>
       </section>
