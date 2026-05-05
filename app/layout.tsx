@@ -12,6 +12,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Tommy Chou — 讓品牌自動成長",
   description: "Tommy Chou 是專注於成長策略與影音內容自動化的行銷顧問，幫助品牌建立可複製、可規模化的行銷系統。",
