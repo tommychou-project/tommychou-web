@@ -41,7 +41,7 @@ export default function Home() {
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
+        ctx.fillStyle = `rgba(255,200,50,${p.opacity})`;
         ctx.fill();
       });
       animId = requestAnimationFrame(animate);
