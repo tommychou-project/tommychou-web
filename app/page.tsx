@@ -29,7 +29,7 @@ export default function Home() {
         y: Math.random() * window.innerHeight,
         vx: (Math.random() - 0.5) * 0.25,
         vy: (Math.random() - 0.5) * 0.25,
-        size: Math.random() * 1.2 + 0.3,
+        size: Math.random() * 3 + 1,
         opacity: Math.random() * 0.3 + 0.05,
       }));
     let animId: number;
