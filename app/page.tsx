@@ -3,12 +3,34 @@ import Link from "next/link";
 
 import { useEffect, useRef, useState } from "react";
 import RecentPosts from "@/app/components/RecentPosts";
-import dynamic from "next/dynamic";
 
 
 export default function Home() {
   
   const [activeSection, setActiveSection] = useState("home");
+  const [homeForm, setHomeForm] = useState({ firstName: "", email: "", type: "", message: "" });
+  const [homeStatus, setHomeStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleHomeSubmit = async () => {
+    if (!homeForm.email) return;
+    setHomeStatus("loading");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: homeForm.firstName,
+          lastName: "",
+          email: homeForm.email,
+          message: `合作類型：${homeForm.type}\n\n${homeForm.message}`,
+        }),
+      });
+      setHomeStatus(res.ok ? "success" : "error");
+    } catch {
+      setHomeStatus("error");
+    }
+  };
+
   const [menuOpen, setMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -89,11 +111,11 @@ export default function Home() {
             }}>{link.label}</button>
           ))}
           <Link href="/contact" style={{
-  background: "#fff", color: "#080c12",
-  padding: "8px 20px", borderRadius: "6px",
-  fontSize: "13px", fontWeight: 600, fontFamily: "inherit",
-  textDecoration: "none",
-}}>合作洽談</Link>
+            background: "#fff", color: "#080c12",
+            padding: "8px 20px", borderRadius: "6px",
+            fontSize: "13px", fontWeight: 600, fontFamily: "inherit",
+            textDecoration: "none",
+          }}>合作洽談</Link>
         </div>
 
         {/* Mobile Hamburger */}
@@ -119,12 +141,12 @@ export default function Home() {
               borderBottom: "0.5px solid rgba(255,255,255,0.06)",
             }}>{link.label}</button>
           ))}
-         <Link href="/contact" onClick={() => setMenuOpen(false)} style={{
-  background: "#fff", color: "#080c12",
-  padding: "12px", borderRadius: "8px",
-  fontSize: "15px", fontWeight: 600, fontFamily: "inherit",
-  marginTop: "8px", textDecoration: "none", display: "block", textAlign: "center",
-}}>合作洽談</Link>
+          <Link href="/contact" onClick={() => setMenuOpen(false)} style={{
+            background: "#fff", color: "#080c12",
+            padding: "12px", borderRadius: "8px",
+            fontSize: "15px", fontWeight: 600, fontFamily: "inherit",
+            marginTop: "8px", textDecoration: "none", display: "block", textAlign: "center",
+          }}>合作洽談</Link>
         </div>
       )}
 
@@ -132,7 +154,6 @@ export default function Home() {
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: block !important; }
-         
           .two-col { grid-template-columns: 1fr !important; gap: 32px !important; }
           .work-grid { grid-template-columns: 1fr !important; }
           .metrics-grid { grid-template-columns: repeat(3,1fr) !important; }
@@ -150,7 +171,6 @@ export default function Home() {
         textAlign: "center", padding: "100px 48px 60px",
         position: "relative", zIndex: 1,
       }} className="hero-pad">
-      
         <div style={{
           display: "inline-block", border: "0.5px solid rgba(255,255,255,0.18)",
           borderRadius: "20px", padding: "5px 16px", fontSize: "11px",
@@ -281,9 +301,10 @@ export default function Home() {
         <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Blog</div>
         <h2 style={{ fontSize: "clamp(24px,4vw,40px)", fontWeight: 500, marginBottom: "40px", letterSpacing: "-0.02em" }}>最新文章</h2>
         <div style={{ display: "flex", flexDirection: "column" }}>
-<RecentPosts />
-    </div>
-  </section>
+          <RecentPosts />
+        </div>
+      </section>
+
       <div style={{ height: "0.5px", background: "rgba(255,255,255,0.06)", margin: "0 24px" }} />
 
       {/* Contact */}
@@ -318,40 +339,65 @@ export default function Home() {
               </p>
             </div>
           </div>
-     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-  {[
-    { label: "名字", placeholder: "Tommy", type: "text" },
-    { label: "Email *", placeholder: "tommy@example.com", type: "email" },
-    { label: "合作類型（顧問 / 工作坊 / 演講）", placeholder: "告訴我你的需求", type: "text" },
-  ].map((f) => (
-    <div key={f.label} style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-      <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>{f.label}</label>
-      <input type={f.type} placeholder={f.placeholder} style={{
-        width: "100%", background: "rgba(255,255,255,0.04)",
-        border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px",
-        padding: "12px 16px", color: "#fff", fontSize: "14px",
-        fontFamily: "inherit", outline: "none",
-      }} />
-    </div>
-  ))}
-  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-    <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>你的需求或想法</label>
-    <textarea placeholder="簡單說說你想解決什麼問題，或想聊什麼..." style={{
-      width: "100%", background: "rgba(255,255,255,0.04)",
-      border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px",
-      padding: "12px 16px", color: "#fff", fontSize: "14px",
-      fontFamily: "inherit", outline: "none", height: "120px", resize: "none",
-    }} />
-  </div>
-  <Link href="/contact" style={{
-    background: "#fff", color: "#080c12", border: "none",
-    padding: "13px 28px", borderRadius: "8px", cursor: "pointer",
-    fontSize: "14px", fontWeight: 600, fontFamily: "inherit",
-    alignSelf: "flex-start", textDecoration: "none", display: "inline-block",
-  }}>
-    送出訊息 →
-  </Link>
-</div>
+
+          {/* ✅ 真實表單 */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>名字</label>
+              <input
+                type="text" placeholder="Tommy"
+                value={homeForm.firstName}
+                onChange={(e) => setHomeForm({ ...homeForm, firstName: e.target.value })}
+                style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "12px 16px", color: "#fff", fontSize: "14px", fontFamily: "inherit", outline: "none" }}
+              />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>Email *</label>
+              <input
+                type="email" placeholder="tommy@example.com"
+                value={homeForm.email}
+                onChange={(e) => setHomeForm({ ...homeForm, email: e.target.value })}
+                style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "12px 16px", color: "#fff", fontSize: "14px", fontFamily: "inherit", outline: "none" }}
+              />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>合作類型（顧問 / 工作坊 / 演講）</label>
+              <input
+                type="text" placeholder="告訴我你的需求"
+                value={homeForm.type}
+                onChange={(e) => setHomeForm({ ...homeForm, type: e.target.value })}
+                style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "12px 16px", color: "#fff", fontSize: "14px", fontFamily: "inherit", outline: "none" }}
+              />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em" }}>你的需求或想法</label>
+              <textarea
+                placeholder="簡單說說你想解決什麼問題，或想聊什麼..."
+                value={homeForm.message}
+                onChange={(e) => setHomeForm({ ...homeForm, message: e.target.value })}
+                style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: "0.5px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "12px 16px", color: "#fff", fontSize: "14px", fontFamily: "inherit", outline: "none", height: "120px", resize: "none" }}
+              />
+            </div>
+
+            {homeStatus === "success" && (
+              <div style={{ background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.15)", borderRadius: "8px", padding: "16px", color: "#fff", fontSize: "14px", textAlign: "center" }}>
+                ✓ 訊息已送出！我會在 24 小時內回覆你。
+              </div>
+            )}
+            {homeStatus === "error" && (
+              <div style={{ background: "rgba(255,80,80,0.1)", border: "0.5px solid rgba(255,80,80,0.3)", borderRadius: "8px", padding: "16px", color: "#ff8080", fontSize: "14px", textAlign: "center" }}>
+                送出失敗，請稍後再試或直接寄信至 tommy@tommychou.com
+              </div>
+            )}
+
+            <button
+              onClick={handleHomeSubmit}
+              disabled={homeStatus === "loading"}
+              style={{ background: "#fff", color: "#080c12", border: "none", padding: "13px 28px", borderRadius: "8px", cursor: "pointer", fontSize: "14px", fontWeight: 600, fontFamily: "inherit", alignSelf: "flex-start", opacity: homeStatus === "loading" ? 0.6 : 1 }}
+            >
+              {homeStatus === "loading" ? "送出中..." : "送出訊息 →"}
+            </button>
+          </div>
         </div>
       </section>
 

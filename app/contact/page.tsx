@@ -12,22 +12,11 @@ export default function Contact() {
     setStatus("loading");
 
     try {
-      const res = await fetch(
-        `https://api.hsforms.com/submissions/v3/integration/submit/246099184/4201d8f5-82aa-49ff-92f0-53921be15713`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            fields: [
-              { name: "firstname", value: form.firstName },
-              { name: "lastname", value: form.lastName },
-              { name: "email", value: form.email },
-              { name: "message", value: form.message },
-            ],
-            context: { pageUri: "https://tommychou.com/contact", pageName: "Contact" },
-          }),
-        }
-      );
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
       if (res.ok) {
         setStatus("success");
@@ -57,7 +46,6 @@ export default function Contact() {
       background: "#080c12", minHeight: "100vh",
       color: "#fff", fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     }}>
-      {/* Nav */}
       <nav style={{
         display: "flex", alignItems: "center", justifyContent: "space-between",
         padding: "0 48px", height: "60px",
@@ -72,7 +60,6 @@ export default function Contact() {
         </Link>
       </nav>
 
-      {/* Hero */}
       <div style={{ padding: "80px 48px 40px", maxWidth: "800px", margin: "0 auto" }}>
         <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "16px" }}>Contact</div>
         <h1 style={{ fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 500, lineHeight: 1.15, marginBottom: "20px", letterSpacing: "-0.02em" }}>
@@ -86,13 +73,11 @@ export default function Contact() {
 
       <div style={{ height: "0.5px", background: "rgba(255,255,255,0.06)", margin: "0 48px" }} />
 
-      {/* Form + Info */}
       <div style={{
         display: "grid", gridTemplateColumns: "1fr 2fr",
         gap: "60px", padding: "60px 48px 80px",
         maxWidth: "1080px", margin: "0 auto",
       }}>
-        {/* Left */}
         <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
           <div>
             <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "16px" }}>開放項目</div>
@@ -113,7 +98,6 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
