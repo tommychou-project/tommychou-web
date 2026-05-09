@@ -67,8 +67,8 @@ export default function Navbar() {
               background: "none",
               border: "none",
               cursor: "pointer",
-              color: "#f0f0f0",
-              fontSize: "15px",
+              color: "#ffffff",
+              fontSize: "16px",
               fontWeight: 600,
               fontFamily: "inherit",
               letterSpacing: "0.04em",
@@ -98,19 +98,18 @@ export default function Navbar() {
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  color: "rgba(240,240,240,0.55)",
-                  fontSize: "13px",
+                  color: "#ffffff",
+                  fontSize: "15px",
                   fontFamily: "inherit",
-                  letterSpacing: "0.04em",
-                  transition: "color 0.2s",
+                  letterSpacing: "0.03em",
+                  transition: "opacity 0.2s",
                   whiteSpace: "nowrap",
                 }}
                 onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.color = "#f0f0f0")
+                  ((e.currentTarget as HTMLButtonElement).style.opacity = "0.7")
                 }
                 onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.color =
-                    "rgba(240,240,240,0.55)")
+                  ((e.currentTarget as HTMLButtonElement).style.opacity = "1")
                 }
               >
                 {l.label}
@@ -123,26 +122,34 @@ export default function Navbar() {
             <Link
               href="/contact"
               style={{
-                color: "#f0f0f0",
+                color: "#ffffff",
                 padding: "7px 18px",
                 borderRadius: "999px",
-                border: "0.5px solid rgba(255,255,255,0.4)",
-                fontSize: "13px",
+                border: "1px solid rgba(255,255,255,0.8)",
+                boxShadow: "0 0 12px rgba(255,255,255,0.25), 0 0 24px rgba(255,255,255,0.1)",
+                background: "transparent",
+                fontSize: "14px",
                 fontWeight: 500,
                 textDecoration: "none",
                 letterSpacing: "0.03em",
-                transition: "background 0.2s, border-color 0.2s",
+                transition: "background 0.2s, box-shadow 0.2s",
                 whiteSpace: "nowrap",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
                 el.style.background = "rgba(255,255,255,0.08)";
-                el.style.borderColor = "rgba(255,255,255,0.65)";
+                el.style.boxShadow = "0 0 18px rgba(255,255,255,0.4), 0 0 36px rgba(255,255,255,0.15)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
                 el.style.background = "transparent";
-                el.style.borderColor = "rgba(255,255,255,0.4)";
+                el.style.boxShadow = "0 0 12px rgba(255,255,255,0.25), 0 0 24px rgba(255,255,255,0.1)";
+              }}
+              onMouseDown={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.15)";
+              }}
+              onMouseUp={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.08)";
               }}
             >
               合作洽談
