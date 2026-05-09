@@ -80,9 +80,9 @@ export default function Ch02Journey() {
         {/* Header */}
         <div
           style={{
-            fontSize: "11px",
-            color: "rgba(240,240,240,0.22)",
-            letterSpacing: "0.22em",
+            fontSize: "12px",
+            color: "#E8F55A",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "8px",
           }}
@@ -148,7 +148,7 @@ export default function Ch02Journey() {
                 <div
                   style={{
                     fontSize: "11px",
-                    color: "rgba(240,240,240,0.28)",
+                    color: "#888888",
                     letterSpacing: "0.1em",
                     marginBottom: "4px",
                   }}
@@ -168,7 +168,7 @@ export default function Ch02Journey() {
                 <div
                   style={{
                     fontSize: "13px",
-                    color: "rgba(240,240,240,0.4)",
+                    color: "#999999",
                     lineHeight: 1.65,
                   }}
                 >
@@ -234,7 +234,7 @@ export default function Ch02Journey() {
                   <div
                     style={{
                       fontSize: "12px",
-                      color: "rgba(240,240,240,0.38)",
+                      color: "#999999",
                       lineHeight: 1.6,
                     }}
                   >

@@ -99,9 +99,9 @@ export default function Ch05Services() {
       >
         <div
           style={{
-            fontSize: "11px",
-            color: "rgba(240,240,240,0.22)",
-            letterSpacing: "0.22em",
+            fontSize: "12px",
+            color: "#E8F55A",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "8px",
           }}
@@ -122,7 +122,7 @@ export default function Ch05Services() {
         <p
           style={{
             fontSize: "15px",
-            color: "rgba(240,240,240,0.4)",
+            color: "#999999",
             marginBottom: "64px",
             maxWidth: "520px",
             lineHeight: 1.7,
@@ -205,7 +205,7 @@ export default function Ch05Services() {
               <div
                 style={{
                   fontSize: "12px",
-                  color: "rgba(240,240,240,0.35)",
+                  color: "#999999",
                   marginBottom: "20px",
                   lineHeight: 1.5,
                 }}
@@ -230,7 +230,7 @@ export default function Ch05Services() {
                       display: "flex",
                       alignItems: "center",
                       gap: "10px",
-                      color: "rgba(240,240,240,0.5)",
+                      color: "#aaaaaa",
                       fontSize: "13px",
                     }}
                   >

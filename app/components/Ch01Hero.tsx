@@ -44,9 +44,9 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         {/* Chapter label */}
         <div
           style={{
-            fontSize: "11px",
-            color: "rgba(240,240,240,0.25)",
-            letterSpacing: "0.22em",
+            fontSize: "12px",
+            color: "#E8F55A",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "36px",
           }}
@@ -73,7 +73,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         <p
           style={{
             fontSize: "clamp(16px, 2.4vw, 24px)",
-            color: "rgba(240,240,240,0.45)",
+            color: "#aaaaaa",
             lineHeight: 1.65,
             maxWidth: "580px",
             margin: "0 auto 48px",

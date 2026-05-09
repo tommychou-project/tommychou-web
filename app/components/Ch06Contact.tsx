@@ -78,9 +78,9 @@ export default function Ch06Contact() {
       >
         <div
           style={{
-            fontSize: "11px",
-            color: "rgba(240,240,240,0.22)",
-            letterSpacing: "0.22em",
+            fontSize: "12px",
+            color: "#E8F55A",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "8px",
           }}
@@ -133,7 +133,7 @@ export default function Ch06Contact() {
                     display: "flex",
                     alignItems: "center",
                     gap: "12px",
-                    color: "rgba(240,240,240,0.4)",
+                    color: "#aaaaaa",
                     fontSize: "14px",
                   }}
                 >

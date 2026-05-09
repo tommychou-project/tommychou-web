@@ -1,6 +1,6 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
 
 const navLinks = [
   { label: "關於我", id: "ch02" },
@@ -10,7 +10,14 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const scrollTo = (id: string) => {
     setMenuOpen(false);
@@ -20,23 +27,23 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Fixed full-width bar — always frosted glass */}
       <div
         style={{
           position: "fixed",
-          top: "20px",
+          top: 0,
           left: 0,
           right: 0,
           zIndex: 50,
-          padding: "0 40px",
+          padding: 0,
           margin: 0,
           border: "none",
           outline: "none",
-          background: "rgba(8,8,8,0.6)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
           boxShadow: "none",
+          background: scrolled ? "rgba(8,8,8,0.65)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "none",
+          transition: "all 0.5s ease",
           pointerEvents: "none",
         }}
       >
@@ -44,75 +51,83 @@ export default function Navbar() {
           style={{
             maxWidth: "1100px",
             margin: "0 auto",
-            height: "64px",
+            height: "68px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: 0,
+            padding: "0 40px",
             border: "none",
             outline: "none",
             background: "transparent",
             boxShadow: "none",
+            position: "relative",
             pointerEvents: "auto",
           }}
         >
-          {/* LEFT: Logo + nav links */}
-          <div style={{ display: "flex", alignItems: "center", gap: "36px" }}>
-            <button
-              onClick={() => scrollTo("ch01")}
-              style={{
-                background: "none",
-                border: "none",
-                outline: "none",
-                cursor: "pointer",
-                color: "#ffffff",
-                fontSize: "16px",
-                fontWeight: 600,
-                fontFamily: "inherit",
-                letterSpacing: "0.04em",
-                padding: 0,
-                flexShrink: 0,
-              }}
-            >
-              Tommy Chou
-            </button>
+          {/* LEFT: Logo */}
+          <button
+            onClick={() => scrollTo("ch01")}
+            style={{
+              background: "none",
+              border: "none",
+              outline: "none",
+              cursor: "pointer",
+              color: "#ffffff",
+              fontSize: "16px",
+              fontWeight: 600,
+              fontFamily: "inherit",
+              letterSpacing: "0.04em",
+              padding: 0,
+              flexShrink: 0,
+              zIndex: 1,
+            }}
+          >
+            Tommy Chou
+          </button>
 
-            <div
-              className="nav-desktop"
-              style={{ display: "flex", gap: "28px", alignItems: "center" }}
-            >
-              {navLinks.map((l) => (
-                <button
-                  key={l.id}
-                  onClick={() => scrollTo(l.id)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    outline: "none",
-                    cursor: "pointer",
-                    color: "#ffffff",
-                    fontSize: "15px",
-                    fontFamily: "inherit",
-                    letterSpacing: "0.03em",
-                    padding: 0,
-                    transition: "opacity 0.2s",
-                    whiteSpace: "nowrap",
-                  }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLButtonElement).style.opacity = "0.6")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLButtonElement).style.opacity = "1")
-                  }
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
+          {/* CENTRE: nav links — absolutely centred */}
+          <div
+            className="nav-desktop"
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: "32px",
+              alignItems: "center",
+            }}
+          >
+            {navLinks.map((l) => (
+              <button
+                key={l.id}
+                onClick={() => scrollTo(l.id)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  outline: "none",
+                  cursor: "pointer",
+                  color: "#ffffff",
+                  fontSize: "15px",
+                  fontFamily: "inherit",
+                  letterSpacing: "0.03em",
+                  padding: 0,
+                  transition: "opacity 0.2s",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={(e) =>
+                  ((e.currentTarget as HTMLButtonElement).style.opacity = "0.6")
+                }
+                onMouseLeave={(e) =>
+                  ((e.currentTarget as HTMLButtonElement).style.opacity = "1")
+                }
+              >
+                {l.label}
+              </button>
+            ))}
           </div>
 
           {/* RIGHT: CTA + mobile hamburger */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", zIndex: 1 }}>
             <Link
               href="/contact"
               className="nav-desktop"
@@ -179,11 +194,13 @@ export default function Navbar() {
               margin: "0 auto",
               background: "rgba(5,5,5,0.96)",
               borderTop: "1px solid rgba(255,255,255,0.06)",
-              padding: "8px 0 20px",
+              padding: "8px 40px 20px",
               display: "flex",
               flexDirection: "column",
               gap: "2px",
               pointerEvents: "auto",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
             }}
           >
             {navLinks.map((l) => (

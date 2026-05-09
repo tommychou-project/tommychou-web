@@ -69,9 +69,9 @@ export default function Ch04Blog() {
           <div>
             <div
               style={{
-                fontSize: "11px",
-                color: "rgba(240,240,240,0.22)",
-                letterSpacing: "0.22em",
+                fontSize: "12px",
+                color: "#E8F55A",
+                letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 marginBottom: "8px",
               }}
@@ -148,8 +148,9 @@ export default function Ch04Blog() {
                   style={{
                     display: "inline-block",
                     fontSize: "11px",
-                    color: "rgba(240,240,240,0.38)",
-                    border: "0.5px solid rgba(240,240,240,0.12)",
+                    color: "#cccccc",
+                    background: "rgba(255,255,255,0.1)",
+                    border: "1px solid rgba(255,255,255,0.2)",
                     borderRadius: "5px",
                     padding: "3px 10px",
                     marginBottom: "16px",
