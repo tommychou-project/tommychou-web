@@ -1,6 +1,8 @@
 "use client";
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 import postsData from "@/lib/posts-data.json";
 
 type PostData = {
@@ -38,78 +40,17 @@ export default function BlogPage() {
         fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
       }}
     >
-      {/* Nav */}
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          background: "rgba(8,8,8,0.92)",
-          backdropFilter: "blur(20px)",
-          borderBottom: "0.5px solid rgba(255,255,255,0.06)",
-          padding: "0 48px",
-          height: "60px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Link
-          href="/"
-          style={{
-            fontSize: "15px",
-            fontWeight: 500,
-            letterSpacing: "0.04em",
-            color: "#f0f0f0",
-            textDecoration: "none",
-          }}
-        >
-          Tommy Chou
-        </Link>
-        <div style={{ display: "flex", gap: "24px", alignItems: "center" }}>
-          <Link
-            href="/"
-            style={{
-              color: "rgba(240,240,240,0.4)",
-              fontSize: "13px",
-              textDecoration: "none",
-            }}
-          >
-            ← 回首頁
-          </Link>
-          <Link
-            href="/contact"
-            style={{
-              background: "#E8F55A",
-              color: "#080808",
-              padding: "7px 18px",
-              borderRadius: "6px",
-              fontSize: "13px",
-              fontWeight: 700,
-              textDecoration: "none",
-            }}
-          >
-            合作洽談
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
-      <section
-        style={{
-          maxWidth: "800px",
-          margin: "0 auto",
-          padding: "120px 24px 100px",
-        }}
-      >
+      <section style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 24px 100px" }}>
+        {/* Page header */}
         <div
           style={{
-            fontSize: "11px",
-            color: "rgba(240,240,240,0.22)",
-            letterSpacing: "0.2em",
+            fontSize: "12px",
+            color: "#E8F55A",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
-            marginBottom: "8px",
+            marginBottom: "10px",
           }}
         >
           Blog
@@ -134,7 +75,7 @@ export default function BlogPage() {
               left: "16px",
               top: "50%",
               transform: "translateY(-50%)",
-              color: "rgba(240,240,240,0.3)",
+              color: "#888888",
               fontSize: "15px",
               pointerEvents: "none",
             }}
@@ -149,7 +90,7 @@ export default function BlogPage() {
             style={{
               width: "100%",
               background: "#111111",
-              border: "0.5px solid rgba(240,240,240,0.12)",
+              border: "1px solid rgba(255,255,255,0.15)",
               borderRadius: "12px",
               padding: "14px 16px 14px 44px",
               color: "#f0f0f0",
@@ -159,14 +100,12 @@ export default function BlogPage() {
               boxSizing: "border-box",
               transition: "border-color 0.2s",
             }}
-            onFocus={(e) => {
-              (e.target as HTMLInputElement).style.borderColor =
-                "rgba(232,245,90,0.4)";
-            }}
-            onBlur={(e) => {
-              (e.target as HTMLInputElement).style.borderColor =
-                "rgba(240,240,240,0.12)";
-            }}
+            onFocus={(e) =>
+              ((e.target as HTMLInputElement).style.borderColor = "rgba(255,255,255,0.4)")
+            }
+            onBlur={(e) =>
+              ((e.target as HTMLInputElement).style.borderColor = "rgba(255,255,255,0.15)")
+            }
           />
           {query && (
             <button
@@ -179,7 +118,7 @@ export default function BlogPage() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: "rgba(240,240,240,0.35)",
+                color: "#666666",
                 fontSize: "16px",
                 fontFamily: "inherit",
               }}
@@ -191,14 +130,7 @@ export default function BlogPage() {
 
         {/* Results count */}
         {query && (
-          <div
-            style={{
-              fontSize: "12px",
-              color: "rgba(240,240,240,0.3)",
-              marginBottom: "24px",
-              letterSpacing: "0.04em",
-            }}
-          >
+          <div style={{ fontSize: "12px", color: "#888888", marginBottom: "24px" }}>
             找到 {filtered.length} 篇文章
           </div>
         )}
@@ -206,30 +138,16 @@ export default function BlogPage() {
         {/* Post list */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           {filtered.length === 0 ? (
-            <div
-              style={{
-                color: "rgba(240,240,240,0.25)",
-                fontSize: "15px",
-                textAlign: "center",
-                padding: "60px 0",
-              }}
-            >
+            <div style={{ color: "#666666", fontSize: "15px", textAlign: "center", padding: "60px 0" }}>
               沒有找到符合的文章
             </div>
           ) : (
             filtered.map((post, i) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                style={{ textDecoration: "none" }}
-              >
+              <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
                 <div
                   style={{
                     padding: "28px 0",
-                    borderBottom:
-                      i < filtered.length - 1
-                        ? "0.5px solid rgba(240,240,240,0.06)"
-                        : "none",
+                    borderBottom: i < filtered.length - 1 ? "0.5px solid rgba(255,255,255,0.07)" : "none",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "flex-start",
@@ -237,19 +155,15 @@ export default function BlogPage() {
                     transition: "opacity 0.2s",
                     cursor: "pointer",
                   }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.opacity = "0.7";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.opacity = "1";
-                  }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLDivElement).style.opacity = "0.7")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLDivElement).style.opacity = "1")}
                 >
                   <div style={{ flex: 1 }}>
                     <div
                       style={{
                         color: "#f0f0f0",
                         fontSize: "clamp(15px, 2.2vw, 19px)",
-                        fontWeight: 400,
+                        fontWeight: 500,
                         marginBottom: "8px",
                         lineHeight: 1.5,
                       }}
@@ -257,33 +171,23 @@ export default function BlogPage() {
                       {post.title}
                     </div>
                     {post.excerpt && (
-                      <div
-                        style={{
-                          color: "rgba(240,240,240,0.3)",
-                          fontSize: "13px",
-                          lineHeight: 1.7,
-                          marginBottom: "8px",
-                        }}
-                      >
+                      <div style={{ color: "#aaaaaa", fontSize: "13.5px", lineHeight: 1.7, marginBottom: "10px" }}>
                         {post.excerpt}
                       </div>
                     )}
-                    <div
-                      style={{
-                        color: "rgba(240,240,240,0.2)",
-                        fontSize: "12px",
-                      }}
-                    >
+                    <div style={{ color: "#888888", fontSize: "12px" }}>
                       {post.date} · {post.readTime} read
                     </div>
                   </div>
+                  {/* Tag badge */}
                   <div
                     style={{
-                      color: "rgba(240,240,240,0.3)",
+                      color: "#cccccc",
+                      background: "rgba(255,255,255,0.08)",
+                      border: "1px solid rgba(255,255,255,0.15)",
                       fontSize: "11px",
                       padding: "4px 10px",
                       borderRadius: "5px",
-                      border: "0.5px solid rgba(240,240,240,0.1)",
                       whiteSpace: "nowrap",
                       flexShrink: 0,
                       marginTop: "4px",
@@ -298,21 +202,12 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <footer
-        style={{
-          borderTop: "0.5px solid rgba(240,240,240,0.06)",
-          padding: "24px 48px",
-        }}
-      >
-        <span style={{ color: "rgba(240,240,240,0.2)", fontSize: "13px" }}>
-          © 2025 Tommy Chou. All rights reserved.
-        </span>
-      </footer>
+      <Footer />
 
       <style>{`
-        input::placeholder { color: rgba(240,240,240,0.22) !important; }
+        input::placeholder { color: #666666 !important; }
         @media (max-width: 768px) {
-          nav { padding: 0 24px !important; }
+          section { padding: 100px 20px 80px !important; }
         }
       `}</style>
     </main>
