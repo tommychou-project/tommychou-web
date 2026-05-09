@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Outer wrapper: fixed, full width */}
+      {/* Outer wrapper: fixed full-width bar — gets frosted glass on scroll */}
       <div
         style={{
           position: "fixed",
@@ -35,8 +35,13 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 200,
-          padding: "16px 24px 0",
-          pointerEvents: "none",   /* let clicks pass through the gap areas */
+          padding: scrolled ? "0" : "16px 24px 0",
+          background: scrolled ? "rgba(8,8,8,0.75)" : "transparent",
+          backdropFilter: scrolled ? "blur(16px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "none",
+          transition: "all 0.4s ease",
+          pointerEvents: "none",
         }}
       >
         {/* Inner capsule: max-width centred */}
@@ -48,16 +53,15 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 20px 0 24px",
-            borderRadius: "999px",
+            padding: scrolled ? "0 20px 0 24px" : "0 20px 0 24px",
+            borderRadius: scrolled ? "0" : "999px",
             border: scrolled
-              ? "0.5px solid rgba(255,255,255,0.15)"
-              : "0.5px solid rgba(255,255,255,0.0)",
-            background: scrolled ? "rgba(8,8,8,0.7)" : "transparent",
-            backdropFilter: scrolled ? "blur(12px)" : "none",
-            transition:
-              "background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease",
-            pointerEvents: "auto",  /* re-enable clicks on the bar itself */
+              ? "none"
+              : "0.5px solid rgba(255,255,255,0.15)",
+            background: "transparent",
+            backdropFilter: "none",
+            transition: "all 0.4s ease",
+            pointerEvents: "auto",
           }}
         >
           {/* Logo */}
@@ -179,7 +183,7 @@ export default function Navbar() {
           <div
             style={{
               maxWidth: "900px",
-              margin: "8px auto 0",
+              margin: scrolled ? "0 auto 0" : "8px auto 0",
               background: "rgba(8,8,8,0.95)",
               border: "0.5px solid rgba(255,255,255,0.12)",
               borderRadius: "20px",
