@@ -14,7 +14,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -35,12 +35,13 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 200,
-          padding: scrolled ? "0" : "16px 24px 0",
-          background: scrolled ? "rgba(8,8,8,0.75)" : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "none",
-          transition: "all 0.4s ease",
+          padding: "0",
+          background: scrolled ? "rgba(5,5,5,0.72)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+          boxShadow: "none",
+          transition: "all 0.5s ease",
           pointerEvents: "none",
         }}
       >
@@ -49,18 +50,16 @@ export default function Navbar() {
           style={{
             maxWidth: "900px",
             margin: "0 auto",
-            height: "52px",
+            height: "56px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: scrolled ? "0 20px 0 24px" : "0 20px 0 24px",
-            borderRadius: scrolled ? "0" : "999px",
-            border: scrolled
-              ? "none"
-              : "0.5px solid rgba(255,255,255,0.15)",
+            padding: "0 24px",
+            borderRadius: "0",
+            border: "none",
             background: "transparent",
             backdropFilter: "none",
-            transition: "all 0.4s ease",
+            transition: "all 0.5s ease",
             pointerEvents: "auto",
           }}
         >
@@ -183,7 +182,7 @@ export default function Navbar() {
           <div
             style={{
               maxWidth: "900px",
-              margin: scrolled ? "0 auto 0" : "8px auto 0",
+              margin: "0 auto 0",
               background: "rgba(8,8,8,0.95)",
               border: "0.5px solid rgba(255,255,255,0.12)",
               borderRadius: "20px",
