@@ -7,6 +7,7 @@ export default function Preloader({ onDone }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [opacity, setOpacity] = useState(1);
   const [done, setDone] = useState(false);
+  const dismissedRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -79,17 +80,31 @@ export default function Preloader({ onDone }: Props) {
     };
     animate();
 
-    const handleScroll = () => {
+    // Single dismiss function — safe to call multiple times
+    const dismiss = () => {
+      if (dismissedRef.current) return;
+      dismissedRef.current = true;
       setOpacity(0);
       setTimeout(() => { setDone(true); onDone(); }, 800);
     };
 
-    window.addEventListener("scroll", handleScroll, { once: true });
+    // Auto-dismiss after 3 s
+    const autoTimer = setTimeout(dismiss, 3000);
+
+    // Dismiss on any user interaction
+    window.addEventListener("wheel", dismiss, { once: true, passive: true });
+    window.addEventListener("touchstart", dismiss, { once: true, passive: true });
+    window.addEventListener("keydown", dismiss, { once: true });
+    window.addEventListener("click", dismiss, { once: true });
 
     return () => {
       cancelAnimationFrame(animId);
+      clearTimeout(autoTimer);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", dismiss);
+      window.removeEventListener("touchstart", dismiss);
+      window.removeEventListener("keydown", dismiss);
+      window.removeEventListener("click", dismiss);
     };
   }, [onDone]);
 
@@ -146,7 +161,7 @@ export default function Preloader({ onDone }: Props) {
           animation: "scrollBounce 1.6s ease-in-out infinite",
         }}
       >
-        <span>SCROLL</span>
+        <span>TAP OR SCROLL</span>
         <span style={{ fontSize: "16px" }}>↓</span>
       </div>
       <style>{`
