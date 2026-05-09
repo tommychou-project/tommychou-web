@@ -21,11 +21,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // Always show frosted — keeps navbar consistent across all pages
+  useEffect(() => { setScrolled(true); }, []);
 
   /** Smooth-scroll on homepage; navigate to /#id on other pages */
   const goToSection = (id: string) => {
