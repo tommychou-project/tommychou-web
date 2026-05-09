@@ -110,7 +110,7 @@ export default function Ch03About() {
 
   return (
     <section
-      id="ch03"
+      id="about"
       style={{
         padding: "120px 48px",
         maxWidth: "1200px",

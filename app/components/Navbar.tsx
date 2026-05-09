@@ -1,17 +1,25 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
-const navLinks = [
-  { label: "關於我", id: "ch02" },
-  { label: "服務", id: "ch05" },
-  { label: "部落格", id: "ch04" },
-  { label: "聯繫", id: "ch06" },
+// Links that scroll to homepage sections
+const sectionLinks = [
+  { label: "關於我", id: "about" },
+  { label: "服務",   id: "services" },
+];
+
+// Links that navigate to other pages
+const pageLinks = [
+  { label: "部落格", href: "/blog" },
+  { label: "聯繫",   href: "/contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -19,10 +27,39 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
+  /** Smooth-scroll on homepage; navigate to /#id on other pages */
+  const goToSection = (id: string) => {
     setMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (pathname === "/") {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(`/#${id}`);
+    }
+  };
+
+  /** Logo — scroll to very top on homepage, navigate to / elsewhere */
+  const goHome = () => {
+    setMenuOpen(false);
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      router.push("/");
+    }
+  };
+
+  const btnStyle: React.CSSProperties = {
+    background: "none",
+    border: "none",
+    outline: "none",
+    cursor: "pointer",
+    color: "#ffffff",
+    fontSize: "15px",
+    fontFamily: "inherit",
+    letterSpacing: "0.03em",
+    padding: 0,
+    transition: "opacity 0.2s",
+    whiteSpace: "nowrap",
   };
 
   return (
@@ -66,18 +103,12 @@ export default function Navbar() {
         >
           {/* LEFT: Logo */}
           <button
-            onClick={() => scrollTo("ch01")}
+            onClick={goHome}
             style={{
-              background: "none",
-              border: "none",
-              outline: "none",
-              cursor: "pointer",
-              color: "#ffffff",
+              ...btnStyle,
               fontSize: "16px",
               fontWeight: 600,
-              fontFamily: "inherit",
               letterSpacing: "0.04em",
-              padding: 0,
               flexShrink: 0,
               zIndex: 1,
             }}
@@ -85,7 +116,7 @@ export default function Navbar() {
             Tommy Chou
           </button>
 
-          {/* CENTRE: nav links — absolutely centred */}
+          {/* CENTRE: all nav items — absolutely centred */}
           <div
             className="nav-desktop"
             style={{
@@ -97,32 +128,38 @@ export default function Navbar() {
               alignItems: "center",
             }}
           >
-            {navLinks.map((l) => (
+            {/* Section scroll links */}
+            {sectionLinks.map((l) => (
               <button
                 key={l.id}
-                onClick={() => scrollTo(l.id)}
+                onClick={() => goToSection(l.id)}
+                style={btnStyle}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.6")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+              >
+                {l.label}
+              </button>
+            ))}
+
+            {/* Page navigation links */}
+            {pageLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
                 style={{
-                  background: "none",
-                  border: "none",
-                  outline: "none",
-                  cursor: "pointer",
                   color: "#ffffff",
                   fontSize: "15px",
                   fontFamily: "inherit",
                   letterSpacing: "0.03em",
-                  padding: 0,
+                  textDecoration: "none",
                   transition: "opacity 0.2s",
                   whiteSpace: "nowrap",
                 }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.opacity = "0.6")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.opacity = "1")
-                }
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.6")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
               >
                 {l.label}
-              </button>
+              </Link>
             ))}
           </div>
 
@@ -203,10 +240,10 @@ export default function Navbar() {
               WebkitBackdropFilter: "blur(20px)",
             }}
           >
-            {navLinks.map((l) => (
+            {sectionLinks.map((l) => (
               <button
                 key={l.id}
-                onClick={() => scrollTo(l.id)}
+                onClick={() => goToSection(l.id)}
                 style={{
                   background: "none",
                   border: "none",
@@ -222,6 +259,24 @@ export default function Navbar() {
               >
                 {l.label}
               </button>
+            ))}
+            {pageLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  color: "rgba(255,255,255,0.75)",
+                  fontSize: "16px",
+                  fontFamily: "inherit",
+                  padding: "12px 0",
+                  textDecoration: "none",
+                  display: "block",
+                  borderBottom: "0.5px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                {l.label}
+              </Link>
             ))}
             <Link
               href="/contact"

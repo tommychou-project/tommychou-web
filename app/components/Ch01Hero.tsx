@@ -19,7 +19,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
 
   return (
     <section
-      id="ch01"
+      id="hero"
       style={{
         minHeight: "100vh",
         display: "flex",
