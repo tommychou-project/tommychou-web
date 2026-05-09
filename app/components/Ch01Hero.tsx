@@ -27,7 +27,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        padding: "100px 48px 80px",
+        padding: "80px 48px 80px",
         position: "relative",
         zIndex: 1,
       }}

@@ -27,106 +27,111 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Outer wrapper: fixed full-width bar — gets frosted glass on scroll */}
+      {/* Fixed full-width outer bar */}
       <div
         style={{
           position: "fixed",
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 200,
-          padding: "0",
+          zIndex: 50,
+          margin: 0,
+          padding: 0,
+          border: "none",
+          outline: "none",
           background: scrolled ? "rgba(5,5,5,0.72)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
           boxShadow: "none",
-          transition: "all 0.5s ease",
+          transition: "background 0.5s ease, backdrop-filter 0.5s ease, border-color 0.5s ease",
           pointerEvents: "none",
         }}
       >
-        {/* Inner capsule: max-width centred */}
+        {/* Inner row: max-width centred */}
         <nav
           style={{
-            maxWidth: "900px",
+            maxWidth: "1100px",
             margin: "0 auto",
-            height: "56px",
+            height: "64px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 24px",
-            borderRadius: "0",
+            padding: "0 32px",
             border: "none",
+            outline: "none",
             background: "transparent",
-            backdropFilter: "none",
-            transition: "all 0.5s ease",
+            boxShadow: "none",
             pointerEvents: "auto",
           }}
         >
-          {/* Logo */}
-          <button
-            onClick={() => scrollTo("ch01")}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "#ffffff",
-              fontSize: "16px",
-              fontWeight: 600,
-              fontFamily: "inherit",
-              letterSpacing: "0.04em",
-              flexShrink: 0,
-            }}
-          >
-            Tommy Chou
-          </button>
+          {/* LEFT: Logo + nav links */}
+          <div style={{ display: "flex", alignItems: "center", gap: "36px" }}>
+            {/* Logo */}
+            <button
+              onClick={() => scrollTo("ch01")}
+              style={{
+                background: "none",
+                border: "none",
+                outline: "none",
+                cursor: "pointer",
+                color: "#ffffff",
+                fontSize: "16px",
+                fontWeight: 600,
+                fontFamily: "inherit",
+                letterSpacing: "0.04em",
+                padding: 0,
+                flexShrink: 0,
+              }}
+            >
+              Tommy Chou
+            </button>
 
-          {/* Desktop centre links */}
-          <div
-            className="nav-desktop"
-            style={{
-              display: "flex",
-              gap: "28px",
-              alignItems: "center",
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          >
-            {navLinks.map((l) => (
-              <button
-                key={l.id}
-                onClick={() => scrollTo(l.id)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  color: "#ffffff",
-                  fontSize: "15px",
-                  fontFamily: "inherit",
-                  letterSpacing: "0.03em",
-                  transition: "opacity 0.2s",
-                  whiteSpace: "nowrap",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.opacity = "0.7")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.opacity = "1")
-                }
-              >
-                {l.label}
-              </button>
-            ))}
+            {/* Nav links — immediately right of logo */}
+            <div
+              className="nav-desktop"
+              style={{ display: "flex", gap: "28px", alignItems: "center" }}
+            >
+              {navLinks.map((l) => (
+                <button
+                  key={l.id}
+                  onClick={() => scrollTo(l.id)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    outline: "none",
+                    cursor: "pointer",
+                    color: "#ffffff",
+                    fontSize: "15px",
+                    fontFamily: "inherit",
+                    letterSpacing: "0.03em",
+                    padding: 0,
+                    transition: "opacity 0.2s",
+                    whiteSpace: "nowrap",
+                  }}
+                  onMouseEnter={(e) =>
+                    ((e.currentTarget as HTMLButtonElement).style.opacity = "0.6")
+                  }
+                  onMouseLeave={(e) =>
+                    ((e.currentTarget as HTMLButtonElement).style.opacity = "1")
+                  }
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Desktop CTA */}
-          <div className="nav-desktop" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+          {/* RIGHT: CTA + mobile hamburger */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            {/* Desktop CTA */}
             <Link
               href="/contact"
+              className="nav-desktop"
               style={{
+                display: "inline-block",
                 color: "#ffffff",
-                padding: "7px 18px",
+                padding: "7px 20px",
                 borderRadius: "999px",
                 border: "1px solid rgba(255,255,255,0.8)",
                 boxShadow: "0 0 12px rgba(255,255,255,0.25), 0 0 24px rgba(255,255,255,0.1)",
@@ -157,41 +162,43 @@ export default function Navbar() {
             >
               合作洽談
             </Link>
-          </div>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="nav-hamburger"
-            style={{
-              display: "none",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "#f0f0f0",
-              fontSize: "20px",
-              lineHeight: 1,
-            }}
-          >
-            {menuOpen ? "✕" : "☰"}
-          </button>
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="nav-hamburger"
+              style={{
+                display: "none",
+                background: "none",
+                border: "none",
+                outline: "none",
+                cursor: "pointer",
+                color: "#ffffff",
+                fontSize: "20px",
+                padding: 0,
+                lineHeight: 1,
+              }}
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
+          </div>
         </nav>
 
-        {/* Mobile dropdown — inside wrapper so it inherits the 900px context */}
+        {/* Mobile dropdown */}
         {menuOpen && (
           <div
             style={{
-              maxWidth: "900px",
-              margin: "0 auto 0",
-              background: "rgba(8,8,8,0.95)",
-              border: "0.5px solid rgba(255,255,255,0.12)",
-              borderRadius: "20px",
-              padding: "12px 20px 20px",
+              maxWidth: "1100px",
+              margin: "0 auto",
+              background: "rgba(5,5,5,0.95)",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+              padding: "8px 32px 20px",
               display: "flex",
               flexDirection: "column",
               gap: "2px",
               pointerEvents: "auto",
-              backdropFilter: "blur(16px)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
             }}
           >
             {navLinks.map((l) => (
@@ -201,11 +208,12 @@ export default function Navbar() {
                 style={{
                   background: "none",
                   border: "none",
+                  outline: "none",
                   cursor: "pointer",
-                  color: "rgba(240,240,240,0.7)",
+                  color: "rgba(255,255,255,0.75)",
                   fontSize: "16px",
                   fontFamily: "inherit",
-                  padding: "11px 4px",
+                  padding: "12px 0",
                   textAlign: "left",
                   borderBottom: "0.5px solid rgba(255,255,255,0.06)",
                 }}
@@ -217,10 +225,10 @@ export default function Navbar() {
               href="/contact"
               onClick={() => setMenuOpen(false)}
               style={{
-                color: "#f0f0f0",
+                color: "#ffffff",
                 padding: "12px",
                 borderRadius: "999px",
-                border: "0.5px solid rgba(255,255,255,0.35)",
+                border: "1px solid rgba(255,255,255,0.4)",
                 fontSize: "15px",
                 fontWeight: 500,
                 textDecoration: "none",
