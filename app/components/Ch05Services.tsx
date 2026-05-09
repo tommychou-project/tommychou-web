@@ -85,6 +85,7 @@ export default function Ch05Services() {
         maxWidth: "1200px",
         margin: "0 auto",
         position: "relative",
+        scrollMarginTop: "80px",
         zIndex: 1,
       }}
     >

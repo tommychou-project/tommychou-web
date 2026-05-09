@@ -44,6 +44,7 @@ export default function Ch04Blog() {
         maxWidth: "1200px",
         margin: "0 auto",
         position: "relative",
+        scrollMarginTop: "80px",
         zIndex: 1,
       }}
     >

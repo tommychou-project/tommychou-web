@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 const navLinks = [
   { label: "關於我", id: "ch02" },
@@ -10,14 +10,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const scrollTo = (id: string) => {
     setMenuOpen(false);
@@ -27,28 +20,26 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Fixed full-width outer bar */}
+      {/* Fixed full-width bar — always frosted glass */}
       <div
         style={{
           position: "fixed",
-          top: 0,
+          top: "20px",
           left: 0,
           right: 0,
           zIndex: 50,
+          padding: "0 40px",
           margin: 0,
-          padding: 0,
           border: "none",
           outline: "none",
-          background: scrolled ? "rgba(5,5,5,0.72)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+          background: "rgba(8,8,8,0.6)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
           boxShadow: "none",
-          transition: "background 0.5s ease, backdrop-filter 0.5s ease, border-color 0.5s ease",
           pointerEvents: "none",
         }}
       >
-        {/* Inner row: max-width centred */}
         <nav
           style={{
             maxWidth: "1100px",
@@ -57,7 +48,7 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 32px",
+            padding: 0,
             border: "none",
             outline: "none",
             background: "transparent",
@@ -67,7 +58,6 @@ export default function Navbar() {
         >
           {/* LEFT: Logo + nav links */}
           <div style={{ display: "flex", alignItems: "center", gap: "36px" }}>
-            {/* Logo */}
             <button
               onClick={() => scrollTo("ch01")}
               style={{
@@ -87,7 +77,6 @@ export default function Navbar() {
               Tommy Chou
             </button>
 
-            {/* Nav links — immediately right of logo */}
             <div
               className="nav-desktop"
               style={{ display: "flex", gap: "28px", alignItems: "center" }}
@@ -124,7 +113,6 @@ export default function Navbar() {
 
           {/* RIGHT: CTA + mobile hamburger */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            {/* Desktop CTA */}
             <Link
               href="/contact"
               className="nav-desktop"
@@ -163,7 +151,6 @@ export default function Navbar() {
               合作洽談
             </Link>
 
-            {/* Mobile hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="nav-hamburger"
@@ -190,15 +177,13 @@ export default function Navbar() {
             style={{
               maxWidth: "1100px",
               margin: "0 auto",
-              background: "rgba(5,5,5,0.95)",
+              background: "rgba(5,5,5,0.96)",
               borderTop: "1px solid rgba(255,255,255,0.06)",
-              padding: "8px 32px 20px",
+              padding: "8px 0 20px",
               display: "flex",
               flexDirection: "column",
               gap: "2px",
               pointerEvents: "auto",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
             }}
           >
             {navLinks.map((l) => (

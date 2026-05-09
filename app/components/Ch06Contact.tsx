@@ -62,6 +62,7 @@ export default function Ch06Contact() {
       style={{
         padding: "120px 48px 80px",
         position: "relative",
+        scrollMarginTop: "80px",
         zIndex: 1,
       }}
     >

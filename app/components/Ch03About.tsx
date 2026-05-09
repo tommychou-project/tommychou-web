@@ -116,6 +116,7 @@ export default function Ch03About() {
         maxWidth: "1200px",
         margin: "0 auto",
         position: "relative",
+        scrollMarginTop: "80px",
         zIndex: 1,
       }}
     >

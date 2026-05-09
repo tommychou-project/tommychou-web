@@ -65,6 +65,7 @@ export default function Ch02Journey() {
         maxWidth: "1200px",
         margin: "0 auto",
         position: "relative",
+        scrollMarginTop: "80px",
         zIndex: 1,
       }}
     >
@@ -127,6 +128,7 @@ export default function Ch02Journey() {
                 key={i}
                 style={{
                   position: "relative",
+        scrollMarginTop: "80px",
                   marginBottom: "40px",
                 }}
               >
