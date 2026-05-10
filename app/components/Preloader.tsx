@@ -111,7 +111,8 @@ export default function Preloader({ onDone }: Props) {
           fontFamily: "'Georgia', serif",
           letterSpacing: "0.04em",
           textAlign: "center",
-          maxWidth: "560px",
+          maxWidth: "none",
+          whiteSpace: "nowrap",
           lineHeight: 1.7,
           padding: "0 24px",
         }}
