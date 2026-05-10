@@ -36,7 +36,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         alignItems: "flex-start",
         justifyContent: "flex-end",
         textAlign: "left",
-        padding: "0 0 80px 60px",
+        padding: "0 0 80px 48px",
         position: "relative",
         scrollMarginTop: "80px",
         zIndex: 1,
@@ -222,7 +222,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
 
       <style>{`
         @media (max-width: 768px) {
-          #hero { padding: 0 0 60px 24px !important; }
+          #hero { padding: 0 24px 60px 24px !important; }
         }
       `}</style>
     </section>
