@@ -130,15 +130,18 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
           </p>
           <Link
             href="/contact"
+            className="cta-glow"
             style={{
               display: "inline-block",
-              color: "#080C14",
-              background: "#E8652A",
+              color: "#ffffff",
+              background: "transparent",
+              border: "1px solid rgba(255,255,255,0.6)",
+              borderRadius: "999px",
               padding: "12px 28px",
-              borderRadius: "8px",
               fontSize: "14px",
-              fontWeight: 700,
               textDecoration: "none",
+              boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+              transition: "all 0.3s ease",
             }}
           >
             合作洽談 →
@@ -184,6 +187,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         }
         .prose pre code { background: none; padding: 0; }
         .back-link:hover { color: #f0f0f0 !important; }
+        .cta-glow:hover { box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.9) !important; }
         @media (max-width: 768px) {
           article { padding: 100px 20px 80px !important; }
         }

@@ -89,16 +89,26 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           <button
             onClick={scrollToNext}
             style={{
-              background: "#E8652A",
-              color: "#080C14",
-              border: "none",
-              padding: "14px 32px",
-              borderRadius: "8px",
+              background: "transparent",
+              color: "#ffffff",
+              border: "1px solid rgba(255,255,255,0.4)",
+              borderRadius: "999px",
+              padding: "10px 28px",
               cursor: "pointer",
               fontSize: "15px",
-              fontWeight: 700,
               fontFamily: "inherit",
-              letterSpacing: "0.02em",
+              boxShadow: "0 0 6px rgba(255,255,255,0.2)",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.boxShadow = "0 0 10px rgba(255,255,255,0.35), 0 0 24px rgba(255,255,255,0.12)";
+              el.style.borderColor = "rgba(255,255,255,0.7)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.boxShadow = "0 0 6px rgba(255,255,255,0.2)";
+              el.style.borderColor = "rgba(255,255,255,0.4)";
             }}
           >
             了解更多
@@ -110,13 +120,25 @@ export default function Ch01Hero({ preloaderDone }: Props) {
             }}
             style={{
               background: "transparent",
-              color: "rgba(240,240,240,0.55)",
-              border: "0.5px solid rgba(240,240,240,0.2)",
-              padding: "14px 32px",
-              borderRadius: "8px",
+              color: "#ffffff",
+              border: "1px solid rgba(255,255,255,0.4)",
+              borderRadius: "999px",
+              padding: "10px 28px",
               cursor: "pointer",
               fontSize: "15px",
               fontFamily: "inherit",
+              boxShadow: "0 0 6px rgba(255,255,255,0.2)",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.boxShadow = "0 0 10px rgba(255,255,255,0.35), 0 0 24px rgba(255,255,255,0.12)";
+              el.style.borderColor = "rgba(255,255,255,0.7)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.boxShadow = "0 0 6px rgba(255,255,255,0.2)";
+              el.style.borderColor = "rgba(255,255,255,0.4)";
             }}
           >
             聯繫我

@@ -170,31 +170,24 @@ export default function Navbar() {
                 color: "#ffffff",
                 padding: "7px 20px",
                 borderRadius: "999px",
-                border: "1px solid rgba(255,255,255,0.8)",
-                boxShadow: "0 0 12px rgba(255,255,255,0.25), 0 0 24px rgba(255,255,255,0.1)",
+                border: "1px solid rgba(255,255,255,0.6)",
+                boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
                 background: "transparent",
                 fontSize: "14px",
-                fontWeight: 500,
                 textDecoration: "none",
                 letterSpacing: "0.03em",
-                transition: "background 0.2s, box-shadow 0.2s",
+                transition: "all 0.3s ease",
                 whiteSpace: "nowrap",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "rgba(255,255,255,0.08)";
-                el.style.boxShadow = "0 0 18px rgba(255,255,255,0.4), 0 0 36px rgba(255,255,255,0.15)";
+                el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
+                el.style.borderColor = "rgba(255,255,255,0.9)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "transparent";
-                el.style.boxShadow = "0 0 12px rgba(255,255,255,0.25), 0 0 24px rgba(255,255,255,0.1)";
-              }}
-              onMouseDown={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.15)";
-              }}
-              onMouseUp={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.08)";
+                el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
+                el.style.borderColor = "rgba(255,255,255,0.6)";
               }}
             >
               合作洽談
@@ -282,13 +275,14 @@ export default function Navbar() {
                 color: "#ffffff",
                 padding: "12px",
                 borderRadius: "999px",
-                border: "1px solid rgba(255,255,255,0.4)",
+                border: "1px solid rgba(255,255,255,0.6)",
                 fontSize: "15px",
-                fontWeight: 500,
                 textDecoration: "none",
                 textAlign: "center",
                 marginTop: "10px",
                 display: "block",
+                boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+                transition: "all 0.3s ease",
               }}
             >
               合作洽談

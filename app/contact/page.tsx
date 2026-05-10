@@ -264,24 +264,25 @@ export default function Contact() {
               background: "transparent",
               color: "#ffffff",
               border: "1px solid rgba(255,255,255,0.6)",
-              padding: "13px 32px",
-              borderRadius: "8px",
+              borderRadius: "999px",
+              padding: "12px 32px",
               cursor: status === "loading" ? "not-allowed" : "pointer",
               fontSize: "14px",
-              fontWeight: 500,
               fontFamily: "inherit",
               alignSelf: "flex-start",
-              opacity: status === "loading" ? 0.6 : 1,
-              transition: "box-shadow 0.2s, border-color 0.2s",
+              opacity: status === "loading" ? 0.5 : 1,
+              boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+              transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
+              if (status === "loading") return;
               const el = e.currentTarget as HTMLButtonElement;
-              el.style.boxShadow = "0 0 12px rgba(255,255,255,0.2)";
+              el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
               el.style.borderColor = "rgba(255,255,255,0.9)";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLButtonElement;
-              el.style.boxShadow = "none";
+              el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
               el.style.borderColor = "rgba(255,255,255,0.6)";
             }}
           >

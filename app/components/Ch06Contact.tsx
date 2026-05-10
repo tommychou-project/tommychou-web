@@ -247,18 +247,29 @@ export default function Ch06Contact() {
               onClick={handleSubmit}
               disabled={status === "loading"}
               style={{
-                background: "#E8652A",
-                color: "#080C14",
-                border: "none",
-                padding: "14px",
-                borderRadius: "10px",
+                background: "transparent",
+                color: "#ffffff",
+                border: "1px solid rgba(255,255,255,0.6)",
+                borderRadius: "999px",
+                padding: "12px 28px",
                 cursor: status === "loading" ? "not-allowed" : "pointer",
                 fontSize: "15px",
-                fontWeight: 700,
                 fontFamily: "inherit",
-                opacity: status === "loading" ? 0.7 : 1,
-                transition: "opacity 0.2s",
-                letterSpacing: "0.02em",
+                opacity: status === "loading" ? 0.5 : 1,
+                boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+                transition: "all 0.3s ease",
+                alignSelf: "flex-start",
+              }}
+              onMouseEnter={(e) => {
+                if (status === "loading") return;
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
+                el.style.borderColor = "rgba(255,255,255,0.9)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
+                el.style.borderColor = "rgba(255,255,255,0.6)";
               }}
             >
               {status === "loading" ? "送出中..." : "送出訊息 →"}

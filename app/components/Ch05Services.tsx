@@ -282,16 +282,26 @@ export default function Ch05Services() {
                 <Link
                   href="/contact"
                   style={{
-                    background: "rgba(232,101,42,0.1)",
-                    color: "#E8652A",
-                    border: "0.5px solid rgba(232,101,42,0.3)",
+                    background: "transparent",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255,255,255,0.6)",
+                    borderRadius: "999px",
                     padding: "8px 18px",
-                    borderRadius: "8px",
                     fontSize: "13px",
-                    fontWeight: 600,
                     textDecoration: "none",
-                    letterSpacing: "0.02em",
-                    transition: "background 0.2s",
+                    boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+                    transition: "all 0.3s ease",
+                    whiteSpace: "nowrap",
+                  }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLAnchorElement;
+                    el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
+                    el.style.borderColor = "rgba(255,255,255,0.9)";
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLAnchorElement;
+                    el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
+                    el.style.borderColor = "rgba(255,255,255,0.6)";
                   }}
                 >
                   洽談 →

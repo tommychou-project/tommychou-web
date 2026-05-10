@@ -92,16 +92,25 @@ export default function Ch04Blog() {
           <Link
             href="/blog"
             style={{
-              color: "#E8652A",
+              color: "#ffffff",
               fontSize: "14px",
-              fontWeight: 600,
               textDecoration: "none",
-              letterSpacing: "0.04em",
-              border: "0.5px solid rgba(232,101,42,0.3)",
+              border: "1px solid rgba(255,255,255,0.4)",
               padding: "8px 20px",
-              borderRadius: "8px",
-              transition: "background 0.2s",
+              borderRadius: "999px",
               whiteSpace: "nowrap",
+              boxShadow: "0 0 6px rgba(255,255,255,0.2)",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.boxShadow = "0 0 10px rgba(255,255,255,0.35), 0 0 24px rgba(255,255,255,0.12)";
+              el.style.borderColor = "rgba(255,255,255,0.7)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.boxShadow = "0 0 6px rgba(255,255,255,0.2)";
+              el.style.borderColor = "rgba(255,255,255,0.4)";
             }}
           >
             查看所有文章 →
