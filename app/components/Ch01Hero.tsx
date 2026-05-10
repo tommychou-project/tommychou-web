@@ -36,7 +36,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         alignItems: "flex-start",
         justifyContent: "flex-end",
         textAlign: "left",
-        padding: "0 0 80px 48px",
+        padding: "0 0 80px 80px",
         position: "relative",
         scrollMarginTop: "80px",
         zIndex: 1,
