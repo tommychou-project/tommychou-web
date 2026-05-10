@@ -34,7 +34,7 @@ export default function BlogPage() {
   return (
     <main
       style={{
-        background: "#080808",
+        background: "#080C14",
         minHeight: "100vh",
         color: "#f0f0f0",
         fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -47,7 +47,7 @@ export default function BlogPage() {
         <div
           style={{
             fontSize: "12px",
-            color: "#E8F55A",
+            color: "#E8652A",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "10px",
@@ -89,7 +89,7 @@ export default function BlogPage() {
             onChange={(e) => setQuery(e.target.value)}
             style={{
               width: "100%",
-              background: "#111111",
+              background: "#0D1220",
               border: "1px solid rgba(255,255,255,0.15)",
               borderRadius: "12px",
               padding: "14px 16px 14px 44px",

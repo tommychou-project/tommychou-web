@@ -79,7 +79,7 @@ export default function Ch06Contact() {
         <div
           style={{
             fontSize: "12px",
-            color: "#E8F55A",
+            color: "#E8652A",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "8px",
@@ -110,7 +110,7 @@ export default function Ch06Contact() {
               }}
             >
               LET&apos;S BUILD{" "}
-              <span style={{ color: "#E8F55A" }}>SOMETHING</span>{" "}
+              <span style={{ color: "#E8652A" }}>SOMETHING</span>{" "}
               SHARP,{" "}
               <span style={{ color: "rgba(240,240,240,0.35)" }}>STRANGE,</span>{" "}
               AND USEFUL.
@@ -162,7 +162,7 @@ export default function Ch06Contact() {
           {/* Right: contact form */}
           <div
             style={{
-              background: "#111111",
+              background: "#0D1220",
               border: "0.5px solid rgba(240,240,240,0.09)",
               borderRadius: "20px",
               padding: "32px 28px",
@@ -215,11 +215,11 @@ export default function Ch06Contact() {
             {status === "success" && (
               <div
                 style={{
-                  background: "rgba(232,245,90,0.08)",
-                  border: "0.5px solid rgba(232,245,90,0.3)",
+                  background: "rgba(232,101,42,0.08)",
+                  border: "0.5px solid rgba(232,101,42,0.3)",
                   borderRadius: "10px",
                   padding: "14px",
-                  color: "#E8F55A",
+                  color: "#E8652A",
                   fontSize: "14px",
                   textAlign: "center",
                 }}
@@ -247,8 +247,8 @@ export default function Ch06Contact() {
               onClick={handleSubmit}
               disabled={status === "loading"}
               style={{
-                background: "#E8F55A",
-                color: "#080808",
+                background: "#E8652A",
+                color: "#080C14",
                 border: "none",
                 padding: "14px",
                 borderRadius: "10px",
@@ -273,7 +273,7 @@ export default function Ch06Contact() {
           #ch06 { padding: 80px 24px !important; }
         }
         #ch06 input::placeholder, #ch06 textarea::placeholder { color: rgba(240,240,240,0.2); }
-        #ch06 input:focus, #ch06 textarea:focus { border-color: rgba(232,245,90,0.35) !important; }
+        #ch06 input:focus, #ch06 textarea:focus { border-color: rgba(232,101,42,0.35) !important; }
       `}</style>
     </section>
   );

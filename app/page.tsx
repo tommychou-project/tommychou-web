@@ -43,7 +43,7 @@ export default function Home() {
 
       <div
         style={{
-          background: "#080808",
+          background: "#080C14",
           color: "#f0f0f0",
           fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
           minHeight: "100vh",
@@ -62,7 +62,7 @@ export default function Home() {
             height: "520px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(232,245,90,0.032) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(232,101,42,0.032) 0%, transparent 70%)",
             transform: "translate(-50%, -50%)",
             opacity: 0,
             transition: "opacity 0.4s ease",
@@ -94,8 +94,8 @@ export default function Home() {
 
       <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #080808; }
-        ::selection { background: rgba(232,245,90,0.3); }
+        body { background: #080C14; }
+        ::selection { background: rgba(232,101,42,0.3); }
         @media (max-width: 768px) {
           div[style*="margin: 0 48px"] { margin: 0 24px !important; }
         }

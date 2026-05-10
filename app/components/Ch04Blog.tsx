@@ -70,7 +70,7 @@ export default function Ch04Blog() {
             <div
               style={{
                 fontSize: "12px",
-                color: "#E8F55A",
+                color: "#E8652A",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 marginBottom: "8px",
@@ -92,12 +92,12 @@ export default function Ch04Blog() {
           <Link
             href="/blog"
             style={{
-              color: "#E8F55A",
+              color: "#E8652A",
               fontSize: "14px",
               fontWeight: 600,
               textDecoration: "none",
               letterSpacing: "0.04em",
-              border: "0.5px solid rgba(232,245,90,0.3)",
+              border: "0.5px solid rgba(232,101,42,0.3)",
               padding: "8px 20px",
               borderRadius: "8px",
               transition: "background 0.2s",
@@ -124,7 +124,7 @@ export default function Ch04Blog() {
             >
               <div
                 style={{
-                  background: "#111111",
+                  background: "#0D1220",
                   border: "0.5px solid rgba(240,240,240,0.08)",
                   borderRadius: "16px",
                   padding: "28px 26px",
@@ -134,7 +134,7 @@ export default function Ch04Blog() {
                 }}
                 onMouseEnter={(e) => {
                   const d = e.currentTarget as HTMLDivElement;
-                  d.style.borderColor = "rgba(232,245,90,0.25)";
+                  d.style.borderColor = "rgba(232,101,42,0.25)";
                   d.style.transform = "translateY(-3px)";
                 }}
                 onMouseLeave={(e) => {

@@ -81,7 +81,7 @@ export default function Ch03About() {
         <div
           style={{
             fontSize: "12px",
-            color: "#E8F55A",
+            color: "#E8652A",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "8px",
@@ -125,7 +125,7 @@ export default function Ch03About() {
           {/* Right: mock AI Q&A */}
           <div
             style={{
-              background: "#111111",
+              background: "#0D1220",
               border: "0.5px solid rgba(240,240,240,0.09)",
               borderRadius: "20px",
               padding: "28px 24px",
@@ -157,8 +157,8 @@ export default function Ch03About() {
               {answer ? (
                 <div
                   style={{
-                    background: "rgba(232,245,90,0.06)",
-                    border: "0.5px solid rgba(232,245,90,0.18)",
+                    background: "rgba(232,101,42,0.06)",
+                    border: "0.5px solid rgba(232,101,42,0.18)",
                     borderRadius: "12px",
                     padding: "16px",
                     color: "rgba(240,240,240,0.75)",
@@ -171,7 +171,7 @@ export default function Ch03About() {
                     style={{
                       display: "block",
                       fontSize: "11px",
-                      color: "#E8F55A",
+                      color: "#E8652A",
                       marginBottom: "8px",
                       letterSpacing: "0.1em",
                     }}
@@ -201,13 +201,13 @@ export default function Ch03About() {
                   key={q}
                   onClick={() => handleQ(q)}
                   style={{
-                    background: activeQ === q ? "rgba(232,245,90,0.1)" : "rgba(240,240,240,0.04)",
+                    background: activeQ === q ? "rgba(232,101,42,0.1)" : "rgba(240,240,240,0.04)",
                     border: activeQ === q
-                      ? "0.5px solid rgba(232,245,90,0.35)"
+                      ? "0.5px solid rgba(232,101,42,0.35)"
                       : "0.5px solid rgba(240,240,240,0.09)",
                     borderRadius: "8px",
                     padding: "10px 14px",
-                    color: activeQ === q ? "#E8F55A" : "rgba(240,240,240,0.55)",
+                    color: activeQ === q ? "#E8652A" : "rgba(240,240,240,0.55)",
                     fontSize: "12.5px",
                     fontFamily: "inherit",
                     cursor: "pointer",
@@ -235,7 +235,7 @@ export default function Ch03About() {
             <div
               key={card.title}
               style={{
-                background: "#111111",
+                background: "#0D1220",
                 border: "0.5px solid rgba(240,240,240,0.08)",
                 borderRadius: "16px",
                 padding: "24px 22px",
@@ -245,7 +245,7 @@ export default function Ch03About() {
                 style={{
                   fontSize: "12px",
                   fontWeight: 700,
-                  color: "#E8F55A",
+                  color: "#E8652A",
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
                   marginBottom: "16px",

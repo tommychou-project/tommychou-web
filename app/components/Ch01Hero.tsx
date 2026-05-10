@@ -45,7 +45,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         <div
           style={{
             fontSize: "12px",
-            color: "#E8F55A",
+            color: "#E8652A",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "36px",
@@ -66,7 +66,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           }}
         >
           你好，我是{" "}
-          <span style={{ color: "#E8F55A" }}>Tommy</span>
+          <span style={{ color: "#E8652A" }}>Tommy</span>
         </h1>
 
         {/* Slogan */}
@@ -89,8 +89,8 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           <button
             onClick={scrollToNext}
             style={{
-              background: "#E8F55A",
-              color: "#080808",
+              background: "#E8652A",
+              color: "#080C14",
               border: "none",
               padding: "14px 32px",
               borderRadius: "8px",

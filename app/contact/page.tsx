@@ -31,7 +31,7 @@ export default function Contact() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    background: "#111111",
+    background: "#0D1220",
     border: "1px solid rgba(255,255,255,0.1)",
     borderRadius: "8px",
     padding: "13px 16px",
@@ -53,7 +53,7 @@ export default function Contact() {
   return (
     <main
       style={{
-        background: "#080808",
+        background: "#080C14",
         minHeight: "100vh",
         color: "#f0f0f0",
         fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -72,7 +72,7 @@ export default function Contact() {
         <div
           style={{
             fontSize: "12px",
-            color: "#E8F55A",
+            color: "#E8652A",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "16px",
@@ -143,7 +143,7 @@ export default function Contact() {
                   style={{
                     width: "4px",
                     height: "4px",
-                    background: "#E8F55A",
+                    background: "#E8652A",
                     borderRadius: "50%",
                     flexShrink: 0,
                   }}
@@ -228,11 +228,11 @@ export default function Contact() {
           {status === "success" && (
             <div
               style={{
-                background: "rgba(232,245,90,0.08)",
-                border: "0.5px solid rgba(232,245,90,0.3)",
+                background: "rgba(232,101,42,0.08)",
+                border: "0.5px solid rgba(232,101,42,0.3)",
                 borderRadius: "8px",
                 padding: "16px",
-                color: "#E8F55A",
+                color: "#E8652A",
                 fontSize: "14px",
                 textAlign: "center",
               }}

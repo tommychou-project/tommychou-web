@@ -100,7 +100,7 @@ export default function Ch05Services() {
         <div
           style={{
             fontSize: "12px",
-            color: "#E8F55A",
+            color: "#E8652A",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "8px",
@@ -143,7 +143,7 @@ export default function Ch05Services() {
             <div
               key={s.id}
               style={{
-                background: "#111111",
+                background: "#0D1220",
                 border: "0.5px solid rgba(240,240,240,0.08)",
                 borderRadius: "18px",
                 padding: "30px 28px",
@@ -154,7 +154,7 @@ export default function Ch05Services() {
               }}
               onMouseEnter={(e) => {
                 const d = e.currentTarget as HTMLDivElement;
-                d.style.borderColor = "rgba(232,245,90,0.28)";
+                d.style.borderColor = "rgba(232,101,42,0.28)";
                 d.style.transform = "translateY(-3px)";
               }}
               onMouseLeave={(e) => {
@@ -174,8 +174,8 @@ export default function Ch05Services() {
               >
                 <span
                   style={{
-                    background: "rgba(232,245,90,0.12)",
-                    color: "#E8F55A",
+                    background: "rgba(232,101,42,0.12)",
+                    color: "#E8652A",
                     fontSize: "11px",
                     fontWeight: 700,
                     letterSpacing: "0.14em",
@@ -239,7 +239,7 @@ export default function Ch05Services() {
                         width: "4px",
                         height: "4px",
                         borderRadius: "50%",
-                        background: "#E8F55A",
+                        background: "#E8652A",
                         flexShrink: 0,
                       }}
                     />
@@ -263,7 +263,7 @@ export default function Ch05Services() {
                     style={{
                       fontSize: "17px",
                       fontWeight: 700,
-                      color: "#E8F55A",
+                      color: "#E8652A",
                       letterSpacing: "-0.01em",
                     }}
                   >
@@ -282,9 +282,9 @@ export default function Ch05Services() {
                 <Link
                   href="/contact"
                   style={{
-                    background: "rgba(232,245,90,0.1)",
-                    color: "#E8F55A",
-                    border: "0.5px solid rgba(232,245,90,0.3)",
+                    background: "rgba(232,101,42,0.1)",
+                    color: "#E8652A",
+                    border: "0.5px solid rgba(232,101,42,0.3)",
                     padding: "8px 18px",
                     borderRadius: "8px",
                     fontSize: "13px",

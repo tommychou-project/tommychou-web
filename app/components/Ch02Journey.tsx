@@ -81,7 +81,7 @@ export default function Ch02Journey() {
         <div
           style={{
             fontSize: "12px",
-            color: "#E8F55A",
+            color: "#E8652A",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             marginBottom: "8px",
@@ -141,7 +141,7 @@ export default function Ch02Journey() {
                     width: "8px",
                     height: "8px",
                     borderRadius: "50%",
-                    background: i === timeline.length - 1 ? "#E8F55A" : "rgba(240,240,240,0.35)",
+                    background: i === timeline.length - 1 ? "#E8652A" : "rgba(240,240,240,0.35)",
                     border: "1.5px solid rgba(240,240,240,0.2)",
                   }}
                 />
@@ -159,7 +159,7 @@ export default function Ch02Journey() {
                   style={{
                     fontSize: "16px",
                     fontWeight: 600,
-                    color: i === timeline.length - 1 ? "#E8F55A" : "#f0f0f0",
+                    color: i === timeline.length - 1 ? "#E8652A" : "#f0f0f0",
                     marginBottom: "6px",
                   }}
                 >
@@ -202,7 +202,7 @@ export default function Ch02Journey() {
                 <div
                   key={i}
                   style={{
-                    background: "#111111",
+                    background: "#0D1220",
                     border: "0.5px solid rgba(240,240,240,0.08)",
                     borderRadius: "14px",
                     padding: "20px 18px",
@@ -211,7 +211,7 @@ export default function Ch02Journey() {
                     cursor: "default",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,245,90,0.3)";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.3)";
                     (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {

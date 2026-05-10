@@ -37,7 +37,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
   return (
     <main
       style={{
-        background: "#080808",
+        background: "#080C14",
         minHeight: "100vh",
         color: "#f0f0f0",
         fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -119,7 +119,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
           style={{
             marginTop: "72px",
             padding: "32px",
-            background: "#111111",
+            background: "#0D1220",
             border: "0.5px solid rgba(255,255,255,0.08)",
             borderRadius: "16px",
             textAlign: "center",
@@ -132,8 +132,8 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
             href="/contact"
             style={{
               display: "inline-block",
-              color: "#080808",
-              background: "#E8F55A",
+              color: "#080C14",
+              background: "#E8652A",
               padding: "12px 28px",
               borderRadius: "8px",
               fontSize: "14px",
@@ -157,24 +157,24 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         .prose li { margin-bottom: 8px; }
         .prose strong { color: #f0f0f0; font-weight: 600; }
         .prose blockquote {
-          border-left: 2px solid #E8F55A;
+          border-left: 2px solid #E8652A;
           padding: 4px 0 4px 20px;
           margin: 28px 0;
           color: #aaaaaa;
           font-style: italic;
         }
         .prose img { max-width: 100%; border-radius: 10px; margin: 28px 0; }
-        .prose a { color: #E8F55A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a { color: #E8652A; text-decoration: underline; text-underline-offset: 3px; }
         .prose a:hover { color: #f0f0f0; }
         .prose code {
-          background: #111111;
+          background: #0D1220;
           color: #cccccc;
           padding: 2px 7px;
           border-radius: 4px;
           font-size: 0.9em;
         }
         .prose pre {
-          background: #111111;
+          background: #0D1220;
           color: #cccccc;
           padding: 20px 24px;
           border-radius: 10px;
