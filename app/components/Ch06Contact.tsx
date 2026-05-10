@@ -111,8 +111,8 @@ export default function Ch06Contact() {
             >
               LET&apos;S BUILD{" "}
               <span style={{ color: "#E8652A" }}>SOMETHING</span>{" "}
-              SHARP,{" "}
-              <span style={{ color: "rgba(240,240,240,0.35)" }}>STRANGE,</span>{" "}
+              MEANINGFUL,{" "}
+              <span style={{ color: "rgba(240,240,240,0.35)" }}>WARM,</span>{" "}
               AND USEFUL.
             </h2>
             <div
