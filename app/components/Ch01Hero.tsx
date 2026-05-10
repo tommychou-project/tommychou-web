@@ -222,7 +222,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
 
       <style>{`
         @media (max-width: 768px) {
-          #hero { padding: 0 24px 60px 24px !important; }
+          #hero { padding: 0 24px 60px 92px !important; }
         }
       `}</style>
     </section>
