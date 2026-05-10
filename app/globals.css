@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+/* ── Custom cursor ── */
+* { cursor: none !important; }
+
+#cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(232, 101, 42, 0.9);
+  box-shadow:
+    0 0 8px  rgba(232, 101, 42, 0.8),
+    0 0 20px rgba(232, 101, 42, 0.4),
+    0 0 40px rgba(232, 101, 42, 0.15);
+  transform: translate(-50%, -50%);
+  transition:
+    width      0.15s ease,
+    height     0.15s ease,
+    box-shadow 0.15s ease,
+    opacity    0.3s  ease;
+}
+#cursor.is-hover {
+  width: 20px;
+  height: 20px;
+  box-shadow:
+    0 0 12px rgba(232, 101, 42, 1),
+    0 0 32px rgba(232, 101, 42, 0.6),
+    0 0 60px rgba(232, 101, 42, 0.25);
+}
+#cursor.is-click {
+  width: 8px;
+  height: 8px;
+  box-shadow:
+    0 0 16px rgba(232, 101, 42, 1),
+    0 0 40px rgba(232, 101, 42, 0.8);
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
