@@ -50,7 +50,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         muted
         loop
         playsInline
-        poster="/images/tommy-portrait.png"
+        poster=""
         style={{
           position: "absolute",
           top: 0,
@@ -86,7 +86,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         className="hero-content-wrapper"
         style={{
           width: "100%",
-          padding: "0 40px 80px 40px",
+          padding: "0 40px 80px 80px",
         }}
       >
       <div
