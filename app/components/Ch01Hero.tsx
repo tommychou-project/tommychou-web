@@ -1,16 +1,26 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = { preloaderDone: boolean };
 
 export default function Ch01Hero({ preloaderDone }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const videoRef   = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
 
+  // Reveal text after preloader
   useEffect(() => {
-    if (!preloaderDone || !ref.current) return;
-    ref.current.style.opacity = "1";
-    ref.current.style.transform = "translateY(0)";
+    if (!preloaderDone || !contentRef.current) return;
+    contentRef.current.style.opacity = "1";
+    contentRef.current.style.transform = "translateY(0)";
   }, [preloaderDone]);
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setMuted(video.muted);
+  };
 
   const scrollToNext = () => {
     const el = document.getElementById("ch02");
@@ -31,11 +41,50 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         position: "relative",
         scrollMarginTop: "80px",
         zIndex: 1,
+        overflow: "hidden",
       }}
     >
-      <div
-        ref={ref}
+      {/* ── Background video ── */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
         style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
+        }}
+      >
+        <source src="/videos/hero.mp4" type="video/mp4" />
+      </video>
+
+      {/* ── Dark gradient overlay ── */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background:
+            "linear-gradient(to bottom, rgba(8,12,20,0.5) 0%, rgba(8,12,20,0.3) 50%, rgba(8,12,20,0.7) 100%)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* ── Text content ── */}
+      <div
+        ref={contentRef}
+        style={{
+          position: "relative",
+          zIndex: 2,
           opacity: 0,
           transform: "translateY(32px)",
           transition: "opacity 1.0s ease-out, transform 1.0s ease-out",
@@ -146,13 +195,14 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* ── Scroll indicator ── */}
       <div
         style={{
           position: "absolute",
           bottom: "36px",
           left: "50%",
           transform: "translateX(-50%)",
+          zIndex: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -162,19 +212,55 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           letterSpacing: "0.2em",
           textTransform: "uppercase",
           animation: "heroBounce 2s ease-in-out infinite",
+          pointerEvents: "none",
         }}
       >
         <span>scroll</span>
         <span style={{ fontSize: "14px" }}>↓</span>
       </div>
 
+      {/* ── Mute toggle ── */}
+      <button
+        onClick={toggleMute}
+        title={muted ? "開啟聲音" : "靜音"}
+        style={{
+          position: "absolute",
+          bottom: "36px",
+          right: "36px",
+          zIndex: 3,
+          width: "44px",
+          height: "44px",
+          borderRadius: "50%",
+          background: "rgba(0,0,0,0.45)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          cursor: "pointer",
+          fontSize: "18px",
+          color: "#ffffff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transition: "background 0.2s",
+          padding: 0,
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.65)";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.45)";
+        }}
+      >
+        {muted ? "🔇" : "🔊"}
+      </button>
+
       <style>{`
         @keyframes heroBounce {
           0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.2; }
-          50% { transform: translateX(-50%) translateY(6px); opacity: 0.5; }
+          50%       { transform: translateX(-50%) translateY(6px); opacity: 0.5; }
         }
         @media (max-width: 768px) {
-          #ch01 { padding: 100px 24px 80px !important; }
+          #hero { padding: 100px 24px 80px !important; }
         }
       `}</style>
     </section>
