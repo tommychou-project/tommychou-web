@@ -83,13 +83,12 @@ export default function Navbar() {
       >
         <nav
           style={{
-            maxWidth: "1100px",
-            margin: "0 auto",
+            width: "100%",
             height: "68px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 40px 0 0",
+            padding: "0 40px 0 40px",
             border: "none",
             outline: "none",
             background: "transparent",

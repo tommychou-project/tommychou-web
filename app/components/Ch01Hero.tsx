@@ -85,10 +85,8 @@ export default function Ch01Hero({ preloaderDone }: Props) {
       <div
         className="hero-content-wrapper"
         style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
           width: "100%",
-          padding: "0 40px 80px 0",
+          padding: "0 40px 80px 40px",
         }}
       >
       <div
