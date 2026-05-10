@@ -33,10 +33,10 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        alignItems: "flex-start",
+        alignItems: "stretch",
         justifyContent: "flex-end",
         textAlign: "left",
-        padding: "0 0 80px 92px",
+        padding: 0,
         position: "relative",
         scrollMarginTop: "80px",
         zIndex: 1,
@@ -81,7 +81,16 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         }}
       />
 
-      {/* ── Text content — bottom left ── */}
+      {/* ── Text content — bottom left, aligned to navbar ── */}
+      <div
+        className="hero-content-wrapper"
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          width: "100%",
+          padding: "0 40px 80px 92px",
+        }}
+      >
       <div
         ref={contentRef}
         style={{
@@ -184,6 +193,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           </button>
         </div>
       </div>
+      </div>
 
       {/* ── Mute toggle ── */}
       <button
@@ -222,7 +232,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
 
       <style>{`
         @media (max-width: 768px) {
-          #hero { padding: 0 24px 60px 92px !important; }
+          .hero-content-wrapper { padding: 0 24px 60px 24px !important; }
         }
       `}</style>
     </section>
