@@ -2,15 +2,20 @@
 import { useEffect, useRef } from "react";
 
 interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
+  // Spherical coords (fixed per particle)
+  theta: number;
+  phi: number;
+  r: number;
+
+  // Portrait target (canvas pixels)
   targetX: number;
   targetY: number;
-  homeX: number;
-  homeY: number;
-  opacity: number;
+
+  // Current rendered position (lerped)
+  x: number;
+  y: number;
+
+  baseOpacity: number;
 }
 
 export default function ParticlePortrait() {
@@ -28,24 +33,27 @@ export default function ParticlePortrait() {
     let rafId: number;
     let particles: Particle[] = [];
 
-    // Match canvas resolution to container
     canvas.width = parent.offsetWidth;
     canvas.height = parent.offsetHeight;
     const W = canvas.width;
     const H = canvas.height;
 
+    const sphereRadius = W * 0.30;
+    const centerX = W / 2;
+    const centerY = H / 2;
+
     const img = new Image();
     img.src = "/images/tommy-portrait.png";
 
     img.onload = () => {
-      // Scale portrait to fit with a little breathing room
+      // Scale portrait to fit canvas
       const scale = Math.min((W * 0.85) / img.width, (H * 0.9) / img.height);
       const dw = img.width * scale;
       const dh = img.height * scale;
       const dx = (W - dw) / 2;
       const dy = (H - dh) / 2;
 
-      // Offscreen canvas — read pixel alpha
+      // Read portrait pixels
       const off = document.createElement("canvas");
       off.width = W;
       off.height = H;
@@ -53,66 +61,76 @@ export default function ParticlePortrait() {
       offCtx.drawImage(img, dx, dy, dw, dh);
       const { data } = offCtx.getImageData(0, 0, W, H);
 
-      // Collect all opaque pixels (alpha > 128)
       const valid: [number, number][] = [];
       for (let y = 0; y < H; y++) {
         for (let x = 0; x < W; x++) {
-          if (data[(y * W + x) * 4 + 3] > 128) {
-            valid.push([x, y]);
-          }
+          if (data[(y * W + x) * 4 + 3] > 128) valid.push([x, y]);
         }
       }
 
-      // Uniformly sample ~3000 portrait target positions
       const N = Math.min(3000, valid.length);
+
       particles = Array.from({ length: N }, (_, i) => {
         const [tx, ty] = valid[Math.floor((i / N) * valid.length)];
-        const hx = Math.random() * W;
-        const hy = Math.random() * H;
+
+        // Spherical coordinates (uniform distribution on sphere surface)
+        const theta = Math.random() * Math.PI * 2;
+        const phi   = Math.acos(2 * Math.random() - 1);
+        const r     = 0.85 + Math.random() * 0.15;
+
+        // Initial canvas position = sphere position at rotAngle 0
+        const sx = r * Math.sin(phi) * Math.cos(theta);
+        const sy = r * Math.cos(phi);
+
         return {
-          x: hx,
-          y: hy,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: (Math.random() - 0.5) * 0.6,
+          theta,
+          phi,
+          r,
           targetX: tx,
           targetY: ty,
-          homeX: hx,
-          homeY: hy,
-          opacity: 0.45 + Math.random() * 0.5,
+          x: centerX + sx * sphereRadius,
+          y: centerY + sy * sphereRadius,
+          baseOpacity: 0.45 + Math.random() * 0.55,
         };
       });
 
+      let rotAngle = 0;
+
       const draw = () => {
         ctx.clearRect(0, 0, W, H);
-        const hovering = isHoveredRef.current;
+
+        // Advance rotation
+        rotAngle += 0.002;
+
+        const hovering   = isHoveredRef.current;
+        const lerpFactor = hovering ? 0.03 : 0.02;
 
         for (const p of particles) {
-          if (hovering) {
-            // Gather — lerp to portrait pixel (~1.2s convergence at 60fps)
-            p.x += (p.targetX - p.x) * 0.04;
-            p.y += (p.targetY - p.y) * 0.04;
-          } else {
-            // Scatter — home drifts with brownian motion, particle lerps toward it (~2s)
-            p.homeX += p.vx;
-            p.homeY += p.vy;
-            p.vx += (Math.random() - 0.5) * 0.04;
-            p.vy += (Math.random() - 0.5) * 0.04;
-            // Speed cap
-            const spd = Math.hypot(p.vx, p.vy);
-            if (spd > 0.65) { p.vx *= 0.94; p.vy *= 0.94; }
-            // Wrap home around edges (no hard bounce)
-            if (p.homeX < 0) p.homeX += W;
-            if (p.homeX > W) p.homeX -= W;
-            if (p.homeY < 0) p.homeY += H;
-            if (p.homeY > H) p.homeY -= H;
-            // Soft lerp toward drifting home (~2s convergence)
-            p.x += (p.homeX - p.x) * 0.025;
-            p.y += (p.homeY - p.y) * 0.025;
-          }
+          // --- Sphere position at current rotation ---
+          // Rotate around vertical (Y) axis by adding rotAngle to theta
+          const sx    = p.r * Math.sin(p.phi) * Math.cos(p.theta + rotAngle);
+          const sy    = p.r * Math.cos(p.phi);
+          const depth = p.r * Math.sin(p.phi) * Math.sin(p.theta + rotAngle); // -r … +r
+
+          const sphereX = centerX + sx * sphereRadius;
+          const sphereY = centerY + sy * sphereRadius;
+
+          // --- Lerp toward target ---
+          const destX = hovering ? p.targetX : sphereX;
+          const destY = hovering ? p.targetY : sphereY;
+
+          p.x += (destX - p.x) * lerpFactor;
+          p.y += (destY - p.y) * lerpFactor;
+
+          // --- Opacity: depth-based on sphere, flat on portrait ---
+          const depthNorm = (depth / p.r + 1) / 2;          // 0 (back) → 1 (front)
+          const opacity   = hovering
+            ? p.baseOpacity
+            : p.baseOpacity * (0.25 + 0.75 * depthNorm);
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(240,240,240,${p.opacity})`;
+          ctx.fillStyle = `rgba(240,240,240,${Math.min(1, opacity).toFixed(2)})`;
           ctx.fill();
         }
 
@@ -122,17 +140,8 @@ export default function ParticlePortrait() {
       draw();
     };
 
-    const onEnter = () => {
-      isHoveredRef.current = true;
-    };
-    const onLeave = () => {
-      isHoveredRef.current = false;
-      // Assign fresh scatter targets — particles drift away from portrait
-      for (const p of particles) {
-        p.homeX = Math.random() * W;
-        p.homeY = Math.random() * H;
-      }
-    };
+    const onEnter = () => { isHoveredRef.current = true; };
+    const onLeave = () => { isHoveredRef.current = false; };
 
     canvas.addEventListener("mouseenter", onEnter);
     canvas.addEventListener("mouseleave", onLeave);
