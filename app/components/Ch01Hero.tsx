@@ -120,7 +120,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         className="cine-hud"
         style={{
           position: "absolute",
-          top: "22px",
+          top: "84px",
           left: "160px",
           right: "160px",
           zIndex: 2,
