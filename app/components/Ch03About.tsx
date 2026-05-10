@@ -1,48 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
-
-const ParticleCloud3D = dynamic(() => import("./ParticleCloud3D"), {
-  ssr: false,
-  loading: () => <ParticleFallback />,
-});
-
-function ParticleFallback() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    const pts = Array.from({ length: 200 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      s: Math.random() * 1.5 + 0.5,
-      a: Math.random() * 0.35 + 0.05,
-    }));
-    let id: number;
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      pts.forEach((p) => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(240,240,240,${p.a})`;
-        ctx.fill();
-      });
-      id = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => cancelAnimationFrame(id);
-  }, []);
-  return <canvas ref={canvasRef} style={{ width: "100%", height: "100%", display: "block" }} />;
-}
+import ParticlePortrait from "./ParticlePortrait";
 
 const qaData: Record<string, string> = {
   "你提供什麼服務？":
@@ -76,14 +34,6 @@ export default function Ch03About() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [answer, setAnswer] = useState<string | null>(null);
   const [activeQ, setActiveQ] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -162,14 +112,14 @@ export default function Ch03About() {
             alignItems: "start",
           }}
         >
-          {/* Left: particle */}
+          {/* Left: particle portrait */}
           <div
             style={{
               height: "420px",
               background: "transparent",
             }}
           >
-            {isMobile ? <ParticleFallback /> : <ParticleCloud3D />}
+            <ParticlePortrait />
           </div>
 
           {/* Right: mock AI Q&A */}
