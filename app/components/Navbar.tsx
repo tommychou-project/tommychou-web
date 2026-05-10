@@ -88,7 +88,7 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 40px 0 160px",
+            padding: "0 160px 0 160px",
             border: "none",
             outline: "none",
             background: "transparent",
@@ -109,7 +109,7 @@ export default function Navbar() {
               zIndex: 1,
             }}
           >
-            Tommy Chou
+            TOMMY CHOU
           </button>
 
           {/* CENTRE: all nav items — absolutely centred */}
