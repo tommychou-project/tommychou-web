@@ -64,7 +64,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 
-      {/* ── Dark gradient overlay ── */}
+      {/* ── Dark gradient overlay (left + bottom) ── */}
       <div
         style={{
           position: "absolute",
@@ -72,8 +72,10 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           left: 0,
           width: "100%",
           height: "100%",
-          background:
-            "linear-gradient(to bottom, rgba(8,12,20,0.5) 0%, rgba(8,12,20,0.3) 50%, rgba(8,12,20,0.7) 100%)",
+          background: [
+            "linear-gradient(to right,  rgba(8,12,20,0.75) 0%, transparent 65%)",
+            "linear-gradient(to top,    rgba(8,12,20,0.85) 0%, transparent 55%)",
+          ].join(", "),
           zIndex: 1,
           pointerEvents: "none",
         }}
@@ -94,23 +96,23 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         {/* Main headline */}
         <h1
           style={{
-            fontSize: "clamp(48px, 9vw, 110px)",
-            fontWeight: 700,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            marginBottom: "24px",
-            color: "#f0f0f0",
+            fontSize: "2.8rem",
+            fontWeight: 600,
+            lineHeight: 1.15,
+            letterSpacing: "-0.02em",
+            marginBottom: "16px",
+            color: "#ffffff",
+            whiteSpace: "nowrap",
           }}
         >
-          你好，我是{" "}
-          <span style={{ color: "#ffffff" }}>Tommy</span>
+          你好，我是 Tommy
         </h1>
 
         {/* Slogan */}
         <p
           style={{
-            fontSize: "clamp(16px, 2.4vw, 22px)",
-            color: "rgba(255,255,255,0.9)",
+            fontSize: "1.1rem",
+            color: "rgba(255,255,255,0.95)",
             lineHeight: 1.65,
             maxWidth: "520px",
             margin: "0 0 40px",
@@ -135,12 +137,12 @@ export default function Ch01Hero({ preloaderDone }: Props) {
               fontSize: "15px",
               fontFamily: "inherit",
               boxShadow: "0 0 6px rgba(255,255,255,0.2)",
-              transition: "all 0.3s ease",
+              transition: "all 0.4s ease",
             }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLButtonElement;
-              el.style.boxShadow = "0 0 10px rgba(255,255,255,0.35), 0 0 24px rgba(255,255,255,0.12)";
-              el.style.borderColor = "rgba(255,255,255,0.7)";
+              el.style.boxShadow = "0 0 12px rgba(232,101,42,0.6), 0 0 28px rgba(232,101,42,0.3)";
+              el.style.borderColor = "rgba(232,101,42,0.8)";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLButtonElement;
@@ -165,12 +167,12 @@ export default function Ch01Hero({ preloaderDone }: Props) {
               fontSize: "15px",
               fontFamily: "inherit",
               boxShadow: "0 0 6px rgba(255,255,255,0.2)",
-              transition: "all 0.3s ease",
+              transition: "all 0.4s ease",
             }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLButtonElement;
-              el.style.boxShadow = "0 0 10px rgba(255,255,255,0.35), 0 0 24px rgba(255,255,255,0.12)";
-              el.style.borderColor = "rgba(255,255,255,0.7)";
+              el.style.boxShadow = "0 0 12px rgba(232,101,42,0.6), 0 0 28px rgba(232,101,42,0.3)";
+              el.style.borderColor = "rgba(232,101,42,0.8)";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLButtonElement;
