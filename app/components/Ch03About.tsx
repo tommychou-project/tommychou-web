@@ -166,10 +166,7 @@ export default function Ch03About() {
           <div
             style={{
               height: "420px",
-              borderRadius: "20px",
-              overflow: "hidden",
-              background: "#0d0d0d",
-              border: "0.5px solid rgba(240,240,240,0.07)",
+              background: "transparent",
             }}
           >
             {isMobile ? <ParticleFallback /> : <ParticleCloud3D />}
