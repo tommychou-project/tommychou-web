@@ -88,7 +88,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           maxWidth: "1100px",
           margin: "0 auto",
           width: "100%",
-          padding: "0 40px 80px 60px",
+          padding: "0 40px 80px 0",
         }}
       >
       <div
