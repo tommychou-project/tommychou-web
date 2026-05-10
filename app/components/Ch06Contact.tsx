@@ -85,7 +85,7 @@ export default function Ch06Contact() {
             marginBottom: "8px",
           }}
         >
-          Chapter 06
+          CHAPTER 05
         </div>
 
         <div

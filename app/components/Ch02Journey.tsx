@@ -87,7 +87,7 @@ export default function Ch02Journey() {
             marginBottom: "8px",
           }}
         >
-          Chapter 02
+          CHAPTER 01
         </div>
         <h2
           style={{

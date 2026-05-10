@@ -8,7 +8,6 @@ export default function Ch01Hero({ preloaderDone }: Props) {
   const videoRef   = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
 
-  // Reveal text after preloader
   useEffect(() => {
     if (!preloaderDone || !contentRef.current) return;
     contentRef.current.style.opacity = "1";
@@ -34,10 +33,10 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "80px 48px 80px",
+        alignItems: "flex-start",
+        justifyContent: "flex-end",
+        textAlign: "left",
+        padding: "0 0 80px 60px",
         position: "relative",
         scrollMarginTop: "80px",
         zIndex: 1,
@@ -51,6 +50,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         muted
         loop
         playsInline
+        poster="/images/tommy-portrait.png"
         style={{
           position: "absolute",
           top: 0,
@@ -79,7 +79,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         }}
       />
 
-      {/* ── Text content ── */}
+      {/* ── Text content — bottom left ── */}
       <div
         ref={contentRef}
         style={{
@@ -88,21 +88,9 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           opacity: 0,
           transform: "translateY(32px)",
           transition: "opacity 1.0s ease-out, transform 1.0s ease-out",
+          maxWidth: "680px",
         }}
       >
-        {/* Chapter label */}
-        <div
-          style={{
-            fontSize: "12px",
-            color: "#E8652A",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            marginBottom: "36px",
-          }}
-        >
-          Chapter 01
-        </div>
-
         {/* Main headline */}
         <h1
           style={{
@@ -110,22 +98,22 @@ export default function Ch01Hero({ preloaderDone }: Props) {
             fontWeight: 700,
             lineHeight: 1.05,
             letterSpacing: "-0.03em",
-            marginBottom: "28px",
+            marginBottom: "24px",
             color: "#f0f0f0",
           }}
         >
           你好，我是{" "}
-          <span style={{ color: "#E8652A" }}>Tommy</span>
+          <span style={{ color: "#ffffff" }}>Tommy</span>
         </h1>
 
         {/* Slogan */}
         <p
           style={{
-            fontSize: "clamp(16px, 2.4vw, 24px)",
-            color: "#aaaaaa",
+            fontSize: "clamp(16px, 2.4vw, 22px)",
+            color: "rgba(255,255,255,0.9)",
             lineHeight: 1.65,
-            maxWidth: "580px",
-            margin: "0 auto 48px",
+            maxWidth: "520px",
+            margin: "0 0 40px",
             fontStyle: "italic",
             letterSpacing: "0.01em",
           }}
@@ -134,7 +122,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         </p>
 
         {/* CTAs */}
-        <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
           <button
             onClick={scrollToNext}
             style={{
@@ -207,7 +195,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           flexDirection: "column",
           alignItems: "center",
           gap: "6px",
-          color: "rgba(240,240,240,0.2)",
+          color: "rgba(240,240,240,0.35)",
           fontSize: "10px",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
@@ -256,11 +244,12 @@ export default function Ch01Hero({ preloaderDone }: Props) {
 
       <style>{`
         @keyframes heroBounce {
-          0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.2; }
-          50%       { transform: translateX(-50%) translateY(6px); opacity: 0.5; }
+          0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.35; }
+          50%       { transform: translateX(-50%) translateY(6px); opacity: 0.6; }
         }
         @media (max-width: 768px) {
-          #hero { padding: 100px 24px 80px !important; }
+          #hero { padding: 0 0 60px 24px !important; }
+          #hero video { display: block; }
         }
       `}</style>
     </section>
