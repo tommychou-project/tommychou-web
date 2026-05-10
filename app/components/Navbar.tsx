@@ -88,7 +88,7 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 40px 0 80px",
+            padding: "0 40px 0 160px",
             border: "none",
             outline: "none",
             background: "transparent",
