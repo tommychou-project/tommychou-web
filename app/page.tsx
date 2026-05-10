@@ -32,10 +32,10 @@ export default function Home() {
         <Ch01Hero preloaderDone={preloaderDone} />
         <div style={{ height: "0.5px", background: "rgba(240,240,240,0.05)", margin: "0 48px" }} />
 
-        <Ch02Journey />
+        <Ch03About />
         <div style={{ height: "0.5px", background: "rgba(240,240,240,0.05)", margin: "0 48px" }} />
 
-        <Ch03About />
+        <Ch02Journey />
         <div style={{ height: "0.5px", background: "rgba(240,240,240,0.05)", margin: "0 48px" }} />
 
         <Ch04Blog />

@@ -76,16 +76,10 @@ export default function Ch06Contact() {
           margin: "0 auto",
         }}
       >
-        <div
-          style={{
-            fontSize: "12px",
-            color: "#E8652A",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            marginBottom: "8px",
-          }}
-        >
-          CHAPTER 05
+        <div style={{ marginBottom: "8px" }}>
+          <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase" }}>
+            SCENE 05 — THE NEXT SCENE
+          </div>
         </div>
 
         <div

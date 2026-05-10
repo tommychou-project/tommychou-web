@@ -97,16 +97,13 @@ export default function Ch05Services() {
           transition: "opacity 0.9s ease-out, transform 0.9s ease-out",
         }}
       >
-        <div
-          style={{
-            fontSize: "12px",
-            color: "#E8652A",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            marginBottom: "8px",
-          }}
-        >
-          CHAPTER 04
+        <div style={{ marginBottom: "8px" }}>
+          <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "3px" }}>
+            SCENE 04 — THE WORK
+          </div>
+          <div style={{ fontSize: "12px", color: "rgba(240,240,240,0.45)", letterSpacing: "0.08em" }}>
+            一起工作
+          </div>
         </div>
         <h2
           style={{

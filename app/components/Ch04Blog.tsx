@@ -67,16 +67,13 @@ export default function Ch04Blog() {
           }}
         >
           <div>
-            <div
-              style={{
-                fontSize: "12px",
-                color: "#E8652A",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                marginBottom: "8px",
-              }}
-            >
-              CHAPTER 03
+            <div style={{ marginBottom: "8px" }}>
+              <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "3px" }}>
+                SCENE 03 — THE MIND
+              </div>
+              <div style={{ fontSize: "12px", color: "rgba(240,240,240,0.45)", letterSpacing: "0.08em" }}>
+                部落格
+              </div>
             </div>
             <h2
               style={{
