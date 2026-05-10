@@ -22,8 +22,7 @@ export default function Preloader({ onDone }: Props) {
     resize();
     window.addEventListener("resize", resize);
 
-    // ripple particles
-    const ripples: { x: number; y: number; r: number; maxR: number; alpha: number }[] = [];
+    // Floating particles only (no ripples)
     const particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number }[] =
       Array.from({ length: 60 }, () => ({
         x: Math.random() * window.innerWidth,
@@ -34,40 +33,14 @@ export default function Preloader({ onDone }: Props) {
         alpha: Math.random() * 0.25 + 0.05,
       }));
 
-    let frame = 0;
     let animId: number;
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // spawn ripple every 60 frames
-      if (frame % 60 === 0) {
-        ripples.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: 0,
-          maxR: Math.random() * 120 + 60,
-          alpha: 0.18,
-        });
-      }
-
-      // draw ripples
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const rp = ripples[i];
-        rp.r += 0.8;
-        rp.alpha -= 0.002;
-        if (rp.alpha <= 0 || rp.r > rp.maxR) { ripples.splice(i, 1); continue; }
-        ctx.beginPath();
-        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255,255,255,${rp.alpha})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      // draw particles
       particles.forEach((p) => {
         p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -75,7 +48,6 @@ export default function Preloader({ onDone }: Props) {
         ctx.fill();
       });
 
-      frame++;
       animId = requestAnimationFrame(animate);
     };
     animate();
@@ -92,19 +64,19 @@ export default function Preloader({ onDone }: Props) {
     const autoTimer = setTimeout(dismiss, 3000);
 
     // Dismiss on any user interaction
-    window.addEventListener("wheel", dismiss, { once: true, passive: true });
+    window.addEventListener("wheel",      dismiss, { once: true, passive: true });
     window.addEventListener("touchstart", dismiss, { once: true, passive: true });
-    window.addEventListener("keydown", dismiss, { once: true });
-    window.addEventListener("click", dismiss, { once: true });
+    window.addEventListener("keydown",    dismiss, { once: true });
+    window.addEventListener("click",      dismiss, { once: true });
 
     return () => {
       cancelAnimationFrame(animId);
       clearTimeout(autoTimer);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("wheel", dismiss);
+      window.removeEventListener("resize",     resize);
+      window.removeEventListener("wheel",      dismiss);
       window.removeEventListener("touchstart", dismiss);
-      window.removeEventListener("keydown", dismiss);
-      window.removeEventListener("click", dismiss);
+      window.removeEventListener("keydown",    dismiss);
+      window.removeEventListener("click",      dismiss);
     };
   }, [onDone]);
 
@@ -116,7 +88,7 @@ export default function Preloader({ onDone }: Props) {
         position: "fixed",
         inset: 0,
         zIndex: 1000,
-        background: "#080808",
+        background: "#080C14",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -144,32 +116,8 @@ export default function Preloader({ onDone }: Props) {
           padding: "0 24px",
         }}
       >
-        Every great story begins with a single moment.
+        Become what you&apos;re meant to be.
       </p>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "40px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "8px",
-          color: "rgba(255,255,255,0.35)",
-          fontSize: "11px",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          animation: "scrollBounce 1.6s ease-in-out infinite",
-        }}
-      >
-        <span>TAP OR SCROLL</span>
-        <span style={{ fontSize: "16px" }}>↓</span>
-      </div>
-      <style>{`
-        @keyframes scrollBounce {
-          0%, 100% { transform: translateY(0); opacity: 0.35; }
-          50% { transform: translateY(6px); opacity: 0.6; }
-        }
-      `}</style>
     </div>
   );
 }

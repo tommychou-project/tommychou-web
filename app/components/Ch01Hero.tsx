@@ -185,30 +185,6 @@ export default function Ch01Hero({ preloaderDone }: Props) {
         </div>
       </div>
 
-      {/* ── Scroll indicator ── */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "36px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "6px",
-          color: "rgba(240,240,240,0.35)",
-          fontSize: "10px",
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          animation: "heroBounce 2s ease-in-out infinite",
-          pointerEvents: "none",
-        }}
-      >
-        <span>scroll</span>
-        <span style={{ fontSize: "14px" }}>↓</span>
-      </div>
-
       {/* ── Mute toggle ── */}
       <button
         onClick={toggleMute}
@@ -245,13 +221,8 @@ export default function Ch01Hero({ preloaderDone }: Props) {
       </button>
 
       <style>{`
-        @keyframes heroBounce {
-          0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.35; }
-          50%       { transform: translateX(-50%) translateY(6px); opacity: 0.6; }
-        }
         @media (max-width: 768px) {
           #hero { padding: 0 0 60px 24px !important; }
-          #hero video { display: block; }
         }
       `}</style>
     </section>

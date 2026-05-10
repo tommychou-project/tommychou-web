@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useState } from "react";
 import Preloader from "@/app/components/Preloader";
 import Navbar from "@/app/components/Navbar";
 import Ch01Hero from "@/app/components/Ch01Hero";
@@ -12,30 +12,6 @@ import Footer from "@/app/components/Footer";
 
 export default function Home() {
   const [preloaderDone, setPreloaderDone] = useState(false);
-  const rippleRef = useRef<HTMLDivElement>(null);
-
-  // Subtle mouse-follow ripple glow
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const el = rippleRef.current;
-    if (!el) return;
-    el.style.left = `${e.clientX}px`;
-    el.style.top = `${e.clientY}px`;
-    el.style.opacity = "1";
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    const el = rippleRef.current;
-    if (el) el.style.opacity = "0";
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.body.addEventListener("mouseleave", handleMouseLeave);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.body.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [handleMouseMove, handleMouseLeave]);
 
   return (
     <>
@@ -51,27 +27,8 @@ export default function Home() {
           position: "relative",
         }}
       >
-        {/* Mouse ripple glow */}
-        <div
-          ref={rippleRef}
-          style={{
-            position: "fixed",
-            pointerEvents: "none",
-            zIndex: 0,
-            width: "520px",
-            height: "520px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(232,101,42,0.032) 0%, transparent 70%)",
-            transform: "translate(-50%, -50%)",
-            opacity: 0,
-            transition: "opacity 0.4s ease",
-          }}
-        />
-
         <Navbar />
 
-        {/* Divider lines */}
         <Ch01Hero preloaderDone={preloaderDone} />
         <div style={{ height: "0.5px", background: "rgba(240,240,240,0.05)", margin: "0 48px" }} />
 
