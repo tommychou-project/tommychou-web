@@ -1,14 +1,20 @@
 "use client";
 import { useEffect, useRef } from "react";
 
+// Mode: "sphere" | "portrait" | "emoji"
+type Mode = "sphere" | "portrait" | "emoji";
+
 interface Particle {
   theta: number;
   phi: number;
   r: number;
-  size: number;        // varied radius for sparkle effect
+  size: number;
 
-  targetX: number;
-  targetY: number;
+  portraitX: number;   // target when showing portrait
+  portraitY: number;
+
+  emojiX: number;      // target when showing emoji
+  emojiY: number;
 
   x: number;
   y: number;
@@ -16,9 +22,67 @@ interface Particle {
   baseOpacity: number;
 }
 
+/** Generate [x,y] points that form a simple smiley face */
+function buildEmojiTargets(W: number, H: number, N: number): [number, number][] {
+  const cx = W / 2;
+  const cy = H / 2;
+  const faceR  = Math.min(W, H) * 0.28;   // face circle radius
+  const eyeR   = faceR * 0.10;
+  const mouthR = faceR * 0.50;
+
+  const pts: [number, number][] = [];
+
+  // ── Face outline (circumference) ──
+  const faceCount = Math.round(N * 0.40);
+  for (let i = 0; i < faceCount; i++) {
+    const a = (i / faceCount) * Math.PI * 2;
+    // slight jitter so the outline feels particle-y
+    const jitter = (Math.random() - 0.5) * faceR * 0.08;
+    pts.push([
+      cx + (faceR + jitter) * Math.cos(a),
+      cy + (faceR + jitter) * Math.sin(a),
+    ]);
+  }
+
+  // ── Left eye ──
+  const eyeOffX = faceR * 0.38;
+  const eyeOffY = faceR * 0.25;
+  const eyeCount = Math.round(N * 0.12);
+  for (let i = 0; i < eyeCount; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const rr = Math.random() * eyeR;
+    pts.push([cx - eyeOffX + rr * Math.cos(a), cy - eyeOffY + rr * Math.sin(a)]);
+  }
+
+  // ── Right eye ──
+  for (let i = 0; i < eyeCount; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const rr = Math.random() * eyeR;
+    pts.push([cx + eyeOffX + rr * Math.cos(a), cy - eyeOffY + rr * Math.sin(a)]);
+  }
+
+  // ── Mouth arc (smile: roughly 210°→330° going anticlockwise via bottom) ──
+  const mouthCount = N - pts.length;
+  const mouthStartA = (210 / 180) * Math.PI;
+  const mouthEndA   = (330 / 180) * Math.PI;
+  const mouthSpan   = mouthEndA - mouthStartA;           // positive = going right
+  const mouthOffY   = faceR * 0.22;                      // shift mouth downward
+  for (let i = 0; i < mouthCount; i++) {
+    const t = i / mouthCount;
+    const a = mouthStartA + t * mouthSpan;
+    const jitter = (Math.random() - 0.5) * mouthR * 0.08;
+    pts.push([
+      cx + (mouthR + jitter) * Math.cos(a),
+      cy + mouthOffY + (mouthR + jitter) * Math.sin(a),
+    ]);
+  }
+
+  return pts;
+}
+
 export default function ParticlePortrait() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const isHoveredRef = useRef(false);
+  const modeRef   = useRef<Mode>("sphere");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -66,30 +130,31 @@ export default function ParticlePortrait() {
 
       const N = Math.min(5500, valid.length);
 
-      particles = Array.from({ length: N }, (_, i) => {
-        const [tx, ty] = valid[Math.floor((i / N) * valid.length)];
+      // Pre-build emoji target positions (same count as particles)
+      const emojiPts = buildEmojiTargets(W, H, N);
 
-        // phi sampled uniformly from [0, PI] → pole-concentrated distribution
-        // (more particles near top/bottom poles, like the reference image)
+      particles = Array.from({ length: N }, (_, i) => {
+        const [px, py] = valid[Math.floor((i / N) * valid.length)];
+        const [ex, ey] = emojiPts[i % emojiPts.length];
+
         const theta = Math.random() * Math.PI * 2;
         const phi   = Math.random() * Math.PI;
-        const r     = 0.88 + Math.random() * 0.12;   // thin shell near surface
+        const r     = 0.88 + Math.random() * 0.12;
 
-        // Varied particle size: mostly small with occasional bright sparks
         const rand = Math.random();
         const size = rand < 0.7
-          ? 0.7 + Math.random() * 0.8     // 70% small  : 0.7–1.5
+          ? 0.7 + Math.random() * 0.8
           : rand < 0.93
-          ? 1.5 + Math.random() * 1.0     // 23% medium : 1.5–2.5
-          : 2.5 + Math.random() * 1.2;    //  7% large  : 2.5–3.7 (bright sparks)
+          ? 1.5 + Math.random() * 1.0
+          : 2.5 + Math.random() * 1.2;
 
         const sx = r * Math.sin(phi) * Math.cos(theta);
         const sy = r * Math.cos(phi);
 
         return {
           theta, phi, r, size,
-          targetX: tx,
-          targetY: ty,
+          portraitX: px, portraitY: py,
+          emojiX: ex,    emojiY: ey,
           x: centerX + sx * sphereRadius,
           y: centerY + sy * sphereRadius,
           baseOpacity: 0.4 + Math.random() * 0.6,
@@ -102,10 +167,16 @@ export default function ParticlePortrait() {
         ctx.clearRect(0, 0, W, H);
         rotAngle += 0.002;
 
-        const hovering   = isHoveredRef.current;
-        const lerpFactor = hovering ? 0.03 : 0.02;
+        const mode = modeRef.current;
+
+        // Lerp speed per mode
+        const lerpFactor =
+          mode === "sphere"  ? 0.02 :
+          mode === "portrait"? 0.03 :
+          /* emoji */          0.035;
 
         for (const p of particles) {
+          // Sphere target (keeps rotating even while lerping away)
           const sx    = p.r * Math.sin(p.phi) * Math.cos(p.theta + rotAngle);
           const sy    = p.r * Math.cos(p.phi);
           const depth = p.r * Math.sin(p.phi) * Math.sin(p.theta + rotAngle);
@@ -113,20 +184,27 @@ export default function ParticlePortrait() {
           const sphereX = centerX + sx * sphereRadius;
           const sphereY = centerY + sy * sphereRadius;
 
-          const destX = hovering ? p.targetX : sphereX;
-          const destY = hovering ? p.targetY : sphereY;
+          const destX =
+            mode === "portrait" ? p.portraitX :
+            mode === "emoji"    ? p.emojiX    :
+            sphereX;
+          const destY =
+            mode === "portrait" ? p.portraitY :
+            mode === "emoji"    ? p.emojiY    :
+            sphereY;
 
           p.x += (destX - p.x) * lerpFactor;
           p.y += (destY - p.y) * lerpFactor;
 
-          // Depth shading: front bright, back dim but still visible
-          const depthNorm = (depth / p.r + 1) / 2;   // 0 (back) → 1 (front)
-          const opacity   = hovering
-            ? p.baseOpacity
-            : p.baseOpacity * (0.12 + 0.88 * depthNorm);
+          const depthNorm = (depth / p.r + 1) / 2;
+          const opacity   = mode === "sphere"
+            ? p.baseOpacity * (0.12 + 0.88 * depthNorm)
+            : p.baseOpacity;
+
+          const drawSize = mode === "sphere" ? p.size : 1.5;
 
           ctx.beginPath();
-          ctx.arc(p.x, p.y, hovering ? 1.5 : p.size, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, drawSize, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(240,240,240,${Math.min(1, opacity).toFixed(2)})`;
           ctx.fill();
         }
@@ -137,16 +215,43 @@ export default function ParticlePortrait() {
       draw();
     };
 
-    const onEnter = () => { isHoveredRef.current = true; };
-    const onLeave = () => { isHoveredRef.current = false; };
+    // ── Mouse direction detection ──
+    let lastX: number | null = null;
 
-    canvas.addEventListener("mouseenter", onEnter);
-    canvas.addEventListener("mouseleave", onLeave);
+    const onMouseEnter = () => {
+      // When entering, default to portrait mode
+      if (modeRef.current === "sphere") modeRef.current = "portrait";
+    };
+    const onMouseLeave = () => {
+      modeRef.current = "sphere";
+      lastX = null;
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const curX = e.clientX - rect.left;
+
+      if (lastX !== null) {
+        const delta = curX - lastX;
+        if (delta > 5) {
+          // Moving right → emoji
+          modeRef.current = "emoji";
+        } else if (delta < -5) {
+          // Moving left → portrait
+          modeRef.current = "portrait";
+        }
+      }
+      lastX = curX;
+    };
+
+    canvas.addEventListener("mouseenter", onMouseEnter);
+    canvas.addEventListener("mouseleave", onMouseLeave);
+    canvas.addEventListener("mousemove",  onMouseMove);
 
     return () => {
       cancelAnimationFrame(rafId);
-      canvas.removeEventListener("mouseenter", onEnter);
-      canvas.removeEventListener("mouseleave", onLeave);
+      canvas.removeEventListener("mouseenter", onMouseEnter);
+      canvas.removeEventListener("mouseleave", onMouseLeave);
+      canvas.removeEventListener("mousemove",  onMouseMove);
     };
   }, []);
 
