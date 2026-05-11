@@ -9,6 +9,7 @@ import Ch04Blog from "@/app/components/Ch04Blog";
 import Ch05Services from "@/app/components/Ch05Services";
 import Ch06Contact from "@/app/components/Ch06Contact";
 import Footer from "@/app/components/Footer";
+import IdleOverlay from "@/app/components/IdleOverlay";
 
 export default function Home() {
   const [preloaderDone, setPreloaderDone] = useState(false);
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Preloader onDone={() => setPreloaderDone(true)} />
+      <IdleOverlay />
 
       <div
         style={{
