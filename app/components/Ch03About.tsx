@@ -24,15 +24,15 @@ const qaData: { q: string; a: string }[] = [
 const bottomCards = [
   {
     title: "What I Do",
-    items: ["品牌影音策略", "內容自動化系統", "跨文化橋接", "AI 工作流程設計"],
+    items: ["影視製作", "AI 廣告製作", "品牌影音策略", "AI 內容自動化系統"],
   },
   {
     title: "How I Work",
-    items: ["深度傾聽優先", "故事驅動策略", "快速原型迭代", "長期夥伴關係"],
+    items: ["深度傾聽需求與理想", "快速迭代，一起做好事", "目標導向解決問題、不被特定工具限制", "長期夥伴關係"],
   },
   {
     title: "What I Care About",
-    items: ["真實的人的故事", "跨越邊界的連結", "技術服務人性", "可持續的創作"],
+    items: ["你有沒有達到你的目標", "你有沒有賺到目標的錢", "大家有沒有玩得開心"],
   },
 ];
 
@@ -259,7 +259,7 @@ export default function Ch03About() {
                       display: "flex",
                       alignItems: "center",
                       gap: "10px",
-                      color: "rgba(240,240,240,0.55)",
+                      color: "#f0f0f0",
                       fontSize: "13.5px",
                       lineHeight: 1.5,
                     }}
