@@ -9,11 +9,13 @@ interface Particle {
   phi: number;
   r: number;
   size: number;
+  tier: 0 | 1 | 2;    // 0=small/dark, 1=medium/main, 2=large/bright+glow
+  color: string;       // pre-computed rgba string base (without alpha)
 
-  portraitX: number;   // target when showing portrait
+  portraitX: number;
   portraitY: number;
 
-  emojiX: number;      // target when showing emoji
+  emojiX: number;
   emojiY: number;
 
   x: number;
@@ -129,10 +131,15 @@ export default function ParticlePortrait() {
         }
       }
 
-      const N = Math.min(5500, valid.length);
+      const N = Math.min(6500, valid.length);
 
       // Pre-build emoji target positions (same count as particles)
       const emojiPts = buildEmojiTargets(W, H, N);
+
+      // Orange-gold palette
+      const DARK   = "160,58,16";    // #A03A10
+      const MAIN   = "232,101,42";   // #E8652A
+      const BRIGHT = "245,166,35";   // #F5A623
 
       particles = Array.from({ length: N }, (_, i) => {
         const [px, py] = valid[Math.floor((i / N) * valid.length)];
@@ -142,23 +149,36 @@ export default function ParticlePortrait() {
         const phi   = Math.random() * Math.PI;
         const r     = 0.88 + Math.random() * 0.12;
 
+        // Tier-based size + color
         const rand = Math.random();
-        const size = rand < 0.7
-          ? 0.7 + Math.random() * 0.8
-          : rand < 0.93
-          ? 1.5 + Math.random() * 1.0
-          : 2.5 + Math.random() * 1.2;
+        let tier: 0 | 1 | 2;
+        let size: number;
+        let color: string;
+
+        if (rand < 0.70) {
+          tier  = 0;
+          size  = 0.3 + Math.random() * 0.7;   // 0.3–1.0 px
+          color = DARK;
+        } else if (rand < 0.90) {
+          tier  = 1;
+          size  = 1.0 + Math.random() * 1.5;   // 1.0–2.5 px
+          color = MAIN;
+        } else {
+          tier  = 2;
+          size  = 3.0 + Math.random() * 2.0;   // 3.0–5.0 px  (bright sparks)
+          color = BRIGHT;
+        }
 
         const sx = r * Math.sin(phi) * Math.cos(theta);
         const sy = r * Math.cos(phi);
 
         return {
-          theta, phi, r, size,
+          theta, phi, r, size, tier, color,
           portraitX: px, portraitY: py,
           emojiX: ex,    emojiY: ey,
           x: centerX + sx * sphereRadius,
           y: centerY + sy * sphereRadius,
-          baseOpacity: 0.4 + Math.random() * 0.6,
+          baseOpacity: 0.45 + Math.random() * 0.55,
         };
       });
 
@@ -202,13 +222,27 @@ export default function ParticlePortrait() {
             ? p.baseOpacity * (0.12 + 0.88 * depthNorm)
             : p.baseOpacity;
 
-          const drawSize = mode === "sphere" ? p.size : 1.5;
+          // In portrait/emoji mode keep particle size; in sphere use stored size
+          const drawSize = (mode !== "sphere" && p.tier < 2) ? 1.2 : p.size;
+
+          const alpha = Math.min(1, opacity).toFixed(2);
+
+          // Large bright sparks get glow
+          if (p.tier === 2) {
+            ctx.shadowColor = "#F5A623";
+            ctx.shadowBlur  = 8;
+          } else {
+            ctx.shadowBlur = 0;
+          }
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, drawSize, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(240,240,240,${Math.min(1, opacity).toFixed(2)})`;
+          ctx.fillStyle = `rgba(${p.color},${alpha})`;
           ctx.fill();
         }
+
+        // Reset glow so it doesn't bleed into next frame's clear
+        ctx.shadowBlur = 0;
 
         rafId = requestAnimationFrame(draw);
       };
