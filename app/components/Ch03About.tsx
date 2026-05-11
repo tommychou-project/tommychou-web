@@ -2,18 +2,20 @@
 import { useEffect, useRef, useState } from "react";
 import ParticlePortrait from "./ParticlePortrait";
 
-const qaData: Record<string, string> = {
-  "你提供什麼服務？":
-    "我提供四類服務：B2B 品牌影音製作、影音內容自動化獲客系統、個人生命經驗知識資料庫，以及跨境品牌影音策略諮詢。每個專案都從傾聽你的故事開始。",
-  "你的背景是什麼？":
-    "我曾是醫療社工、倫敦電影學院畢業生、B2B 行銷主管，現在是 AI 工具愛好者與跨境品牌顧問。這段非線性的旅程，讓我能從多角度看見品牌的潛力。",
-  "如何跟你合作？":
-    "第一步：填寫下方表單或直接寄信。我通常在 24 小時內回覆，接著安排一次免費探索通話，確認彼此的目標與期望。",
-  "你用什麼工具？":
-    "影片製作：Premiere Pro、DaVinci、CapCut。AI：Claude、ChatGPT、Midjourney、Descript、Notion AI。自動化：Zapier、Make、Airtable。我選工具，不被工具選。",
-};
-
-const presetQuestions = Object.keys(qaData);
+const qaData: { q: string; a: string }[] = [
+  {
+    q: "你提供什麼服務？",
+    a: "我提供四類服務：B2B 品牌影音製作、影音內容自動化獲客系統、品牌影音策略與製作諮詢，以及個人生命經驗知識資料庫。每個專案都從傾聽你的需求與故事開始。",
+  },
+  {
+    q: "你的背景是什麼？",
+    a: "現為 B2B 農業加工領域的數位行銷，負責 SEO、品牌曝光、系統自動化與展會規劃。曾為廣告產業影音製作顧問，專精於中小型企業產品影片、教學以及餐飲料理影片製作。",
+  },
+  {
+    q: "如何跟你合作？",
+    a: "第一步：填寫下方表單或直接寄信。我通常在 24 小時內回覆，接著安排一次免費線上通話，確認彼此的目標與期望，我就會開始準備提案，陪伴你完成心中的目標與期望。",
+  },
+];
 
 const bottomCards = [
   {
@@ -32,8 +34,8 @@ const bottomCards = [
 
 export default function Ch03About() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [answer, setAnswer] = useState<string | null>(null);
-  const [activeQ, setActiveQ] = useState<string | null>(null);
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+  const [visibleAnswer, setVisibleAnswer] = useState<string | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -52,10 +54,16 @@ export default function Ch03About() {
     return () => obs.disconnect();
   }, []);
 
-  const handleQ = (q: string) => {
-    setActiveQ(q);
-    setAnswer(null);
-    setTimeout(() => setAnswer(qaData[q]), 350);
+  const handleQ = (idx: number) => {
+    if (activeIdx === idx) {
+      // toggle off
+      setActiveIdx(null);
+      setVisibleAnswer(null);
+      return;
+    }
+    setActiveIdx(idx);
+    setVisibleAnswer(null);
+    setTimeout(() => setVisibleAnswer(qaData[idx].a), 280);
   };
 
   return (
@@ -78,14 +86,13 @@ export default function Ch03About() {
           transition: "opacity 0.9s ease-out, transform 0.9s ease-out",
         }}
       >
+        {/* Scene label — English only, no Chinese subtitle */}
         <div style={{ marginBottom: "8px" }}>
-          <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "3px" }}>
+          <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase" }}>
             SCENE 01 — THE PERSON
           </div>
-          <div style={{ fontSize: "12px", color: "rgba(240,240,240,0.45)", letterSpacing: "0.08em" }}>
-            我是Tommy
-          </div>
         </div>
+
         <h2
           style={{
             fontSize: "clamp(28px, 4.5vw, 52px)",
@@ -98,7 +105,7 @@ export default function Ch03About() {
           About Me
         </h2>
 
-        {/* Two-column: 3D cloud + AI QA */}
+        {/* Two-column: particle portrait + Ask Tommy */}
         <div
           className="ch03-grid"
           style={{
@@ -110,31 +117,28 @@ export default function Ch03About() {
           }}
         >
           {/* Left: particle portrait */}
-          <div
-            style={{
-              height: "420px",
-              background: "transparent",
-            }}
-          >
+          <div style={{ height: "420px", background: "transparent" }}>
             <ParticlePortrait />
           </div>
 
-          {/* Right: mock AI Q&A */}
+          {/* Right: Ask Tommy — questions on top, answer below */}
           <div
             style={{
               background: "#0D1220",
               border: "0.5px solid rgba(240,240,240,0.09)",
               borderRadius: "20px",
               padding: "28px 24px",
-              height: "420px",
+              minHeight: "420px",
               display: "flex",
               flexDirection: "column",
+              gap: "0",
             }}
           >
+            {/* Header */}
             <div
               style={{
                 fontSize: "11px",
-                color: "rgba(240,240,240,0.28)",
+                color: "#f0f0f0",
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 marginBottom: "20px",
@@ -143,15 +147,34 @@ export default function Ch03About() {
               Ask Tommy
             </div>
 
-            {/* Answer area */}
-            <div
-              style={{
-                flex: 1,
-                marginBottom: "20px",
-                overflowY: "auto",
-              }}
-            >
-              {answer ? (
+            {/* Question buttons — top */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "20px" }}>
+              {qaData.map((item, idx) => (
+                <button
+                  key={item.q}
+                  onClick={() => handleQ(idx)}
+                  style={{
+                    background: activeIdx === idx ? "rgba(232,101,42,0.1)" : "rgba(240,240,240,0.04)",
+                    border: activeIdx === idx
+                      ? "0.5px solid rgba(232,101,42,0.35)"
+                      : "0.5px solid rgba(240,240,240,0.09)",
+                    borderRadius: "8px",
+                    padding: "10px 14px",
+                    color: activeIdx === idx ? "#E8652A" : "rgba(240,240,240,0.55)",
+                    fontSize: "12.5px",
+                    fontFamily: "inherit",
+                    textAlign: "left",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {item.q}
+                </button>
+              ))}
+            </div>
+
+            {/* Answer area — bottom */}
+            <div style={{ flex: 1 }}>
+              {visibleAnswer ? (
                 <div
                   style={{
                     background: "rgba(232,101,42,0.06)",
@@ -175,7 +198,7 @@ export default function Ch03About() {
                   >
                     Tommy ·
                   </span>
-                  {answer}
+                  {visibleAnswer}
                 </div>
               ) : (
                 <div
@@ -183,38 +206,12 @@ export default function Ch03About() {
                     color: "rgba(240,240,240,0.2)",
                     fontSize: "13px",
                     fontStyle: "italic",
-                    paddingTop: "12px",
+                    paddingTop: "4px",
                   }}
                 >
-                  點擊下方問題，了解更多關於我…
+                  點擊上方問題，了解更多關於我…
                 </div>
               )}
-            </div>
-
-            {/* Preset questions */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              {presetQuestions.map((q) => (
-                <button
-                  key={q}
-                  onClick={() => handleQ(q)}
-                  style={{
-                    background: activeQ === q ? "rgba(232,101,42,0.1)" : "rgba(240,240,240,0.04)",
-                    border: activeQ === q
-                      ? "0.5px solid rgba(232,101,42,0.35)"
-                      : "0.5px solid rgba(240,240,240,0.09)",
-                    borderRadius: "8px",
-                    padding: "10px 14px",
-                    color: activeQ === q ? "#E8652A" : "rgba(240,240,240,0.55)",
-                    fontSize: "12.5px",
-                    fontFamily: "inherit",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s",
-                  }}
-                >
-                  {q}
-                </button>
-              ))}
             </div>
           </div>
         </div>
@@ -284,12 +281,12 @@ export default function Ch03About() {
       <style>{`
         @keyframes fadeInAnswer {
           from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
+          to   { opacity: 1; transform: translateY(0); }
         }
         @media (max-width: 768px) {
-          .ch03-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .ch03-grid   { grid-template-columns: 1fr !important; gap: 28px !important; }
           .ch03-bottom { grid-template-columns: 1fr !important; }
-          #ch03 { padding: 80px 24px !important; }
+          #about       { padding: 80px 24px !important; }
         }
       `}</style>
     </section>
