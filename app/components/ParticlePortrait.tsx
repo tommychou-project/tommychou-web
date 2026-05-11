@@ -2,16 +2,14 @@
 import { useEffect, useRef } from "react";
 
 interface Particle {
-  // Spherical coords (fixed per particle)
   theta: number;
   phi: number;
   r: number;
+  size: number;        // varied radius for sparkle effect
 
-  // Portrait target (canvas pixels)
   targetX: number;
   targetY: number;
 
-  // Current rendered position (lerped)
   x: number;
   y: number;
 
@@ -33,12 +31,12 @@ export default function ParticlePortrait() {
     let rafId: number;
     let particles: Particle[] = [];
 
-    canvas.width = parent.offsetWidth;
+    canvas.width  = parent.offsetWidth;
     canvas.height = parent.offsetHeight;
     const W = canvas.width;
     const H = canvas.height;
 
-    const sphereRadius = W * 0.30;
+    const sphereRadius = W * 0.33;
     const centerX = W / 2;
     const centerY = H / 2;
 
@@ -46,16 +44,14 @@ export default function ParticlePortrait() {
     img.src = "/images/tommy-portrait.png";
 
     img.onload = () => {
-      // Scale portrait to fit canvas
       const scale = Math.min((W * 0.85) / img.width, (H * 0.9) / img.height);
-      const dw = img.width * scale;
+      const dw = img.width  * scale;
       const dh = img.height * scale;
       const dx = (W - dw) / 2;
       const dy = (H - dh) / 2;
 
-      // Read portrait pixels
       const off = document.createElement("canvas");
-      off.width = W;
+      off.width  = W;
       off.height = H;
       const offCtx = off.getContext("2d")!;
       offCtx.drawImage(img, dx, dy, dw, dh);
@@ -68,29 +64,35 @@ export default function ParticlePortrait() {
         }
       }
 
-      const N = Math.min(3000, valid.length);
+      const N = Math.min(5500, valid.length);
 
       particles = Array.from({ length: N }, (_, i) => {
         const [tx, ty] = valid[Math.floor((i / N) * valid.length)];
 
-        // Spherical coordinates (uniform distribution on sphere surface)
+        // phi sampled uniformly from [0, PI] → pole-concentrated distribution
+        // (more particles near top/bottom poles, like the reference image)
         const theta = Math.random() * Math.PI * 2;
-        const phi   = Math.acos(2 * Math.random() - 1);
-        const r     = 0.85 + Math.random() * 0.15;
+        const phi   = Math.random() * Math.PI;
+        const r     = 0.88 + Math.random() * 0.12;   // thin shell near surface
 
-        // Initial canvas position = sphere position at rotAngle 0
+        // Varied particle size: mostly small with occasional bright sparks
+        const rand = Math.random();
+        const size = rand < 0.7
+          ? 0.7 + Math.random() * 0.8     // 70% small  : 0.7–1.5
+          : rand < 0.93
+          ? 1.5 + Math.random() * 1.0     // 23% medium : 1.5–2.5
+          : 2.5 + Math.random() * 1.2;    //  7% large  : 2.5–3.7 (bright sparks)
+
         const sx = r * Math.sin(phi) * Math.cos(theta);
         const sy = r * Math.cos(phi);
 
         return {
-          theta,
-          phi,
-          r,
+          theta, phi, r, size,
           targetX: tx,
           targetY: ty,
           x: centerX + sx * sphereRadius,
           y: centerY + sy * sphereRadius,
-          baseOpacity: 0.45 + Math.random() * 0.55,
+          baseOpacity: 0.4 + Math.random() * 0.6,
         };
       });
 
@@ -98,38 +100,33 @@ export default function ParticlePortrait() {
 
       const draw = () => {
         ctx.clearRect(0, 0, W, H);
-
-        // Advance rotation
         rotAngle += 0.002;
 
         const hovering   = isHoveredRef.current;
         const lerpFactor = hovering ? 0.03 : 0.02;
 
         for (const p of particles) {
-          // --- Sphere position at current rotation ---
-          // Rotate around vertical (Y) axis by adding rotAngle to theta
           const sx    = p.r * Math.sin(p.phi) * Math.cos(p.theta + rotAngle);
           const sy    = p.r * Math.cos(p.phi);
-          const depth = p.r * Math.sin(p.phi) * Math.sin(p.theta + rotAngle); // -r … +r
+          const depth = p.r * Math.sin(p.phi) * Math.sin(p.theta + rotAngle);
 
           const sphereX = centerX + sx * sphereRadius;
           const sphereY = centerY + sy * sphereRadius;
 
-          // --- Lerp toward target ---
           const destX = hovering ? p.targetX : sphereX;
           const destY = hovering ? p.targetY : sphereY;
 
           p.x += (destX - p.x) * lerpFactor;
           p.y += (destY - p.y) * lerpFactor;
 
-          // --- Opacity: depth-based on sphere, flat on portrait ---
-          const depthNorm = (depth / p.r + 1) / 2;          // 0 (back) → 1 (front)
+          // Depth shading: front bright, back dim but still visible
+          const depthNorm = (depth / p.r + 1) / 2;   // 0 (back) → 1 (front)
           const opacity   = hovering
             ? p.baseOpacity
-            : p.baseOpacity * (0.25 + 0.75 * depthNorm);
+            : p.baseOpacity * (0.12 + 0.88 * depthNorm);
 
           ctx.beginPath();
-          ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, hovering ? 1.5 : p.size, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(240,240,240,${Math.min(1, opacity).toFixed(2)})`;
           ctx.fill();
         }
