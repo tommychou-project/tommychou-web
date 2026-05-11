@@ -26,51 +26,52 @@ interface Particle {
 function buildEmojiTargets(W: number, H: number, N: number): [number, number][] {
   const cx = W / 2;
   const cy = H / 2;
-  const faceR  = Math.min(W, H) * 0.28;   // face circle radius
-  const eyeR   = faceR * 0.10;
-  const mouthR = faceR * 0.50;
+  const faceR  = Math.min(W, H) * 0.28;
 
   const pts: [number, number][] = [];
 
-  // ── Face outline (circumference) ──
-  const faceCount = Math.round(N * 0.40);
+  // ── Face outline ──
+  const faceCount = Math.round(N * 0.42);
   for (let i = 0; i < faceCount; i++) {
     const a = (i / faceCount) * Math.PI * 2;
-    // slight jitter so the outline feels particle-y
-    const jitter = (Math.random() - 0.5) * faceR * 0.08;
+    const jitter = (Math.random() - 0.5) * faceR * 0.07;
     pts.push([
       cx + (faceR + jitter) * Math.cos(a),
       cy + (faceR + jitter) * Math.sin(a),
     ]);
   }
 
-  // ── Left eye ──
-  const eyeOffX = faceR * 0.38;
-  const eyeOffY = faceR * 0.25;
+  // ── Eyes — upper third of face ──
+  const eyeOffX = faceR * 0.35;
+  const eyeOffY = faceR * 0.32;   // well above center
+  const eyeR    = faceR * 0.09;
   const eyeCount = Math.round(N * 0.12);
-  for (let i = 0; i < eyeCount; i++) {
+
+  for (let i = 0; i < eyeCount; i++) {       // left eye
     const a = Math.random() * Math.PI * 2;
     const rr = Math.random() * eyeR;
     pts.push([cx - eyeOffX + rr * Math.cos(a), cy - eyeOffY + rr * Math.sin(a)]);
   }
-
-  // ── Right eye ──
-  for (let i = 0; i < eyeCount; i++) {
+  for (let i = 0; i < eyeCount; i++) {       // right eye
     const a = Math.random() * Math.PI * 2;
     const rr = Math.random() * eyeR;
     pts.push([cx + eyeOffX + rr * Math.cos(a), cy - eyeOffY + rr * Math.sin(a)]);
   }
 
-  // ── Mouth arc (smile: roughly 210°→330° going anticlockwise via bottom) ──
-  const mouthCount = N - pts.length;
-  const mouthStartA = (210 / 180) * Math.PI;
-  const mouthEndA   = (330 / 180) * Math.PI;
-  const mouthSpan   = mouthEndA - mouthStartA;           // positive = going right
-  const mouthOffY   = faceR * 0.22;                      // shift mouth downward
+  // ── Smile arc — lower third of face ──
+  // In canvas coords y increases downward, so angle 30°→150° through 90°
+  // traces the BOTTOM of a circle = visually curves downward = smile ✓
+  const mouthR    = faceR * 0.38;
+  const mouthOffY = faceR * 0.18;   // shift arc centre downward
+  const mouthStartA = (20  / 180) * Math.PI;   // 20°
+  const mouthEndA   = (160 / 180) * Math.PI;   // 160°
+  const mouthSpan   = mouthEndA - mouthStartA;
+  const mouthCount  = N - pts.length;
+
   for (let i = 0; i < mouthCount; i++) {
     const t = i / mouthCount;
     const a = mouthStartA + t * mouthSpan;
-    const jitter = (Math.random() - 0.5) * mouthR * 0.08;
+    const jitter = (Math.random() - 0.5) * mouthR * 0.07;
     pts.push([
       cx + (mouthR + jitter) * Math.cos(a),
       cy + mouthOffY + (mouthR + jitter) * Math.sin(a),
