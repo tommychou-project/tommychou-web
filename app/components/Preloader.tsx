@@ -3,6 +3,20 @@ import { useEffect, useRef, useState } from "react";
 
 type Props = { onDone: () => void };
 
+interface Star {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;       // 0.3 – 1.2 px
+  depth: number;      // 0 (far) → 1 (near)
+  alpha: number;      // base opacity, depth-modulated
+  twinkleOffset: number;   // phase offset for gentle shimmer
+  twinkleSpeed: number;
+  // subtle color tint: pure white or faint blue-white
+  r: number; g: number; b: number;
+}
+
 export default function Preloader({ onDone }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [opacity, setOpacity] = useState(1);
@@ -16,43 +30,82 @@ export default function Preloader({ onDone }: Props) {
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
+      canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     resize();
     window.addEventListener("resize", resize);
 
-    // Floating particles only (no ripples)
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number }[] =
-      Array.from({ length: 60 }, () => ({
+    const COUNT = Math.floor(200 + Math.random() * 100); // 200–300
+
+    const stars: Star[] = Array.from({ length: COUNT }, () => {
+      const depth = Math.random();                        // 0=far, 1=near
+
+      // Far stars: tiny, dim, near-neutral white
+      // Near stars: slightly larger, brighter, hint of blue-white
+      const size  = 0.3 + depth * 0.9 * Math.random();  // 0.3 – 1.2
+      const alpha = 0.04 + depth * 0.55 + Math.random() * 0.12; // dim far, brighter near
+
+      // Speed proportional to depth (parallax feel), but all very slow
+      const speed = 0.02 + depth * 0.06;
+      const angle = Math.random() * Math.PI * 2;
+
+      // Color: mostly white (255,255,255), occasional faint blue-white
+      const isCool = Math.random() < 0.35;
+      const r = isCool ? 210 + Math.floor(Math.random() * 30) : 245 + Math.floor(Math.random() * 10);
+      const g = isCool ? 220 + Math.floor(Math.random() * 25) : 245 + Math.floor(Math.random() * 10);
+      const b = isCool ? 255                                   : 245 + Math.floor(Math.random() * 10);
+
+      return {
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.25 + 0.05,
-      }));
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size,
+        depth,
+        alpha: Math.min(alpha, 0.72),
+        twinkleOffset: Math.random() * Math.PI * 2,
+        twinkleSpeed: 0.003 + Math.random() * 0.007, // very slow shimmer
+        r, g, b,
+      };
+    });
 
     let animId: number;
+    let frame = 0;
 
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      frame++;
 
-      particles.forEach((p) => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      // Deep-space background — near-black with very faint midnight-blue hint
+      ctx.fillStyle = "#050810";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (const s of stars) {
+        // Drift
+        s.x += s.vx;
+        s.y += s.vy;
+
+        // Wrap at edges (seamless deep-space scroll)
+        if (s.x < -2)               s.x = canvas.width  + 2;
+        if (s.x > canvas.width + 2) s.x = -2;
+        if (s.y < -2)               s.y = canvas.height + 2;
+        if (s.y > canvas.height + 2) s.y = -2;
+
+        // Gentle twinkle: ±15% opacity oscillation
+        const twinkle = 1 + 0.15 * Math.sin(frame * s.twinkleSpeed + s.twinkleOffset);
+        const a = Math.min(s.alpha * twinkle, 1);
+
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${s.r},${s.g},${s.b},${a.toFixed(3)})`;
         ctx.fill();
-      });
+      }
 
       animId = requestAnimationFrame(animate);
     };
     animate();
 
-    // Single dismiss function — safe to call multiple times
+    // Dismiss
     const dismiss = () => {
       if (dismissedRef.current) return;
       dismissedRef.current = true;
@@ -60,10 +113,8 @@ export default function Preloader({ onDone }: Props) {
       setTimeout(() => { setDone(true); onDone(); }, 800);
     };
 
-    // Auto-dismiss after 3 s
     const autoTimer = setTimeout(dismiss, 3000);
 
-    // Dismiss on any user interaction
     window.addEventListener("wheel",      dismiss, { once: true, passive: true });
     window.addEventListener("touchstart", dismiss, { once: true, passive: true });
     window.addEventListener("keydown",    dismiss, { once: true });
@@ -88,7 +139,7 @@ export default function Preloader({ onDone }: Props) {
         position: "fixed",
         inset: 0,
         zIndex: 1000,
-        background: "#080C14",
+        background: "#050810",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
