@@ -157,13 +157,12 @@ export default function Preloader({ onDone }: Props) {
         style={{
           position: "relative",
           color: "rgba(255,255,255,0.85)",
-          fontSize: "clamp(28px, 4.4vw, 40px)",
+          fontSize: "clamp(18px, 4.4vw, 40px)",
           fontStyle: "italic",
           fontFamily: "'Georgia', serif",
           letterSpacing: "0.04em",
           textAlign: "center",
-          maxWidth: "none",
-          whiteSpace: "nowrap",
+          maxWidth: "88vw",
           lineHeight: 1.7,
           padding: "0 24px",
         }}
