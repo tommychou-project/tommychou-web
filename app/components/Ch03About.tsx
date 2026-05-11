@@ -12,6 +12,10 @@ const qaData: { q: string; a: string }[] = [
     a: "現為 B2B 農業加工領域的數位行銷，負責 SEO、品牌曝光、系統自動化與展會規劃。曾為廣告產業影音製作顧問，專精於中小型企業產品影片、教學以及餐飲料理影片製作。",
   },
   {
+    q: "你的工作語言？",
+    a: "中文、英文，會一點法文。",
+  },
+  {
     q: "如何跟你合作？",
     a: "第一步：填寫下方表單或直接寄信。我通常在 24 小時內回覆，接著安排一次免費線上通話，確認彼此的目標與期望，我就會開始準備提案，陪伴你完成心中的目標與期望。",
   },
@@ -102,7 +106,7 @@ export default function Ch03About() {
             marginBottom: "64px",
           }}
         >
-          About Me
+          About Tommy
         </h2>
 
         {/* Two-column: particle portrait + Ask Tommy */}
