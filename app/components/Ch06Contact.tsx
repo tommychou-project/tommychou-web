@@ -103,11 +103,12 @@ export default function Ch06Contact() {
                 marginBottom: "32px",
               }}
             >
-              LET&apos;S BUILD{" "}
-              <span style={{ color: "#E8652A" }}>SOMETHING</span>{" "}
-              MEANINGFUL,{" "}
-              <span style={{ color: "rgba(240,240,240,0.35)" }}>WARM,</span>{" "}
-              AND USEFUL.
+              LET&apos;S BUILD SOMETHING
+              <br />
+              YOU&apos;RE{" "}
+              <span style={{ color: "#E8652A" }}>PROUD</span> OF,
+              <br />
+              TOGETHER.
             </h2>
             <div
               style={{
