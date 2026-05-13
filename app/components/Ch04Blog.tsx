@@ -71,9 +71,6 @@ export default function Ch04Blog() {
               <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "3px" }}>
                 SCENE 03 — THE MIND
               </div>
-              <div style={{ fontSize: "12px", color: "rgba(240,240,240,0.45)", letterSpacing: "0.08em" }}>
-                部落格
-              </div>
             </div>
             <h2
               style={{
@@ -83,7 +80,7 @@ export default function Ch04Blog() {
                 color: "#f0f0f0",
               }}
             >
-              最新文章
+              部落格
             </h2>
           </div>
           <Link
@@ -154,9 +151,9 @@ export default function Ch04Blog() {
                   style={{
                     display: "inline-block",
                     fontSize: "11px",
-                    color: "#cccccc",
-                    background: "rgba(255,255,255,0.1)",
-                    border: "1px solid rgba(255,255,255,0.2)",
+                    color: "#ffffff",
+                    background: "transparent",
+                    border: "1px solid rgba(255,255,255,0.8)",
                     borderRadius: "5px",
                     padding: "3px 10px",
                     marginBottom: "16px",

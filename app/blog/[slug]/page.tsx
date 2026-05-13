@@ -66,9 +66,9 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
           <span
             style={{
-              color: "#cccccc",
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.15)",
+              color: "#ffffff",
+              background: "transparent",
+              border: "1px solid rgba(255,255,255,0.8)",
               fontSize: "11px",
               padding: "4px 10px",
               borderRadius: "5px",
@@ -126,7 +126,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
           }}
         >
           <p style={{ color: "#999999", fontSize: "14px", marginBottom: "20px", lineHeight: 1.7 }}>
-            這篇文章對你有幫助嗎？歡迎聯絡我，聊聊你的品牌成長策略。
+            這篇文章對你有幫助嗎？歡迎聯絡我，想聽聽你的看法。
           </p>
           <Link
             href="/contact"
