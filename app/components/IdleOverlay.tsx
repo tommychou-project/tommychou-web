@@ -38,7 +38,10 @@ export default function IdleOverlay() {
     resize();
     window.addEventListener("resize", resize);
 
-    const COUNT = Math.floor(800 + Math.random() * 200);
+    const isMobile = window.innerWidth < 768;
+    const COUNT = isMobile
+      ? Math.floor(200 + Math.random() * 80)
+      : Math.floor(800 + Math.random() * 200);
     const stars: Star[] = Array.from({ length: COUNT }, () => {
       const depth = Math.random();
       const size =

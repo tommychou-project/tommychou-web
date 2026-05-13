@@ -42,8 +42,11 @@ export default function Preloader({ onDone }: Props) {
     resize();
     window.addEventListener("resize", resize);
 
-    // ── Stars: 800–1000, static positions ──────────────────────────
-    const COUNT = Math.floor(800 + Math.random() * 200);
+    // ── Stars: fewer on mobile ─────────────────────────────────────
+    const isMobile = window.innerWidth < 768;
+    const COUNT = isMobile
+      ? Math.floor(200 + Math.random() * 80)   // mobile: 200–280
+      : Math.floor(800 + Math.random() * 200);  // desktop: 800–1000
 
     const stars: Star[] = Array.from({ length: COUNT }, () => {
       const depth = Math.random();
