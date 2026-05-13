@@ -7,7 +7,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
   const contentRef = useRef<HTMLDivElement>(null);
   const videoRef   = useRef<HTMLVideoElement>(null);
   const tcRef      = useRef<HTMLSpanElement>(null);
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState(true);
 
   // Fade-in on preloader done
   useEffect(() => {
@@ -81,6 +81,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
       <video
         ref={videoRef}
         autoPlay
+        muted
         loop
         playsInline
         poster=""
