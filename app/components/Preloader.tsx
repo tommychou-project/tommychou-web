@@ -59,8 +59,8 @@ export default function Preloader({ onDone }: Props) {
       // Base opacity: dimmer for far, brighter for near
       const baseAlpha = Math.min(0.06 + depth * 0.6 + Math.random() * 0.15, 0.88);
 
-      // ~40% of stars twinkle
-      const twinkle = Math.random() < 0.4;
+      // ~65% of stars twinkle
+      const twinkle = Math.random() < 0.65;
 
       // Color: mostly white, 30% cool blue-white, 5% warm yellow-white
       const rand = Math.random();
@@ -89,8 +89,11 @@ export default function Preloader({ onDone }: Props) {
         baseAlpha,
         twinkle,
         twinkleOffset: Math.random() * Math.PI * 2,
-        twinkleSpeed:  0.002 + Math.random() * 0.012,  // varied speeds
-        twinkleAmp:    0.3   + Math.random() * 0.65,   // 0.3–0.95, more visible flicker
+        // Speed: fast (0.06-0.13/frame = 0.8-1.7s cycle) or medium (0.025-0.06 = 1.7-4s)
+        twinkleSpeed:  Math.random() < 0.5
+          ? 0.06  + Math.random() * 0.07   // fast group
+          : 0.025 + Math.random() * 0.035, // medium group
+        twinkleAmp:    0.55 + Math.random() * 0.44,   // 0.55–0.99: goes very dim to very bright
         r, g, b,
       };
     });

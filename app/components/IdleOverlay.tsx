@@ -49,7 +49,7 @@ export default function IdleOverlay() {
         : depth < 0.9 ? 0.6  + Math.random() * 0.7
         :               1.1  + Math.random() * 0.9;
       const baseAlpha = Math.min(0.06 + depth * 0.6 + Math.random() * 0.15, 0.88);
-      const twinkle   = Math.random() < 0.4;
+      const twinkle   = Math.random() < 0.65;
       const rand = Math.random();
       let r: number, g: number, b: number;
       if (rand < 0.30)      { r = 200 + Math.floor(Math.random()*30); g = 215 + Math.floor(Math.random()*25); b = 255; }
@@ -60,8 +60,10 @@ export default function IdleOverlay() {
         y: Math.random() * window.innerHeight,
         size, baseAlpha, twinkle,
         twinkleOffset: Math.random() * Math.PI * 2,
-        twinkleSpeed:  0.002 + Math.random() * 0.012,
-        twinkleAmp:    0.1   + Math.random() * 0.45,
+        twinkleSpeed:  Math.random() < 0.5
+          ? 0.06  + Math.random() * 0.07
+          : 0.025 + Math.random() * 0.035,
+        twinkleAmp:    0.55 + Math.random() * 0.44,
         r, g, b,
       };
     });
