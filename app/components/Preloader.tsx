@@ -87,7 +87,7 @@ export default function Preloader({ onDone }: Props) {
         twinkle,
         twinkleOffset: Math.random() * Math.PI * 2,
         twinkleSpeed:  0.002 + Math.random() * 0.012,  // varied speeds
-        twinkleAmp:    0.1   + Math.random() * 0.45,   // varied depth
+        twinkleAmp:    0.3   + Math.random() * 0.65,   // 0.3–0.95, more visible flicker
         r, g, b,
       };
     });
@@ -96,16 +96,15 @@ export default function Preloader({ onDone }: Props) {
     const meteors: Meteor[] = [];
 
     const spawnMeteor = () => {
-      // Start from random top or left edge, travel diagonally down-right
-      const fromTop = Math.random() < 0.7;
-      const angle   = (25 + Math.random() * 20) * (Math.PI / 180); // 25°–45°
-      const speed   = 12 + Math.random() * 8;
+      // Travel from bottom-left toward top-right
+      const angle = -(28 + Math.random() * 22) * (Math.PI / 180); // -28° to -50° (upward)
+      const speed = 14 + Math.random() * 8;
       meteors.push({
-        x:      fromTop ? Math.random() * canvas.width * 0.8 : 0,
-        y:      fromTop ? 0 : Math.random() * canvas.height * 0.4,
-        vx:     Math.cos(angle) * speed,
-        vy:     Math.sin(angle) * speed,
-        length: 120 + Math.random() * 180,
+        x:      canvas.width  * (0.0 + Math.random() * 0.35), // left 35%
+        y:      canvas.height * (0.55 + Math.random() * 0.45), // bottom 45%
+        vx:      Math.cos(angle) * speed,  // positive → right
+        vy:      Math.sin(angle) * speed,  // negative → up
+        length: 130 + Math.random() * 180,
         alpha:  0,
         life:   0,
         speed,
@@ -203,8 +202,9 @@ export default function Preloader({ onDone }: Props) {
       setTimeout(() => { setDone(true); onDone(); }, 800);
     };
 
-    const autoTimer = setTimeout(dismiss, 3000);
+    const autoTimer = setTimeout(dismiss, 5000);
 
+    window.addEventListener("mousemove",  dismiss, { once: true, passive: true });
     window.addEventListener("wheel",      dismiss, { once: true, passive: true });
     window.addEventListener("touchstart", dismiss, { once: true, passive: true });
     window.addEventListener("keydown",    dismiss, { once: true });
@@ -216,6 +216,7 @@ export default function Preloader({ onDone }: Props) {
       clearTimeout(meteorTimer1);
       clearTimeout(meteorTimer2);
       window.removeEventListener("resize",     resize);
+      window.removeEventListener("mousemove",  dismiss);
       window.removeEventListener("wheel",      dismiss);
       window.removeEventListener("touchstart", dismiss);
       window.removeEventListener("keydown",    dismiss);
