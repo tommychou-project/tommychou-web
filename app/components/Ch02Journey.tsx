@@ -52,6 +52,7 @@ const timeline = [
 export default function Ch02Journey() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -116,7 +117,7 @@ export default function Ch02Journey() {
             marginBottom: "72px",
           }}
         >
-          我的角色與旅程
+          人生旅程
         </h2>
 
         <div
@@ -145,13 +146,17 @@ export default function Ch02Journey() {
             {timeline.map((item, i) => {
               const isOpen = expandedIdx === i;
               const isLatest = i === 0;
+              const isHovered = hoveredIdx === i;
 
               return (
                 <div
                   key={i}
+                  onMouseEnter={() => setHoveredIdx(i)}
+                  onMouseLeave={() => setHoveredIdx(null)}
                   style={{
                     position: "relative",
                     marginBottom: "32px",
+                    cursor: "default",
                   }}
                 >
                   {/* Timeline dot */}
@@ -189,9 +194,10 @@ export default function Ch02Journey() {
                     style={{
                       fontSize: "15px",
                       fontWeight: 600,
-                      color: isLatest ? "#E8652A" : "#f0f0f0",
+                      color: isHovered || isLatest ? "#E8652A" : "#f0f0f0",
                       marginBottom: "6px",
                       lineHeight: 1.4,
+                      transition: "color 0.2s ease",
                     }}
                   >
                     {item.role}
