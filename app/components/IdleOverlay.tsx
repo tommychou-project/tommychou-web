@@ -9,7 +9,7 @@ interface Star {
   r: number; g: number; b: number;
 }
 
-const IDLE_MS = 10_000; // 10 seconds
+const IDLE_MS = 60_000; // 60 seconds
 
 export default function IdleOverlay() {
   const overlayRef = useRef<HTMLDivElement>(null);
