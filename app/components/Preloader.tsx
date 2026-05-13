@@ -59,8 +59,8 @@ export default function Preloader({ onDone }: Props) {
       // Base opacity: dimmer for far, brighter for near
       const baseAlpha = Math.min(0.06 + depth * 0.6 + Math.random() * 0.15, 0.88);
 
-      // ~65% of stars twinkle
-      const twinkle = Math.random() < 0.65;
+      // only 5 stars twinkle — assigned after array is built
+      const twinkle = false;
 
       // Color: mostly white, 30% cool blue-white, 5% warm yellow-white
       const rand = Math.random();
@@ -97,6 +97,10 @@ export default function Preloader({ onDone }: Props) {
         r, g, b,
       };
     });
+
+    // Pick exactly 5 random stars to twinkle visibly
+    const shuffled = [...stars].sort(() => Math.random() - 0.5);
+    shuffled.slice(0, 5).forEach(s => { s.twinkle = true; });
 
     // ── Meteors ────────────────────────────────────────────────────
     const meteors: Meteor[] = [];

@@ -49,7 +49,7 @@ export default function IdleOverlay() {
         : depth < 0.9 ? 0.6  + Math.random() * 0.7
         :               1.1  + Math.random() * 0.9;
       const baseAlpha = Math.min(0.06 + depth * 0.6 + Math.random() * 0.15, 0.88);
-      const twinkle   = Math.random() < 0.65;
+      const twinkle   = false;
       const rand = Math.random();
       let r: number, g: number, b: number;
       if (rand < 0.30)      { r = 200 + Math.floor(Math.random()*30); g = 215 + Math.floor(Math.random()*25); b = 255; }
@@ -67,6 +67,10 @@ export default function IdleOverlay() {
         r, g, b,
       };
     });
+
+    // Pick exactly 5 random stars to twinkle visibly
+    const shuffled = [...stars].sort(() => Math.random() - 0.5);
+    shuffled.slice(0, 5).forEach(s => { s.twinkle = true; });
 
     const meteors: Meteor[] = [];
     const spawnMeteor = () => {
