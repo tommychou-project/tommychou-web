@@ -103,12 +103,15 @@ export default function Ch06Contact() {
                 marginBottom: "32px",
               }}
             >
-              LET&apos;S BUILD SOMETHING
+              LET&apos;S BUILD
               <br />
-              YOU&apos;RE{" "}
-              <span style={{ color: "#E8652A" }}>PROUD</span> OF,
+              SOMETHING
               <br />
-              TOGETHER.
+              <span style={{ fontSize: "clamp(22px, 3.2vw, 46px)" }}>
+                YOU&apos;RE PROUD OF,
+              </span>
+              <br />
+              <span style={{ color: "#E8652A" }}>TOGETHER.</span>
             </h2>
             <div
               style={{
@@ -118,9 +121,9 @@ export default function Ch06Contact() {
               }}
             >
               {[
-                { icon: "✉", text: "tommy@tommychou.com" },
-                { icon: "📍", text: "Vancouver, Canada（全球遠端）" },
-                { icon: "💼", text: "linkedin.com/in/tommychou" },
+                { icon: "✉", text: "coming soon" },
+                { icon: "📍", text: "Taipei, Shanghai and London（全球遠端）" },
+                { icon: "💼", text: "coming soon" },
               ].map((c) => (
                 <div
                   key={c.text}
