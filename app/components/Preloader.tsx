@@ -4,17 +4,23 @@ import { useEffect, useRef, useState } from "react";
 type Props = { onDone: () => void };
 
 interface Star {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;       // 0.3 – 1.2 px
-  depth: number;      // 0 (far) → 1 (near)
-  alpha: number;      // base opacity, depth-modulated
-  twinkleOffset: number;   // phase offset for gentle shimmer
+  x: number; y: number;
+  size: number;
+  baseAlpha: number;
+  twinkle: boolean;       // whether this star twinkles
+  twinkleOffset: number;
   twinkleSpeed: number;
-  // subtle color tint: pure white or faint blue-white
+  twinkleAmp: number;     // 0.1 – 0.55 — how much it flickers
   r: number; g: number; b: number;
+}
+
+interface Meteor {
+  x: number; y: number;
+  vx: number; vy: number;
+  length: number;
+  alpha: number;
+  life: number;     // 0 → 1 (progress)
+  speed: number;
 }
 
 export default function Preloader({ onDone }: Props) {
@@ -36,64 +42,108 @@ export default function Preloader({ onDone }: Props) {
     resize();
     window.addEventListener("resize", resize);
 
-    const COUNT = Math.floor(200 + Math.random() * 100); // 200–300
+    // ── Stars: 800–1000, static positions ──────────────────────────
+    const COUNT = Math.floor(800 + Math.random() * 200);
 
     const stars: Star[] = Array.from({ length: COUNT }, () => {
-      const depth = Math.random();                        // 0=far, 1=near
+      const depth = Math.random();
+      // Size: mix of tiny pin-points and a few slightly larger stars
+      const size =
+        depth < 0.6  ? 0.25 + Math.random() * 0.5   // 60%: tiny (0.25–0.75)
+        : depth < 0.9 ? 0.6  + Math.random() * 0.7   // 30%: medium (0.6–1.3)
+        :               1.1  + Math.random() * 0.9;   // 10%: bright (1.1–2.0)
 
-      // Far stars: tiny, dim, near-neutral white
-      // Near stars: slightly larger, brighter, hint of blue-white
-      const size  = 0.3 + depth * 0.9 * Math.random();  // 0.3 – 1.2
-      const alpha = 0.04 + depth * 0.55 + Math.random() * 0.12; // dim far, brighter near
+      // Base opacity: dimmer for far, brighter for near
+      const baseAlpha = Math.min(0.06 + depth * 0.6 + Math.random() * 0.15, 0.88);
 
-      // Speed proportional to depth (parallax feel), but all very slow
-      const speed = 0.02 + depth * 0.06;
-      const angle = Math.random() * Math.PI * 2;
+      // ~40% of stars twinkle
+      const twinkle = Math.random() < 0.4;
 
-      // Color: mostly white (255,255,255), occasional faint blue-white
-      const isCool = Math.random() < 0.35;
-      const r = isCool ? 210 + Math.floor(Math.random() * 30) : 245 + Math.floor(Math.random() * 10);
-      const g = isCool ? 220 + Math.floor(Math.random() * 25) : 245 + Math.floor(Math.random() * 10);
-      const b = isCool ? 255                                   : 245 + Math.floor(Math.random() * 10);
+      // Color: mostly white, 30% cool blue-white, 5% warm yellow-white
+      const rand = Math.random();
+      let r: number, g: number, b: number;
+      if (rand < 0.30) {
+        // blue-white
+        r = 200 + Math.floor(Math.random() * 30);
+        g = 215 + Math.floor(Math.random() * 25);
+        b = 255;
+      } else if (rand < 0.35) {
+        // warm yellow-white
+        r = 255;
+        g = 245 + Math.floor(Math.random() * 10);
+        b = 200 + Math.floor(Math.random() * 30);
+      } else {
+        // pure white
+        r = 240 + Math.floor(Math.random() * 15);
+        g = 240 + Math.floor(Math.random() * 15);
+        b = 240 + Math.floor(Math.random() * 15);
+      }
 
       return {
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
         size,
-        depth,
-        alpha: Math.min(alpha, 0.72),
+        baseAlpha,
+        twinkle,
         twinkleOffset: Math.random() * Math.PI * 2,
-        twinkleSpeed: 0.003 + Math.random() * 0.007, // very slow shimmer
+        twinkleSpeed:  0.002 + Math.random() * 0.012,  // varied speeds
+        twinkleAmp:    0.1   + Math.random() * 0.45,   // varied depth
         r, g, b,
       };
     });
 
+    // ── Meteors ────────────────────────────────────────────────────
+    const meteors: Meteor[] = [];
+
+    const spawnMeteor = () => {
+      // Start from random top or left edge, travel diagonally down-right
+      const fromTop = Math.random() < 0.7;
+      const angle   = (25 + Math.random() * 20) * (Math.PI / 180); // 25°–45°
+      const speed   = 12 + Math.random() * 8;
+      meteors.push({
+        x:      fromTop ? Math.random() * canvas.width * 0.8 : 0,
+        y:      fromTop ? 0 : Math.random() * canvas.height * 0.4,
+        vx:     Math.cos(angle) * speed,
+        vy:     Math.sin(angle) * speed,
+        length: 120 + Math.random() * 180,
+        alpha:  0,
+        life:   0,
+        speed,
+      });
+    };
+
+    // Fire first meteor after 1 s
+    const meteorTimer1 = setTimeout(spawnMeteor, 1000);
+    // Second meteor a bit later for variety
+    const meteorTimer2 = setTimeout(spawnMeteor, 1800);
+
+    // ── Animation loop ─────────────────────────────────────────────
     let animId: number;
     let frame = 0;
 
     const animate = () => {
       frame++;
-
-      // Deep-space background — near-black with very faint midnight-blue hint
       ctx.fillStyle = "#050810";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Draw stars (static — no movement)
       for (const s of stars) {
-        // Drift
-        s.x += s.vx;
-        s.y += s.vy;
+        let a = s.baseAlpha;
+        if (s.twinkle) {
+          const flicker = 1 + s.twinkleAmp * Math.sin(frame * s.twinkleSpeed + s.twinkleOffset);
+          a = Math.min(s.baseAlpha * flicker, 1);
+        }
 
-        // Wrap at edges (seamless deep-space scroll)
-        if (s.x < -2)               s.x = canvas.width  + 2;
-        if (s.x > canvas.width + 2) s.x = -2;
-        if (s.y < -2)               s.y = canvas.height + 2;
-        if (s.y > canvas.height + 2) s.y = -2;
-
-        // Gentle twinkle: ±15% opacity oscillation
-        const twinkle = 1 + 0.15 * Math.sin(frame * s.twinkleSpeed + s.twinkleOffset);
-        const a = Math.min(s.alpha * twinkle, 1);
+        // Bright stars: tiny cross-spike glow
+        if (s.size > 1.3) {
+          const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 3);
+          grd.addColorStop(0,   `rgba(${s.r},${s.g},${s.b},${(a * 0.4).toFixed(3)})`);
+          grd.addColorStop(1,   `rgba(${s.r},${s.g},${s.b},0)`);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size * 3, 0, Math.PI * 2);
+          ctx.fillStyle = grd;
+          ctx.fill();
+        }
 
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
@@ -101,11 +151,51 @@ export default function Preloader({ onDone }: Props) {
         ctx.fill();
       }
 
+      // Draw meteors
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.x += m.vx;
+        m.y += m.vy;
+        m.life += 0.018;
+
+        // Fade in quickly, then fade out
+        m.alpha = m.life < 0.15
+          ? m.life / 0.15               // ramp up
+          : Math.max(0, 1 - (m.life - 0.15) / 0.85); // ramp down
+
+        if (m.life >= 1 || m.alpha <= 0) {
+          meteors.splice(i, 1);
+          continue;
+        }
+
+        // Gradient tail
+        const tailX = m.x - m.vx / m.speed * m.length;
+        const tailY = m.y - m.vy / m.speed * m.length;
+
+        const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+        grad.addColorStop(0, `rgba(255,255,255,0)`);
+        grad.addColorStop(0.6, `rgba(220,230,255,${(m.alpha * 0.35).toFixed(3)})`);
+        grad.addColorStop(1,   `rgba(255,255,255,${(m.alpha * 0.95).toFixed(3)})`);
+
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(m.x, m.y);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth   = 1.5;
+        ctx.stroke();
+
+        // Bright head dot
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${(m.alpha * 0.9).toFixed(3)})`;
+        ctx.fill();
+      }
+
       animId = requestAnimationFrame(animate);
     };
     animate();
 
-    // Dismiss
+    // ── Dismiss ────────────────────────────────────────────────────
     const dismiss = () => {
       if (dismissedRef.current) return;
       dismissedRef.current = true;
@@ -123,6 +213,8 @@ export default function Preloader({ onDone }: Props) {
     return () => {
       cancelAnimationFrame(animId);
       clearTimeout(autoTimer);
+      clearTimeout(meteorTimer1);
+      clearTimeout(meteorTimer2);
       window.removeEventListener("resize",     resize);
       window.removeEventListener("wheel",      dismiss);
       window.removeEventListener("touchstart", dismiss);
