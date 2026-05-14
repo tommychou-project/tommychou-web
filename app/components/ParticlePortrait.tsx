@@ -201,9 +201,9 @@ export default function ParticlePortrait() {
             const sy    = p.r * Math.cos(p.phi);
             const sphereX = centerX + sx * sphereRadius;
             const sphereY = centerY + sy * sphereRadius;
-            const destX = mode === "portrait" ? p.portraitX : mode === "emoji" ? p.emojiX : sphereX;
-            const destY = mode === "portrait" ? p.portraitY : mode === "emoji" ? p.emojiY : sphereY;
-            const lerpF = mode === "sphere" ? 0.02 : mode === "portrait" ? 0.03 : 0.035;
+            const destX = mode === "emoji" ? p.emojiX : sphereX;
+            const destY = mode === "emoji" ? p.emojiY : sphereY;
+            const lerpF = mode === "emoji" ? 0.035 : 0.02;
             p.x += (destX - p.x) * lerpF;
             p.y += (destY - p.y) * lerpF;
             continue;
