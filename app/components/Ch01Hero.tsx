@@ -117,17 +117,24 @@ export default function Ch01Hero({ preloaderDone }: Props) {
 
       {/* ── Cinema HUD — REC (left) + TC (right) ── */}
       <div
-        className="cine-hud"
         style={{
           position: "absolute",
           top: "84px",
-          left: "160px",
-          right: "160px",
+          left: 0,
+          right: 0,
           zIndex: 2,
+          pointerEvents: "none",
+        }}
+      >
+      <div
+        className="cine-hud"
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "0 48px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          pointerEvents: "none",
         }}
       >
         {/* REC indicator */}
@@ -170,15 +177,23 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           TC 00:00:00:00
         </span>
       </div>
+      </div>
 
       {/* ── Text content — bottom left, aligned to navbar ── */}
       <div
         className="hero-content-wrapper"
         style={{
           width: "100%",
-          padding: "0 40px 80px 160px",
+          paddingBottom: "80px",
         }}
       >
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            padding: "0 48px",
+          }}
+        >
         <div
           ref={contentRef}
           style={{
@@ -281,6 +296,7 @@ export default function Ch01Hero({ preloaderDone }: Props) {
             </button>
           </div>
         </div>
+        </div>
       </div>
 
       {/* ── Mute toggle ── */}
@@ -338,8 +354,9 @@ export default function Ch01Hero({ preloaderDone }: Props) {
           .cine-rec-dot { animation: none; }
         }
         @media (max-width: 768px) {
-          .hero-content-wrapper { padding: 0 24px 60px 24px !important; }
-          .cine-hud { left: 24px !important; right: 24px !important; }
+          .hero-content-wrapper { padding-bottom: 60px !important; }
+          .hero-content-wrapper > div { padding: 0 24px !important; }
+          .cine-hud { padding: 0 24px !important; }
         }
       `}</style>
     </section>

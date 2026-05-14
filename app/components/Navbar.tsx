@@ -83,12 +83,14 @@ export default function Navbar() {
       >
         <nav
           style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
             width: "100%",
             height: "68px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 160px 0 160px",
+            padding: "0 48px",
             border: "none",
             outline: "none",
             background: "transparent",
@@ -216,7 +218,7 @@ export default function Navbar() {
         {menuOpen && (
           <div
             style={{
-              maxWidth: "1100px",
+              maxWidth: "1200px",
               margin: "0 auto",
               background: "rgba(5,5,5,0.96)",
               borderTop: "1px solid rgba(255,255,255,0.06)",
