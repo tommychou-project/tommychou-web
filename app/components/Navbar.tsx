@@ -12,7 +12,7 @@ const sectionLinks = [
 // Links that navigate to other pages
 const pageLinks = [
   { label: "最新文章", href: "/blog" },
-  { label: "聯繫",   href: "/contact" },
+  { label: "聯絡我", href: "/contact" },
 ];
 
 export default function Navbar() {

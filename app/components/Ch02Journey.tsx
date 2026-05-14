@@ -336,12 +336,12 @@ export default function Ch02Journey() {
                 <div
                   style={{
                     fontSize: "11px",
-                    color: "rgba(240,240,240,0.2)",
+                    color: "rgba(240,240,240,0.75)",
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
                   }}
                 >
-                  Media
+                  Coming Soon
                 </div>
               </div>
             </div>

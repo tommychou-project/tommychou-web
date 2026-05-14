@@ -19,6 +19,10 @@ const qaData: { q: string; a: string }[] = [
     q: "如何跟你合作？",
     a: "第一步：填寫下方表單或直接寄信。我通常在 24 小時內回覆，接著安排一次免費線上通話，確認彼此的目標與期望，我就會開始準備提案，陪伴你完成心中的目標與期望。",
   },
+  {
+    q: "你的生活型態？",
+    a: "平日熱愛工作，每週日透過志工服務與反思，將心態歸零重整。",
+  },
 ];
 
 const bottomCards = [
@@ -106,7 +110,7 @@ export default function Ch03About() {
             marginBottom: "64px",
           }}
         >
-          About Tommy
+          關於我
         </h2>
 
         {/* Two-column: particle portrait + Ask Tommy */}
