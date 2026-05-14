@@ -10,7 +10,6 @@ import Ch05Services from "@/app/components/Ch05Services";
 import Ch06Contact from "@/app/components/Ch06Contact";
 import Footer from "@/app/components/Footer";
 import IdleOverlay from "@/app/components/IdleOverlay";
-import NewsletterCTA from "@/app/components/NewsletterCTA";
 
 export default function Home() {
   const [preloaderDone, setPreloaderDone] = useState(false);
@@ -49,7 +48,6 @@ export default function Home() {
 
         <Ch06Contact />
 
-        <NewsletterCTA />
         <Footer />
       </div>
 
