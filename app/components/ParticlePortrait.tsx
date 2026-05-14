@@ -131,13 +131,12 @@ export default function ParticlePortrait() {
         }
       }
 
-      const N = Math.min(6500, valid.length);
+      const N = Math.min(2200, valid.length);
 
       // Pre-build emoji target positions (same count as particles)
       const emojiPts = buildEmojiTargets(W, H, N);
 
-      // Orange-gold palette
-      const DARK   = "160,58,16";    // #A03A10
+      // Orange-gold palette — DARK tier removed entirely
       const MAIN   = "232,101,42";   // #E8652A
       const BRIGHT = "245,166,35";   // #F5A623
 
@@ -146,26 +145,23 @@ export default function ParticlePortrait() {
         const [ex, ey] = emojiPts[i % emojiPts.length];
 
         const theta = Math.random() * Math.PI * 2;
-        const phi   = Math.random() * Math.PI;
+        // Uniform spherical distribution — removes pole clustering & latitude rings
+        const phi   = Math.acos(1 - 2 * Math.random());
         const r     = 0.88 + Math.random() * 0.12;
 
-        // Tier-based size + color
+        // Tier-based size + color (no DARK tier)
         const rand = Math.random();
         let tier: 0 | 1 | 2;
         let size: number;
         let color: string;
 
-        if (rand < 0.70) {
-          tier  = 0;
-          size  = 0.3 + Math.random() * 0.7;   // 0.3–1.0 px
-          color = DARK;
-        } else if (rand < 0.90) {
+        if (rand < 0.78) {
           tier  = 1;
-          size  = 1.0 + Math.random() * 1.5;   // 1.0–2.5 px
+          size  = 1.0 + Math.random() * 1.4;   // 1.0–2.4 px
           color = MAIN;
         } else {
           tier  = 2;
-          size  = 3.0 + Math.random() * 2.0;   // 3.0–5.0 px  (bright sparks)
+          size  = 2.2 + Math.random() * 1.4;   // 2.2–3.6 px (bright sparks, smaller than before)
           color = BRIGHT;
         }
 
@@ -219,7 +215,7 @@ export default function ParticlePortrait() {
 
           const depthNorm = (depth / p.r + 1) / 2;
           const opacity   = mode === "sphere"
-            ? p.baseOpacity * (0.12 + 0.88 * depthNorm)
+            ? p.baseOpacity * (0.45 + 0.55 * depthNorm)
             : p.baseOpacity;
 
           // In portrait/emoji mode keep particle size; in sphere use stored size
