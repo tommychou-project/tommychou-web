@@ -61,6 +61,8 @@ export default function Ch06Contact() {
       id="ch06"
       style={{
         padding: "120px 48px 80px",
+        maxWidth: "1200px",
+        margin: "0 auto",
         position: "relative",
         scrollMarginTop: "80px",
         zIndex: 1,
@@ -72,8 +74,6 @@ export default function Ch06Contact() {
           opacity: 0,
           transform: "translateY(40px)",
           transition: "opacity 0.9s ease-out, transform 0.9s ease-out",
-          maxWidth: "1200px",
-          margin: "0 auto",
         }}
       >
         <div style={{ marginBottom: "8px" }}>
