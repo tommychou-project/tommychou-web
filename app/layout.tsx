@@ -21,6 +21,9 @@ export const viewport = {
 export const metadata: Metadata = {
   title: "Tommy Chou — 讓品牌自動成長",
   description: "Tommy Chou 是專注於成長策略與影音內容自動化的行銷顧問，幫助品牌建立可複製、可規模化的行銷系統。",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
