@@ -1,11 +1,28 @@
 "use client";
 import { useEffect, useRef } from "react";
-import Script from "next/script";
 
 const BEEHIIV_FORM_ID = "84aff35f-6e66-4902-a583-e3ea4645f7d9";
 
 export default function Footer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const beehiivRef = useRef<HTMLDivElement>(null);
+
+  // Beehiiv inline embed — inject target div + script into a React-unmanaged container
+  useEffect(() => {
+    const container = beehiivRef.current;
+    if (!container || container.querySelector("script")) return;
+
+    // Target div the loader will inject the form into
+    const formDiv = document.createElement("div");
+    formDiv.setAttribute("data-beehiiv-form", BEEHIIV_FORM_ID);
+    container.appendChild(formDiv);
+
+    // Load the Beehiiv v3 loader
+    const script = document.createElement("script");
+    script.src = "https://subscribe-forms.beehiiv.com/v3/loader.js";
+    script.async = true;
+    container.appendChild(script);
+  }, []);
 
   // Particle canvas
   useEffect(() => {
@@ -57,7 +74,6 @@ export default function Footer() {
         borderTop: "0.5px solid rgba(240,240,240,0.06)",
       }}
     >
-      {/* Particle canvas — clipped by its own absolute inset, no need for overflow:hidden on footer */}
       <canvas
         ref={canvasRef}
         style={{
@@ -133,8 +149,8 @@ export default function Footer() {
                 每兩週AI行銷與生活思考，寫給想一起成長的你
               </div>
             </div>
-            {/* Beehiiv inline embed target */}
-            <div data-beehiiv-form={BEEHIIV_FORM_ID} style={{ minHeight: "60px" }} />
+            {/* React-unmanaged container — Beehiiv injects target div + script here */}
+            <div ref={beehiivRef} />
           </div>
         </div>
 
@@ -157,12 +173,6 @@ export default function Footer() {
           </span>
         </div>
       </div>
-
-      {/* Beehiiv v3 loader — data-beehiiv-form on the div (not here) triggers inline mode */}
-      <Script
-        src="https://subscribe-forms.beehiiv.com/v3/loader.js"
-        strategy="afterInteractive"
-      />
 
       <style>{`
         @media (max-width: 768px) {
