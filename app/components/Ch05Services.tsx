@@ -5,54 +5,53 @@ import Link from "next/link";
 const services = [
   {
     id: "A",
-    title: "B2B 品牌影音內容製作",
+    title: "品牌影音內容製作",
     fit: "中小型 B2B 公司、新創",
-    price: "起價 CA$1,500",
-    timeline: "2–4 週",
+    price: "起價 NT$30,000（產出 1–2 支影片）",
+    timeline: "依專案而定",
+    comingSoon: false,
     items: [
-      "形象片 / 產品 Demo",
-      "LinkedIn 短影音",
-      "客戶見證影片",
-      "內訓培訓影片",
+      "網站首頁形象影片",
+      "短影音製作",
     ],
   },
   {
     id: "B",
-    title: "影音內容自動化獲客系統",
-    fit: "行銷部門、個人創作者",
-    price: "起價 CA$2,500",
-    timeline: "3–6 週",
+    title: "從 0 到 1 搭建自己的攝影棚",
+    fit: "個人創作者、行銷部門",
+    price: "起價 NT$36,000（不含設備採購費用）",
+    timeline: "依專案而定",
+    comingSoon: false,
     items: [
-      "AI 工具流程建置",
-      "長影片拆解短影音",
-      "Podcast 轉文字系統",
-      "團隊操作培訓",
+      "攝影、燈光、收音規劃",
+      "場景搭建與工作流設計",
     ],
   },
   {
     id: "C",
-    title: "個人生命經驗知識資料庫",
-    fit: "創業者 / 創作者",
-    price: "起價 CA$800",
-    timeline: "依專案",
+    title: "內容自動化獲客系統",
+    fit: "個人創作者、行銷部門",
+    price: "",
+    timeline: "",
+    comingSoon: true,
     items: [
-      "深度訪談錄製",
-      "內容架構設計",
-      "紀錄片 / 自傳規劃",
-      "個人品牌知識庫",
+      "影像內容策略規劃",
+      "AI 工具自動化流程建置",
+      "CRM 系統整合",
     ],
   },
   {
     id: "D",
-    title: "跨境品牌影音策略諮詢",
-    fit: "台灣品牌進北美 / 北美品牌進亞洲",
-    price: "CA$500 / session",
-    timeline: "1–2 週",
+    title: "個人品牌諮詢",
+    fit: "創業者、創作者",
+    price: "",
+    timeline: "",
+    comingSoon: true,
     items: [
-      "市場影像策略規劃",
-      "本地化內容設計",
-      "多語言內容系統",
-      "跨文化品牌定位",
+      "法文學習經驗分享",
+      "生活經驗文字梳理",
+      "內容架構設計",
+      "個人品牌知識庫建立",
     ],
   },
 ];
@@ -245,7 +244,7 @@ export default function Ch05Services() {
                 ))}
               </div>
 
-              {/* Price + Timeline */}
+              {/* Price + Timeline / Coming Soon */}
               <div
                 style={{
                   display: "flex",
@@ -255,54 +254,70 @@ export default function Ch05Services() {
                   borderTop: "0.5px solid rgba(240,240,240,0.08)",
                 }}
               >
-                <div>
-                  <div
+                {s.comingSoon ? (
+                  <span
                     style={{
-                      fontSize: "17px",
-                      fontWeight: 700,
-                      color: "#E8652A",
-                      letterSpacing: "-0.01em",
-                    }}
-                  >
-                    {s.price}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "11px",
+                      fontSize: "13px",
                       color: "rgba(240,240,240,0.3)",
-                      marginTop: "2px",
+                      fontStyle: "italic",
+                      letterSpacing: "0.06em",
                     }}
                   >
-                    時程：{s.timeline}
-                  </div>
-                </div>
-                <Link
-                  href="/contact"
-                  style={{
-                    background: "transparent",
-                    color: "#ffffff",
-                    border: "1px solid rgba(255,255,255,0.6)",
-                    borderRadius: "999px",
-                    padding: "8px 18px",
-                    fontSize: "13px",
-                    textDecoration: "none",
-                    boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
-                    transition: "all 0.3s ease",
-                    whiteSpace: "nowrap",
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
-                    el.style.borderColor = "rgba(255,255,255,0.9)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
-                    el.style.borderColor = "rgba(255,255,255,0.6)";
-                  }}
-                >
-                  洽談 →
-                </Link>
+                    Coming Soon
+                  </span>
+                ) : (
+                  <>
+                    <div>
+                      <div
+                        style={{
+                          fontSize: "15px",
+                          fontWeight: 700,
+                          color: "#E8652A",
+                          letterSpacing: "-0.01em",
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {s.price}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "11px",
+                          color: "rgba(240,240,240,0.3)",
+                          marginTop: "2px",
+                        }}
+                      >
+                        時程：{s.timeline}
+                      </div>
+                    </div>
+                    <Link
+                      href="/contact"
+                      style={{
+                        background: "transparent",
+                        color: "#ffffff",
+                        border: "1px solid rgba(255,255,255,0.6)",
+                        borderRadius: "999px",
+                        padding: "8px 18px",
+                        fontSize: "13px",
+                        textDecoration: "none",
+                        boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+                        transition: "all 0.3s ease",
+                        whiteSpace: "nowrap",
+                      }}
+                      onMouseEnter={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement;
+                        el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
+                        el.style.borderColor = "rgba(255,255,255,0.9)";
+                      }}
+                      onMouseLeave={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement;
+                        el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
+                        el.style.borderColor = "rgba(255,255,255,0.6)";
+                      }}
+                    >
+                      洽談 →
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           ))}
