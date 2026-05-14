@@ -145,7 +145,6 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         }
         .prose pre code { background: none; padding: 0; }
         .back-link:hover { color: #f0f0f0 !important; }
-        .cta-glow:hover { box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.9) !important; }
         @media (max-width: 768px) {
           article { padding: 100px 20px 80px !important; }
         }
