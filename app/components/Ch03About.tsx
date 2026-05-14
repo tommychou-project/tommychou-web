@@ -136,7 +136,10 @@ export default function Ch03About() {
               display: "flex",
               flexDirection: "column",
               gap: "0",
+              transition: "border-color 0.25s",
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,240,240,0.09)"; }}
           >
             {/* Header */}
             <div
@@ -237,6 +240,17 @@ export default function Ch03About() {
                 border: "0.5px solid rgba(240,240,240,0.08)",
                 borderRadius: "16px",
                 padding: "24px 22px",
+                transition: "border-color 0.25s, transform 0.25s",
+              }}
+              onMouseEnter={(e) => {
+                const d = e.currentTarget as HTMLDivElement;
+                d.style.borderColor = "rgba(232,101,42,0.4)";
+                d.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                const d = e.currentTarget as HTMLDivElement;
+                d.style.borderColor = "rgba(240,240,240,0.08)";
+                d.style.transform = "translateY(0)";
               }}
             >
               <div

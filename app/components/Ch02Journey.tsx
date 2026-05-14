@@ -294,7 +294,10 @@ export default function Ch02Journey() {
                 border: "0.5px solid rgba(240,240,240,0.08)",
                 borderRadius: "20px",
                 overflow: "hidden",
+                transition: "border-color 0.25s",
               }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,240,240,0.08)"; }}
             >
               {/* Placeholder content */}
               <div
