@@ -284,7 +284,7 @@ export default function Ch02Journey() {
           </div>
 
           {/* Right: 3:4 media box */}
-          <div style={{ position: "sticky", top: "100px" }}>
+          <div className="ch02-media-box" style={{ position: "sticky", top: "100px" }}>
             <div
               style={{
                 position: "relative",
@@ -353,6 +353,7 @@ export default function Ch02Journey() {
         @media (max-width: 768px) {
           .ch02-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
           #ch02 { padding: 80px 24px !important; }
+          .ch02-media-box { display: none !important; }
         }
       `}</style>
     </section>

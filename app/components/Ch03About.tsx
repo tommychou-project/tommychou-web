@@ -129,12 +129,13 @@ export default function Ch03About() {
           }}
         >
           {/* Left: particle portrait */}
-          <div style={{ height: "560px", background: "transparent" }}>
+          <div className="ch03-portrait" style={{ height: "560px", background: "transparent" }}>
             <ParticlePortrait />
           </div>
 
           {/* Right: Ask Tommy — questions on top, answer below */}
           <div
+            className="ch03-ask-card"
             style={{
               background: "#0D1220",
               border: "0.5px solid rgba(240,240,240,0.09)",
@@ -310,9 +311,11 @@ export default function Ch03About() {
           to   { opacity: 1; transform: translateY(0); }
         }
         @media (max-width: 768px) {
-          .ch03-grid   { grid-template-columns: 1fr !important; gap: 28px !important; }
-          .ch03-bottom { grid-template-columns: 1fr !important; }
-          #about       { padding: 80px 24px !important; }
+          .ch03-grid        { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .ch03-bottom      { grid-template-columns: 1fr !important; }
+          #about            { padding: 80px 24px !important; }
+          .ch03-portrait    { height: 320px !important; }
+          .ch03-ask-card    { min-height: unset !important; }
         }
       `}</style>
     </section>

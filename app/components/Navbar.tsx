@@ -82,6 +82,7 @@ export default function Navbar() {
         }}
       >
         <nav
+          className="nav-inner"
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
@@ -222,7 +223,7 @@ export default function Navbar() {
               margin: "0 auto",
               background: "rgba(5,5,5,0.96)",
               borderTop: "1px solid rgba(255,255,255,0.06)",
-              padding: "8px 40px 20px",
+              padding: "8px 24px 20px",
               display: "flex",
               flexDirection: "column",
               gap: "2px",
@@ -296,6 +297,7 @@ export default function Navbar() {
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-hamburger { display: block !important; }
+          .nav-inner { padding: 0 24px !important; }
         }
       `}</style>
     </>
