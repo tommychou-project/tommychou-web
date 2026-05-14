@@ -101,7 +101,7 @@ export default function Footer() {
           }}
           className="footer-top"
         >
-          <div>
+          <div style={{ flexShrink: 0, width: "260px" }}>
             <div
               style={{
                 fontSize: "22px",
@@ -118,7 +118,6 @@ export default function Footer() {
                 fontSize: "13px",
                 color: "rgba(240,240,240,0.32)",
                 lineHeight: 1.7,
-                maxWidth: "300px",
               }}
             >
               Story, strategy, and AI — helping brands grow across cultures.
@@ -134,8 +133,7 @@ export default function Footer() {
               display: "flex",
               flexDirection: "column",
               gap: "12px",
-              minWidth: "260px",
-              maxWidth: "320px",
+              flex: 1,
               transition: "border-color 0.25s",
             }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
