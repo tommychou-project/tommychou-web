@@ -65,7 +65,7 @@ export default function Contact() {
       <div
         style={{
           padding: "120px 48px 48px",
-          maxWidth: "1080px",
+          maxWidth: "1200px",
           margin: "0 auto",
         }}
       >
@@ -90,14 +90,14 @@ export default function Contact() {
             color: "#f0f0f0",
           }}
         >
-          讓我們一起，<br />打造你真正引以為傲的作品。
+          讓我們一起<br />打造你真正引以為傲的作品
         </h1>
         <p style={{ fontSize: "16px", color: "#999999", lineHeight: 1.8, maxWidth: "480px" }}>
           歡迎填寫表單，我通常在 24 小時內回覆。
         </p>
       </div>
 
-      <div style={{ height: "0.5px", background: "rgba(255,255,255,0.07)", margin: "0 48px" }} />
+      <div style={{ height: "0.5px", background: "rgba(255,255,255,0.07)", maxWidth: "1200px", margin: "0 auto" }} />
 
       {/* Main grid */}
       <div
@@ -106,7 +106,7 @@ export default function Contact() {
           gridTemplateColumns: "1fr 2fr",
           gap: "60px",
           padding: "60px 48px 100px",
-          maxWidth: "1080px",
+          maxWidth: "1200px",
           margin: "0 auto",
         }}
         className="contact-grid"
