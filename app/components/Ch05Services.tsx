@@ -97,11 +97,8 @@ export default function Ch05Services() {
         }}
       >
         <div style={{ marginBottom: "8px" }}>
-          <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "3px" }}>
+          <div style={{ fontSize: "12px", color: "#E8652A", letterSpacing: "0.15em", textTransform: "uppercase" }}>
             SCENE 04 — THE WORK
-          </div>
-          <div style={{ fontSize: "12px", color: "rgba(240,240,240,0.45)", letterSpacing: "0.08em" }}>
-            一起工作
           </div>
         </div>
         <h2
@@ -110,22 +107,11 @@ export default function Ch05Services() {
             fontWeight: 700,
             letterSpacing: "-0.03em",
             color: "#f0f0f0",
-            marginBottom: "16px",
-          }}
-        >
-          Work With Me
-        </h2>
-        <p
-          style={{
-            fontSize: "15px",
-            color: "#999999",
             marginBottom: "64px",
-            maxWidth: "520px",
-            lineHeight: 1.7,
           }}
         >
-          每個服務都從一個好問題開始。讓我們一起找到最適合你的方式。
-        </p>
+          一起工作
+        </h2>
 
         <div
           className="ch05-grid"
@@ -255,16 +241,45 @@ export default function Ch05Services() {
                 }}
               >
                 {s.comingSoon ? (
-                  <span
-                    style={{
-                      fontSize: "13px",
-                      color: "rgba(240,240,240,0.3)",
-                      fontStyle: "italic",
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    Coming Soon
-                  </span>
+                  <>
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "#E8652A",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      Coming Soon
+                    </span>
+                    <Link
+                      href="/contact"
+                      style={{
+                        background: "transparent",
+                        color: "#ffffff",
+                        border: "1px solid rgba(255,255,255,0.6)",
+                        borderRadius: "999px",
+                        padding: "8px 18px",
+                        fontSize: "13px",
+                        textDecoration: "none",
+                        boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+                        transition: "all 0.3s ease",
+                        whiteSpace: "nowrap",
+                      }}
+                      onMouseEnter={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement;
+                        el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
+                        el.style.borderColor = "rgba(255,255,255,0.9)";
+                      }}
+                      onMouseLeave={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement;
+                        el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
+                        el.style.borderColor = "rgba(255,255,255,0.6)";
+                      }}
+                    >
+                      洽談 →
+                    </Link>
+                  </>
                 ) : (
                   <>
                     <div>

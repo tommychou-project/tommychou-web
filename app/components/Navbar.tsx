@@ -11,7 +11,7 @@ const sectionLinks = [
 
 // Links that navigate to other pages
 const pageLinks = [
-  { label: "部落格", href: "/blog" },
+  { label: "最新文章", href: "/blog" },
   { label: "聯繫",   href: "/contact" },
 ];
 

@@ -80,7 +80,7 @@ export default function Ch04Blog() {
                 color: "#f0f0f0",
               }}
             >
-              部落格
+              最新文章
             </h2>
           </div>
           <Link
