@@ -1,24 +1,11 @@
 "use client";
 import { useEffect, useRef } from "react";
+import Script from "next/script";
+
+const BEEHIIV_FORM_ID = "84aff35f-6e66-4902-a583-e3ea4645f7d9";
 
 export default function Footer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  // Beehiiv inline embed
-  useEffect(() => {
-    const existing = document.querySelector(
-      'script[data-beehiiv-form="84aff35f-6e66-4902-a583-e3ea4645f7d9"]'
-    );
-    if (existing) return;
-    const script = document.createElement("script");
-    script.src = "https://subscribe-forms.beehiiv.com/v3/loader.js";
-    script.async = true;
-    script.setAttribute("data-beehiiv-form", "84aff35f-6e66-4902-a583-e3ea4645f7d9");
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
 
   // Particle canvas
   useEffect(() => {
@@ -68,9 +55,9 @@ export default function Footer() {
         position: "relative",
         background: "#050505",
         borderTop: "0.5px solid rgba(240,240,240,0.06)",
-        overflow: "hidden",
       }}
     >
+      {/* Particle canvas — clipped by its own absolute inset, no need for overflow:hidden on footer */}
       <canvas
         ref={canvasRef}
         style={{
@@ -81,6 +68,7 @@ export default function Footer() {
           pointerEvents: "none",
         }}
       />
+
       <div
         style={{
           position: "relative",
@@ -146,7 +134,7 @@ export default function Footer() {
               </div>
             </div>
             {/* Beehiiv inline embed target */}
-            <div data-beehiiv-form="84aff35f-6e66-4902-a583-e3ea4645f7d9" />
+            <div data-beehiiv-form={BEEHIIV_FORM_ID} style={{ minHeight: "60px" }} />
           </div>
         </div>
 
@@ -169,6 +157,13 @@ export default function Footer() {
           </span>
         </div>
       </div>
+
+      {/* Beehiiv v3 inline embed — loaded via next/script for reliable hydration */}
+      <Script
+        src="https://subscribe-forms.beehiiv.com/v3/loader.js"
+        data-beehiiv-form={BEEHIIV_FORM_ID}
+        strategy="afterInteractive"
+      />
 
       <style>{`
         @media (max-width: 768px) {
