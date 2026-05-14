@@ -342,7 +342,7 @@ export default function Ch05Services() {
       <style>{`
         @media (max-width: 768px) {
           .ch05-grid { grid-template-columns: 1fr !important; }
-          #ch05 { padding: 80px 24px !important; }
+          #services { padding: 80px 24px !important; }
         }
       `}</style>
     </section>
