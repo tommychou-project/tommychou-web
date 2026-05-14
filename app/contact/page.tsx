@@ -44,7 +44,7 @@ export default function Contact() {
 
   const labelStyle: React.CSSProperties = {
     fontSize: "12px",
-    color: "#999999",
+    color: "#f0f0f0",
     letterSpacing: "0.06em",
     marginBottom: "6px",
     display: "block",
@@ -186,7 +186,7 @@ export default function Contact() {
               聯絡方式
             </div>
             <div style={{ color: "#aaaaaa", fontSize: "14px", lineHeight: 2 }}>
-              <div>tommy.chou28@gmail.com</div>
+              <div>coming soon</div>
               <div>Taipei, Shanghai and London</div>
               <div>全球遠端接案</div>
             </div>

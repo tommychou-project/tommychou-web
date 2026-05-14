@@ -95,15 +95,23 @@ export default function Ch06Contact() {
           <div>
             <h2
               style={{
-                fontSize: "clamp(28px, 4vw, 58px)",
+                fontSize: "clamp(32px, 5vw, 68px)",
                 fontWeight: 800,
-                lineHeight: 1.3,
+                lineHeight: 1.1,
                 letterSpacing: "-0.03em",
                 color: "#f0f0f0",
                 marginBottom: "32px",
               }}
             >
-              讓我們一起，<br />打造你真正<span style={{ color: "#E8652A" }}>引以為傲</span>的作品。
+              LET&apos;S BUILD
+              <br />
+              SOMETHING
+              <br />
+              <span style={{ fontSize: "clamp(22px, 3.2vw, 46px)" }}>
+                YOU&apos;RE PROUD OF,
+              </span>
+              <br />
+              <span style={{ color: "#E8652A" }}>TOGETHER.</span>
             </h2>
             <div
               style={{
@@ -165,7 +173,7 @@ export default function Ch06Contact() {
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,240,240,0.09)"; }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <label style={{ fontSize: "11px", color: "rgba(240,240,240,0.35)", letterSpacing: "0.1em", textTransform: "uppercase" }}>名字</label>
+              <label style={{ fontSize: "11px", color: "#f0f0f0", letterSpacing: "0.1em", textTransform: "uppercase" }}>名字</label>
               <input
                 style={inp}
                 placeholder="Tommy"
@@ -175,7 +183,7 @@ export default function Ch06Contact() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <label style={{ fontSize: "11px", color: "rgba(240,240,240,0.35)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Email *</label>
+              <label style={{ fontSize: "11px", color: "#f0f0f0", letterSpacing: "0.1em", textTransform: "uppercase" }}>Email *</label>
               <input
                 style={inp}
                 type="email"
@@ -186,7 +194,7 @@ export default function Ch06Contact() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <label style={{ fontSize: "11px", color: "rgba(240,240,240,0.35)", letterSpacing: "0.1em", textTransform: "uppercase" }}>合作類型</label>
+              <label style={{ fontSize: "11px", color: "#f0f0f0", letterSpacing: "0.1em", textTransform: "uppercase" }}>合作類型</label>
               <input
                 style={inp}
                 placeholder="影音製作 / 自動化系統 / 諮詢..."
@@ -196,7 +204,7 @@ export default function Ch06Contact() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <label style={{ fontSize: "11px", color: "rgba(240,240,240,0.35)", letterSpacing: "0.1em", textTransform: "uppercase" }}>告訴我你的故事</label>
+              <label style={{ fontSize: "11px", color: "#f0f0f0", letterSpacing: "0.1em", textTransform: "uppercase" }}>告訴我你的故事</label>
               <textarea
                 style={{ ...inp, height: "120px", resize: "none" }}
                 placeholder="你想解決什麼問題？有什麼夢想正在等待被說出來？"
