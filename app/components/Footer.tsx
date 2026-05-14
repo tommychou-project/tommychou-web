@@ -124,50 +124,13 @@ export default function Footer() {
               Story, strategy, and AI — helping brands grow across cultures.
             </div>
           </div>
-          <div style={{ display: "flex", gap: "48px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
             <div>
-              <div
-                style={{
-                  fontSize: "11px",
-                  color: "rgba(240,240,240,0.25)",
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  marginBottom: "16px",
-                }}
-              >
-                Links
+              <div style={{ fontSize: "14px", fontWeight: 600, color: "#E8652A", marginBottom: "4px" }}>
+                Tommy&apos;s 電子報
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {[
-                  { label: "部落格", href: "/blog" },
-                  { label: "聯繫我", href: "/contact" },
-                ].map((l) => (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    style={{
-                      color: "rgba(240,240,240,0.4)",
-                      fontSize: "13px",
-                      textDecoration: "none",
-                      transition: "color 0.2s",
-                    }}
-                  >
-                    {l.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontSize: "11px",
-                  color: "rgba(240,240,240,0.25)",
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  marginBottom: "16px",
-                }}
-              >
-                Newsletter
+              <div style={{ fontSize: "13px", color: "#f0f0f0", marginBottom: "16px", lineHeight: 1.5 }}>
+                每兩週AI行銷與生活思考，寫給想一起成長的你
               </div>
               {subStatus === "success" ? (
                 <div style={{ color: "#E8652A", fontSize: "13px", lineHeight: 1.6 }}>

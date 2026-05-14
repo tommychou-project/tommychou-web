@@ -27,7 +27,7 @@ export default function NewsletterCTA() {
         每兩週一個可執行的策略
       </h2>
       <p style={{ color: '#888888', fontSize: '15px', maxWidth: '480px', margin: '0 auto 32px', lineHeight: 1.7 }}>
-        AI 工具應用、影音策略、品牌成長心得。
+        AI 工具應用、影音策略、品牌成長心得。不賣課、不推廣告，只分享我真正在用的方法。
       </p>
       <div data-beehiiv-form="84aff35f-6e66-4902-a583-e3ea4645f7d9" style={{ maxWidth: '480px', margin: '0 auto' }} />
     </section>
