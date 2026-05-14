@@ -1,35 +1,24 @@
 import Link from "next/link";
 import { marked } from "marked";
 import { notFound } from "next/navigation";
-import postsData from "@/lib/posts-data.json";
+import { getPostBySlug, getAllPosts } from "@/lib/posts";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
-type PostData = {
-  title: string;
-  date: string;
-  tag: string;
-  readTime: string;
-  excerpt: string;
-  slug: string;
-  content: string;
-};
-const posts = postsData as unknown as Record<string, PostData>;
-
 export function generateStaticParams() {
-  return Object.keys(posts).map((slug) => ({ slug }));
+  return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
-  const post = posts[slug];
+  const post = getPostBySlug(slug);
   if (!post) return {};
   return { title: `${post.title} | Tommy Chou`, description: post.excerpt };
 }
 
 export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
-  const post = posts[slug];
+  const post = getPostBySlug(slug);
   if (!post) notFound();
 
   const htmlContent = marked(post.content) as string;

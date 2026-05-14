@@ -1,22 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import postsData from "@/lib/posts-data.json";
+import type { PostMeta } from "@/lib/posts";
 
-type PostData = {
-  title: string;
-  date: string;
-  tag: string;
-  readTime: string;
-  excerpt: string;
-};
-
-const allPosts = Object.entries(postsData as Record<string, PostData>).map(
-  ([slug, data]) => ({ slug, ...data })
-);
-const posts = allPosts.slice(0, 4);
-
-export default function Ch04Blog() {
+export default function Ch04Blog({ posts }: { posts: PostMeta[] }) {
+  const displayPosts = posts.slice(0, 4);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -119,7 +107,7 @@ export default function Ch04Blog() {
             gap: "18px",
           }}
         >
-          {posts.map((post) => (
+          {displayPosts.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}

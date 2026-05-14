@@ -1,23 +1,9 @@
-"use client";
 import Link from "next/link";
-import postsData from "@/lib/posts-data.json";
+import { getAllPosts } from "@/lib/posts";
 
-type PostData = {
-  title: string;
-  date: string;
-  tag: string;
-  readTime: string;
-  excerpt: string;
-  content: string;
-};
+export default function RecentPosts({ count = 4 }: { count?: number }) {
+  const posts = getAllPosts().slice(0, count);
 
-const allPosts = Object.entries(postsData as Record<string, PostData>).map(
-  ([slug, data]) => ({ slug, ...data })
-);
-
-const posts = allPosts.slice(0, 4);
-
-export default function RecentPosts() {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {posts.map((b, i) => (
