@@ -93,8 +93,8 @@ export default function Footer() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 2fr",
-            gap: "60px",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "80px",
             marginBottom: "48px",
           }}
           className="footer-top"
