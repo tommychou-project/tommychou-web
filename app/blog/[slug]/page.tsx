@@ -45,7 +45,8 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
     >
       <Navbar />
 
-      <article style={{ maxWidth: "700px", margin: "0 auto", padding: "120px 24px 100px" }}>
+      <article style={{ maxWidth: "1200px", margin: "0 auto", padding: "120px 48px 100px" }}>
+        <div style={{ maxWidth: "680px" }}>
         {/* Back link */}
         <Link
           href="/blog"
@@ -114,6 +115,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         {/* Article body */}
         <div className="prose" dangerouslySetInnerHTML={{ __html: htmlContent }} />
 
+        </div>{/* end maxWidth 680px */}
       </article>
 
       <Footer />
