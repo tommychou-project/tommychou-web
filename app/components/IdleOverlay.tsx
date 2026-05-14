@@ -45,10 +45,9 @@ export default function IdleOverlay() {
     const stars: Star[] = Array.from({ length: COUNT }, () => {
       const depth = Math.random();
       const size =
-        depth < 0.6  ? 0.25 + Math.random() * 0.5
-        : depth < 0.9 ? 0.6  + Math.random() * 0.7
-        :               1.1  + Math.random() * 0.9;
-      const baseAlpha = Math.min(0.06 + depth * 0.6 + Math.random() * 0.15, 0.88);
+        depth < 0.65 ? 0.25 + Math.random() * 0.5
+        :              0.6  + Math.random() * 0.65;
+      const baseAlpha = Math.min(0.06 + depth * 0.5 + Math.random() * 0.12, 0.65);
       const twinkle   = false;
       const rand = Math.random();
       let r: number, g: number, b: number;
@@ -100,13 +99,6 @@ export default function IdleOverlay() {
         if (s.twinkle) {
           const flicker = 1 + s.twinkleAmp * Math.sin(frame * s.twinkleSpeed + s.twinkleOffset);
           a = Math.min(s.baseAlpha * flicker, 1);
-        }
-        if (s.size > 1.3) {
-          const grd = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 3);
-          grd.addColorStop(0, `rgba(${s.r},${s.g},${s.b},${(a * 0.4).toFixed(3)})`);
-          grd.addColorStop(1, `rgba(${s.r},${s.g},${s.b},0)`);
-          ctx.beginPath(); ctx.arc(s.x, s.y, s.size * 3, 0, Math.PI * 2);
-          ctx.fillStyle = grd; ctx.fill();
         }
         ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${s.r},${s.g},${s.b},${a.toFixed(3)})`; ctx.fill();
