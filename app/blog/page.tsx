@@ -42,7 +42,7 @@ export default function BlogPage() {
     >
       <Navbar />
 
-      <section style={{ maxWidth: "800px", margin: "0 auto", padding: "120px 24px 100px" }}>
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "120px 48px 100px" }}>
         {/* Page header */}
         <div
           style={{

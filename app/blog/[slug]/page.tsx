@@ -114,39 +114,6 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         {/* Article body */}
         <div className="prose" dangerouslySetInnerHTML={{ __html: htmlContent }} />
 
-        {/* CTA card */}
-        <div
-          style={{
-            marginTop: "72px",
-            padding: "32px",
-            background: "#0D1220",
-            border: "0.5px solid rgba(255,255,255,0.08)",
-            borderRadius: "16px",
-            textAlign: "center",
-          }}
-        >
-          <p style={{ color: "#999999", fontSize: "14px", marginBottom: "20px", lineHeight: 1.7 }}>
-            這篇文章對你有幫助嗎？歡迎聯絡我，想聽聽你的看法。
-          </p>
-          <Link
-            href="/contact"
-            className="cta-glow"
-            style={{
-              display: "inline-block",
-              color: "#ffffff",
-              background: "transparent",
-              border: "1px solid rgba(255,255,255,0.6)",
-              borderRadius: "999px",
-              padding: "12px 28px",
-              fontSize: "14px",
-              textDecoration: "none",
-              boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
-              transition: "all 0.3s ease",
-            }}
-          >
-            合作洽談 →
-          </Link>
-        </div>
       </article>
 
       <Footer />
