@@ -95,23 +95,15 @@ export default function Ch06Contact() {
           <div>
             <h2
               style={{
-                fontSize: "clamp(32px, 5vw, 68px)",
+                fontSize: "clamp(28px, 4vw, 58px)",
                 fontWeight: 800,
-                lineHeight: 1.1,
+                lineHeight: 1.3,
                 letterSpacing: "-0.03em",
                 color: "#f0f0f0",
                 marginBottom: "32px",
               }}
             >
-              LET&apos;S BUILD
-              <br />
-              SOMETHING
-              <br />
-              <span style={{ fontSize: "clamp(22px, 3.2vw, 46px)" }}>
-                YOU&apos;RE PROUD OF,
-              </span>
-              <br />
-              <span style={{ color: "#E8652A" }}>TOGETHER.</span>
+              讓我們一起，<br />打造你真正<span style={{ color: "#E8652A" }}>引以為傲</span>的作品。
             </h2>
             <div
               style={{
@@ -167,7 +159,10 @@ export default function Ch06Contact() {
               display: "flex",
               flexDirection: "column",
               gap: "16px",
+              transition: "border-color 0.2s ease",
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,240,240,0.09)"; }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
               <label style={{ fontSize: "11px", color: "rgba(240,240,240,0.35)", letterSpacing: "0.1em", textTransform: "uppercase" }}>名字</label>
@@ -237,7 +232,7 @@ export default function Ch06Contact() {
                   textAlign: "center",
                 }}
               >
-                送出失敗，請寄信至 tommy@tommychou.com
+                送出失敗，請寄信至 tommy.chou28@gmail.com
               </div>
             )}
 

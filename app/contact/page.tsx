@@ -84,17 +84,15 @@ export default function Contact() {
           style={{
             fontSize: "clamp(32px, 5vw, 60px)",
             fontWeight: 700,
-            lineHeight: 1.1,
+            lineHeight: 1.3,
             marginBottom: "20px",
             letterSpacing: "-0.03em",
             color: "#f0f0f0",
           }}
         >
-          讓我們一起<br />
-          <span style={{ color: "#aaaaaa" }}>做些有意義的事</span>
+          讓我們一起，<br />打造你真正引以為傲的作品。
         </h1>
         <p style={{ fontSize: "16px", color: "#999999", lineHeight: 1.8, maxWidth: "480px" }}>
-          無論是成長策略顧問、影音自動化工作坊，或是演講邀約，
           歡迎填寫表單，我通常在 24 小時內回覆。
         </p>
       </div>
@@ -114,7 +112,20 @@ export default function Contact() {
         className="contact-grid"
       >
         {/* Left: info */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "36px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "36px",
+            background: "#0D1220",
+            border: "0.5px solid rgba(240,240,240,0.08)",
+            borderRadius: "16px",
+            padding: "28px 24px",
+            transition: "border-color 0.2s ease",
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,240,240,0.08)"; }}
+        >
           <div>
             <div
               style={{
@@ -127,9 +138,14 @@ export default function Contact() {
             >
               開放項目
             </div>
-            {["成長顧問合作", "影音自動化工作坊", "演講邀約"].map((item) => (
+            {[
+              { label: "品牌影音內容製作", soon: false },
+              { label: "從 0 到 1 搭建自己的攝影棚", soon: false },
+              { label: "內容自動化獲客系統", soon: true },
+              { label: "個人諮詢", soon: true },
+            ].map((item) => (
               <div
-                key={item}
+                key={item.label}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -148,7 +164,12 @@ export default function Contact() {
                     flexShrink: 0,
                   }}
                 />
-                {item}
+                {item.label}
+                {item.soon && (
+                  <span style={{ fontSize: "11px", color: "#E8652A", marginLeft: "4px", letterSpacing: "0.06em" }}>
+                    Coming Soon
+                  </span>
+                )}
               </div>
             ))}
           </div>
@@ -165,15 +186,29 @@ export default function Contact() {
               聯絡方式
             </div>
             <div style={{ color: "#aaaaaa", fontSize: "14px", lineHeight: 2 }}>
-              <div>tommy@tommychou.com</div>
-              <div>Vancouver, Canada</div>
+              <div>tommy.chou28@gmail.com</div>
+              <div>Taipei, Shanghai and London</div>
               <div>全球遠端接案</div>
             </div>
           </div>
         </div>
 
         {/* Right: form */}
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            background: "#0D1220",
+            border: "0.5px solid rgba(240,240,240,0.08)",
+            borderRadius: "16px",
+            padding: "28px 24px",
+            transition: "border-color 0.2s ease",
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLFormElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLFormElement).style.borderColor = "rgba(240,240,240,0.08)"; }}
+        >
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <label style={labelStyle}>名字</label>
@@ -253,7 +288,7 @@ export default function Contact() {
                 textAlign: "center",
               }}
             >
-              送出失敗，請稍後再試或直接寄信至 tommy@tommychou.com
+              送出失敗，請稍後再試或直接寄信至 tommy.chou28@gmail.com
             </div>
           )}
 
