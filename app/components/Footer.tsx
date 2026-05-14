@@ -132,9 +132,6 @@ export default function Footer() {
               flexDirection: "column",
               gap: "12px",
               transition: "border-color 0.25s",
-              maxWidth: "460px",
-              marginLeft: "auto",
-              width: "100%",
             }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,240,240,0.08)"; }}
