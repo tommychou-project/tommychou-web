@@ -124,78 +124,94 @@ export default function Footer() {
               Story, strategy, and AI — helping brands grow across cultures.
             </div>
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {/* Newsletter card — matches site card design */}
+          <div
+            style={{
+              background: "#0D1220",
+              border: "0.5px solid rgba(240,240,240,0.08)",
+              borderRadius: "16px",
+              padding: "24px 22px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px",
+              minWidth: "260px",
+              maxWidth: "320px",
+              transition: "border-color 0.25s",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(240,240,240,0.08)"; }}
+          >
             <div>
-              <div style={{ fontSize: "14px", fontWeight: 600, color: "#E8652A", marginBottom: "4px" }}>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: "#E8652A", marginBottom: "4px" }}>
                 Tommy&apos;s 電子報
               </div>
-              <div style={{ fontSize: "13px", color: "#f0f0f0", marginBottom: "16px", lineHeight: 1.5 }}>
+              <div style={{ fontSize: "12px", color: "#f0f0f0", lineHeight: 1.55 }}>
                 每兩週AI行銷與生活思考，寫給想一起成長的你
               </div>
-              {subStatus === "success" ? (
-                <div style={{ color: "#E8652A", fontSize: "13px", lineHeight: 1.6 }}>
-                  ✓ 已訂閱！<br />
-                  <span style={{ color: "rgba(240,240,240,0.4)", fontSize: "12px" }}>感謝你的支持</span>
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    required
-                    style={{
-                      background: "rgba(240,240,240,0.06)",
-                      border: "0.5px solid rgba(240,240,240,0.15)",
-                      borderRadius: "8px",
-                      padding: "10px 12px",
-                      color: "#f0f0f0",
-                      fontSize: "13px",
-                      fontFamily: "inherit",
-                      outline: "none",
-                      width: "200px",
-                    }}
-                    onFocus={(e) => ((e.target as HTMLInputElement).style.borderColor = "rgba(232,101,42,0.5)")}
-                    onBlur={(e)  => ((e.target as HTMLInputElement).style.borderColor = "rgba(240,240,240,0.15)")}
-                  />
-                  <button
-                    type="submit"
-                    disabled={subStatus === "loading"}
-                    style={{
-                      background: "transparent",
-                      color: "#ffffff",
-                      border: "1px solid rgba(255,255,255,0.5)",
-                      borderRadius: "999px",
-                      padding: "8px 20px",
-                      cursor: subStatus === "loading" ? "not-allowed" : "pointer",
-                      fontSize: "13px",
-                      fontFamily: "inherit",
-                      opacity: subStatus === "loading" ? 0.5 : 1,
-                      boxShadow: "0 0 8px rgba(255,255,255,0.2)",
-                      transition: "all 0.3s ease",
-                      alignSelf: "flex-start",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (subStatus === "loading") return;
-                      const el = e.currentTarget as HTMLButtonElement;
-                      el.style.boxShadow = "0 0 12px rgba(255,255,255,0.4), 0 0 24px rgba(255,255,255,0.15)";
-                      el.style.borderColor = "rgba(255,255,255,0.9)";
-                    }}
-                    onMouseLeave={(e) => {
-                      const el = e.currentTarget as HTMLButtonElement;
-                      el.style.boxShadow = "0 0 8px rgba(255,255,255,0.2)";
-                      el.style.borderColor = "rgba(255,255,255,0.5)";
-                    }}
-                  >
-                    {subStatus === "loading" ? "訂閱中..." : "訂閱"}
-                  </button>
-                  {subStatus === "error" && (
-                    <div style={{ color: "#ff8080", fontSize: "11px" }}>訂閱失敗，請再試一次</div>
-                  )}
-                </form>
-              )}
             </div>
+            {subStatus === "success" ? (
+              <div style={{ color: "#E8652A", fontSize: "13px", lineHeight: 1.6 }}>
+                ✓ 已訂閱！感謝你的支持
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  style={{
+                    width: "100%",
+                    background: "#080C14",
+                    border: "0.5px solid rgba(240,240,240,0.12)",
+                    borderRadius: "8px",
+                    padding: "10px 13px",
+                    color: "#f0f0f0",
+                    fontSize: "13px",
+                    fontFamily: "inherit",
+                    outline: "none",
+                    boxSizing: "border-box",
+                  }}
+                  onFocus={(e) => ((e.target as HTMLInputElement).style.borderColor = "rgba(232,101,42,0.4)")}
+                  onBlur={(e)  => ((e.target as HTMLInputElement).style.borderColor = "rgba(240,240,240,0.12)")}
+                />
+                {subStatus === "error" && (
+                  <div style={{ color: "#ff8080", fontSize: "11px" }}>訂閱失敗，請再試一次</div>
+                )}
+                <button
+                  type="submit"
+                  disabled={subStatus === "loading"}
+                  style={{
+                    background: "transparent",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255,255,255,0.6)",
+                    borderRadius: "999px",
+                    padding: "9px 22px",
+                    cursor: subStatus === "loading" ? "not-allowed" : "pointer",
+                    fontSize: "13px",
+                    fontFamily: "inherit",
+                    opacity: subStatus === "loading" ? 0.5 : 1,
+                    boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
+                    transition: "all 0.3s ease",
+                    alignSelf: "flex-end",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (subStatus === "loading") return;
+                    const el = e.currentTarget as HTMLButtonElement;
+                    el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
+                    el.style.borderColor = "rgba(255,255,255,0.9)";
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLButtonElement;
+                    el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
+                    el.style.borderColor = "rgba(255,255,255,0.6)";
+                  }}
+                >
+                  {subStatus === "loading" ? "訂閱中..." : "訂閱 →"}
+                </button>
+              </form>
+            )}
           </div>
         </div>
 

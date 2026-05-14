@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import postsData from "@/lib/posts-data.json";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import NewsletterCTA from "@/app/components/NewsletterCTA";
 
 type PostData = {
   title: string;
@@ -150,7 +149,6 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         </div>
       </article>
 
-      <NewsletterCTA />
       <Footer />
 
       <style>{`
