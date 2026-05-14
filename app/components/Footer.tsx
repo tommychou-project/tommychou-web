@@ -158,10 +158,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Beehiiv v3 inline embed — loaded via next/script for reliable hydration */}
+      {/* Beehiiv v3 loader — data-beehiiv-form on the div (not here) triggers inline mode */}
       <Script
         src="https://subscribe-forms.beehiiv.com/v3/loader.js"
-        data-beehiiv-form={BEEHIIV_FORM_ID}
         strategy="afterInteractive"
       />
 
