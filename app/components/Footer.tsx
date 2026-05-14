@@ -1,27 +1,26 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 export default function Footer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [email, setEmail] = useState("");
-  const [subStatus, setSubStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubStatus("loading");
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      if (res.ok) { setSubStatus("success"); setEmail(""); }
-      else setSubStatus("error");
-    } catch { setSubStatus("error"); }
-  };
+  // Beehiiv inline embed
+  useEffect(() => {
+    const existing = document.querySelector(
+      'script[data-beehiiv-form="84aff35f-6e66-4902-a583-e3ea4645f7d9"]'
+    );
+    if (existing) return;
+    const script = document.createElement("script");
+    script.src = "https://subscribe-forms.beehiiv.com/v3/loader.js";
+    script.async = true;
+    script.setAttribute("data-beehiiv-form", "84aff35f-6e66-4902-a583-e3ea4645f7d9");
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
+  // Particle canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -99,6 +98,7 @@ export default function Footer() {
           }}
           className="footer-top"
         >
+          {/* Left: branding */}
           <div>
             <div
               style={{
@@ -121,7 +121,8 @@ export default function Footer() {
               Story, strategy, and AI — helping brands grow across cultures.
             </div>
           </div>
-          {/* Newsletter card — matches site card design */}
+
+          {/* Right: Newsletter card */}
           <div
             style={{
               background: "#0D1220",
@@ -144,69 +145,8 @@ export default function Footer() {
                 每兩週AI行銷與生活思考，寫給想一起成長的你
               </div>
             </div>
-            {subStatus === "success" ? (
-              <div style={{ color: "#E8652A", fontSize: "13px", lineHeight: 1.6 }}>
-                ✓ 已訂閱！感謝你的支持
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  required
-                  style={{
-                    width: "100%",
-                    background: "#080C14",
-                    border: "0.5px solid rgba(240,240,240,0.12)",
-                    borderRadius: "8px",
-                    padding: "10px 13px",
-                    color: "#f0f0f0",
-                    fontSize: "13px",
-                    fontFamily: "inherit",
-                    outline: "none",
-                    boxSizing: "border-box",
-                  }}
-                  onFocus={(e) => ((e.target as HTMLInputElement).style.borderColor = "rgba(232,101,42,0.4)")}
-                  onBlur={(e)  => ((e.target as HTMLInputElement).style.borderColor = "rgba(240,240,240,0.12)")}
-                />
-                {subStatus === "error" && (
-                  <div style={{ color: "#ff8080", fontSize: "11px" }}>訂閱失敗，請再試一次</div>
-                )}
-                <button
-                  type="submit"
-                  disabled={subStatus === "loading"}
-                  style={{
-                    background: "transparent",
-                    color: "#ffffff",
-                    border: "1px solid rgba(255,255,255,0.6)",
-                    borderRadius: "999px",
-                    padding: "9px 22px",
-                    cursor: subStatus === "loading" ? "not-allowed" : "pointer",
-                    fontSize: "13px",
-                    fontFamily: "inherit",
-                    opacity: subStatus === "loading" ? 0.5 : 1,
-                    boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
-                    transition: "all 0.3s ease",
-                    alignSelf: "flex-end",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (subStatus === "loading") return;
-                    const el = e.currentTarget as HTMLButtonElement;
-                    el.style.boxShadow = "0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.08)";
-                    el.style.borderColor = "rgba(255,255,255,0.9)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLButtonElement;
-                    el.style.boxShadow = "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)";
-                    el.style.borderColor = "rgba(255,255,255,0.6)";
-                  }}
-                >
-                  {subStatus === "loading" ? "訂閱中..." : "訂閱 →"}
-                </button>
-              </form>
-            )}
+            {/* Beehiiv inline embed target */}
+            <div data-beehiiv-form="84aff35f-6e66-4902-a583-e3ea4645f7d9" />
           </div>
         </div>
 
