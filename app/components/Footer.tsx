@@ -92,16 +92,14 @@ export default function Footer() {
       >
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            flexWrap: "wrap",
-            gap: "32px",
+            display: "grid",
+            gridTemplateColumns: "1fr 2fr",
+            gap: "60px",
             marginBottom: "48px",
           }}
           className="footer-top"
         >
-          <div style={{ flexShrink: 0, width: "260px" }}>
+          <div>
             <div
               style={{
                 fontSize: "22px",
@@ -133,7 +131,6 @@ export default function Footer() {
               display: "flex",
               flexDirection: "column",
               gap: "12px",
-              flex: 1,
               transition: "border-color 0.25s",
             }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(232,101,42,0.4)"; }}
@@ -235,7 +232,7 @@ export default function Footer() {
 
       <style>{`
         @media (max-width: 768px) {
-          .footer-top { flex-direction: column !important; }
+          .footer-top { grid-template-columns: 1fr !important; }
           footer > div { padding: 40px 24px 32px !important; }
         }
       `}</style>
