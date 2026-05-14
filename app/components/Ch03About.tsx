@@ -23,6 +23,10 @@ const qaData: { q: string; a: string }[] = [
     q: "你的生活型態？",
     a: "平日熱愛工作，每週日透過志工服務與反思，將心態歸零重整。",
   },
+  {
+    q: "你的 MBTI 與星座？",
+    a: "INFJ + 有點處女座的射手座。",
+  },
 ];
 
 const bottomCards = [
@@ -125,7 +129,7 @@ export default function Ch03About() {
           }}
         >
           {/* Left: particle portrait */}
-          <div style={{ height: "420px", background: "transparent" }}>
+          <div style={{ height: "560px", background: "transparent" }}>
             <ParticlePortrait />
           </div>
 
@@ -136,7 +140,7 @@ export default function Ch03About() {
               border: "0.5px solid rgba(240,240,240,0.09)",
               borderRadius: "20px",
               padding: "28px 24px",
-              minHeight: "420px",
+              minHeight: "560px",
               display: "flex",
               flexDirection: "column",
               gap: "0",
