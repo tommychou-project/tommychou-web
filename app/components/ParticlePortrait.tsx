@@ -127,7 +127,7 @@ export default function ParticlePortrait() {
       const valid: [number, number][] = [];
       for (let y = 0; y < H; y++) {
         for (let x = 0; x < W; x++) {
-          if (data[(y * W + x) * 4 + 3] > 128) valid.push([x, y]);
+          if (data[(y * W + x) * 4 + 3] > 40) valid.push([x, y]);
         }
       }
 
@@ -192,7 +192,24 @@ export default function ParticlePortrait() {
           mode === "portrait"? 0.03 :
           /* emoji */          0.035;
 
-        for (const p of particles) {
+        for (let i = 0; i < particles.length; i++) {
+          // Sphere & emoji modes use half the particles
+          if (mode !== "portrait" && i % 2 === 1) {
+            // Still update position so switching to portrait is smooth
+            const p = particles[i];
+            const sx    = p.r * Math.sin(p.phi) * Math.cos(p.theta + rotAngle);
+            const sy    = p.r * Math.cos(p.phi);
+            const sphereX = centerX + sx * sphereRadius;
+            const sphereY = centerY + sy * sphereRadius;
+            const destX = mode === "portrait" ? p.portraitX : mode === "emoji" ? p.emojiX : sphereX;
+            const destY = mode === "portrait" ? p.portraitY : mode === "emoji" ? p.emojiY : sphereY;
+            const lerpF = mode === "sphere" ? 0.02 : mode === "portrait" ? 0.03 : 0.035;
+            p.x += (destX - p.x) * lerpF;
+            p.y += (destY - p.y) * lerpF;
+            continue;
+          }
+          const p = particles[i];
+          {
           // Sphere target (keeps rotating even while lerping away)
           const sx    = p.r * Math.sin(p.phi) * Math.cos(p.theta + rotAngle);
           const sy    = p.r * Math.cos(p.phi);
@@ -235,6 +252,7 @@ export default function ParticlePortrait() {
           ctx.arc(p.x, p.y, drawSize, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${p.color},${alpha})`;
           ctx.fill();
+          }
         }
 
         // Reset glow so it doesn't bleed into next frame's clear
