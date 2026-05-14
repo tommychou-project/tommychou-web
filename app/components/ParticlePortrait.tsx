@@ -141,7 +141,7 @@ export default function ParticlePortrait() {
       const BRIGHT = "245,166,35";   // #F5A623
 
       particles = Array.from({ length: N }, (_, i) => {
-        const [px, py] = valid[Math.floor((i / N) * valid.length)];
+        const [px, py] = valid[Math.floor(Math.random() * valid.length)];
         const [ex, ey] = emojiPts[i % emojiPts.length];
 
         const theta = Math.random() * Math.PI * 2;
@@ -236,7 +236,7 @@ export default function ParticlePortrait() {
             : p.baseOpacity;
 
           // In portrait/emoji mode keep particle size; in sphere use stored size
-          const drawSize = (mode !== "sphere" && p.tier < 2) ? 1.2 : p.size;
+          const drawSize = (mode !== "sphere" && p.tier < 2) ? 1.6 : p.size;
 
           const alpha = Math.min(1, opacity).toFixed(2);
 
