@@ -304,7 +304,7 @@ export default function Contact() {
               cursor: status === "loading" ? "not-allowed" : "pointer",
               fontSize: "14px",
               fontFamily: "inherit",
-              alignSelf: "flex-start",
+              alignSelf: "flex-end",
               opacity: status === "loading" ? 0.5 : 1,
               boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
               transition: "all 0.3s ease",

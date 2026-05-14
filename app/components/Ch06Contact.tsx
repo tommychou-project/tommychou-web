@@ -251,7 +251,7 @@ export default function Ch06Contact() {
                 opacity: status === "loading" ? 0.5 : 1,
                 boxShadow: "0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.05)",
                 transition: "all 0.3s ease",
-                alignSelf: "flex-start",
+                alignSelf: "flex-end",
               }}
               onMouseEnter={(e) => {
                 if (status === "loading") return;
