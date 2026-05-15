@@ -7,7 +7,7 @@ const services = [
     id: "A",
     title: "品牌影音內容製作",
     fit: "中小型 B2B 公司、新創",
-    price: "起價 NT$30,000（產出 1–2 支影片）",
+    price: "依專案需求報價",
     timeline: "依專案而定",
     comingSoon: false,
     items: [
@@ -19,7 +19,7 @@ const services = [
     id: "B",
     title: "從 0 到 1 搭建自己的攝影棚",
     fit: "個人創作者、行銷部門",
-    price: "起價 NT$36,000（不含設備採購費用）",
+    price: "依場地條件與需求報價",
     timeline: "依專案而定",
     comingSoon: false,
     items: [
