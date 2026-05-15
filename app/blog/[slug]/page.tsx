@@ -56,9 +56,9 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
           <span
             style={{
-              color: "#ffffff",
-              background: "transparent",
-              border: "1px solid rgba(255,255,255,0.8)",
+              color: "#E8652A",
+              background: "rgba(232,101,42,0.08)",
+              border: "1px solid rgba(232,101,42,0.6)",
               fontSize: "11px",
               padding: "4px 10px",
               borderRadius: "5px",

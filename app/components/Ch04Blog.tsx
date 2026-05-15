@@ -139,9 +139,9 @@ export default function Ch04Blog({ posts }: { posts: PostMeta[] }) {
                   style={{
                     display: "inline-block",
                     fontSize: "11px",
-                    color: "#ffffff",
-                    background: "transparent",
-                    border: "1px solid rgba(255,255,255,0.8)",
+                    color: "#E8652A",
+                    background: "rgba(232,101,42,0.08)",
+                    border: "1px solid rgba(232,101,42,0.6)",
                     borderRadius: "5px",
                     padding: "3px 10px",
                     marginBottom: "16px",
