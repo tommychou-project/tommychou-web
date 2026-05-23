@@ -121,7 +121,7 @@ export default function Tour() {
       {/* 左上：場景編號 + 標題 */}
       <div className="absolute top-6 left-6 z-10 text-white pointer-events-none select-none">
         <div className="text-[10px] tracking-[0.25em] uppercase opacity-50">
-          Scene {String(scene.index).padStart(2, '0')} / 06
+          Scene {String(scene.index).padStart(2, '0')} / {String(scenes.length).padStart(2, '0')}
         </div>
         <div className="text-sm font-light tracking-wide mt-1 opacity-80">
           {scene.title}
