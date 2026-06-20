@@ -26,6 +26,14 @@ export type Post = PostMeta & {
   content: string;
 };
 
+// Keystatic 的 date 欄位會寫成「未加引號」的 YAML 日期（例 date: 2026-06-20），
+// 被 js-yaml 解析成 JS Date 物件；既有手寫文章則是加引號的字串。
+// 統一轉成 ISO 字串（YYYY-MM-DD），確保下游（render / sitemap / JSON-LD）拿到的永遠是字串。
+function normalizeDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return value == null ? "" : String(value);
+}
+
 function toMeta(slug: string, data: matter.GrayMatterFile<string>["data"]): PostMeta {
   const category = data.category ?? "";
   if (category && !isValidCategory(category)) {
@@ -42,11 +50,13 @@ function toMeta(slug: string, data: matter.GrayMatterFile<string>["data"]): Post
       ? [data.tag]
       : [];
 
+  const date = normalizeDate(data.date);
+
   return {
     slug,
     title: data.title ?? "",
-    date: data.date ?? "",
-    displayDate: data.displayDate ?? data.date ?? "",
+    date,
+    displayDate: data.displayDate ?? date,
     category,
     tags,
     readTime: data.readTime ?? "",

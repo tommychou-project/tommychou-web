@@ -11,6 +11,9 @@
     "publish": "node scripts/build-posts.js && git add . && git commit -m \"新增/更新文章\" && git push"
   },
   "dependencies": {
+    "@keystatic/core": "^0.5.50",
+    "@keystatic/next": "^5.0.4",
+    "@markdoc/markdoc": "^0.5.7",
     "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.3",
