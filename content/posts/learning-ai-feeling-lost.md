@@ -10,6 +10,8 @@ readTime: 3 min
 author: Tommy Chou
 coverImage: /images/posts/learning-ai-feeling-lost/coverImage.jpg
 ---
+## 你不需要學這麼多
+
 學了越多，好像越不知道自己在幹嘛
 
 你不需要擔心落下，也不需要想著「學上了這個工具，未來一定用得上」。
