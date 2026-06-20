@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { getAllPosts } from "@/lib/posts";
 import BlogClient from "./BlogClient";
+
+export const metadata: Metadata = {
+  title: "所有文章 | Tommy Chou",
+  description:
+    "Tommy Chou 的文章：AI × 行銷自動化、影視 × 品牌敘事，以及思考與成長的紀錄。",
+  alternates: {
+    canonical: "/blog",
+  },
+};
 
 export default function BlogPage() {
   const posts = getAllPosts();

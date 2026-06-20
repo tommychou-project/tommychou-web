@@ -13,7 +13,33 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const { slug } = await props.params;
   const post = getPostBySlug(slug);
   if (!post) return {};
-  return { title: `${post.title} | Tommy Chou`, description: post.excerpt };
+
+  const url = `/blog/${slug}`;
+  // 機器可解析的 ISO date 才放進 publishedTime；解析失敗就略過該欄位。
+  const publishedTime =
+    post.date && !isNaN(new Date(post.date).getTime())
+      ? new Date(post.date).toISOString()
+      : undefined;
+
+  return {
+    title: `${post.title} | Tommy Chou`,
+    description: post.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      url,
+      publishedTime,
+      authors: post.author ? [post.author] : undefined,
+      // 圖片由 app/blog/[slug]/opengraph-image.tsx 檔案慣例自動帶入。
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
+  };
 }
 
 export default async function PostPage(props: { params: Promise<{ slug: string }> }) {

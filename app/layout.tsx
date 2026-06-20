@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/app/components/Cursor";
+import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,10 +20,28 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Tommy Chou — 讓品牌自動成長",
-  description: "Tommy Chou 是專注於成長策略與影音內容自動化的行銷顧問，幫助品牌建立可複製、可規模化的行銷系統。",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   icons: {
     icon: "/favicon.svg",
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "zh_TW",
+    url: "/",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    // 分享圖由 app/opengraph-image.tsx 檔案慣例自動帶入。
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
 };
 
