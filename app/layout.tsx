@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/app/components/Cursor";
-import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
+import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL, OG_IMAGE_SIZE } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,12 +39,14 @@ export const metadata: Metadata = {
     url: "/",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    // 分享圖由 app/opengraph-image.tsx 檔案慣例自動帶入。
+    // 明確引用 OG 圖路由（不含 type，避免標錯圖片格式）。
+    images: [{ url: "/og", ...OG_IMAGE_SIZE, alt: SITE_TITLE }],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [{ url: "/og", ...OG_IMAGE_SIZE, alt: SITE_TITLE }],
   },
 };
 

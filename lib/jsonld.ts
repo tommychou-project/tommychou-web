@@ -19,7 +19,7 @@ export function postImageUrl(post: { slug: string; coverImage: string }): string
     const filePath = path.join(process.cwd(), "public", post.coverImage);
     if (fs.existsSync(filePath)) return absoluteUrl(post.coverImage);
   }
-  return absoluteUrl(`/blog/${post.slug}/opengraph-image`);
+  return absoluteUrl(`/blog/${post.slug}/og`);
 }
 
 // 首頁 Person。codebase 找不到社群連結，因此省略 sameAs（不編造網址）。

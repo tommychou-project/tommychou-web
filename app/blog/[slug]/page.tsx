@@ -3,6 +3,7 @@ import { marked } from "marked";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllPosts } from "@/lib/posts";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
+import { OG_IMAGE_SIZE } from "@/lib/site";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
@@ -33,12 +34,14 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       url,
       publishedTime,
       authors: post.author ? [post.author] : undefined,
-      // 圖片由 app/blog/[slug]/opengraph-image.tsx 檔案慣例自動帶入。
+      // 明確引用文章 OG 圖路由（不含 type，避免標錯圖片格式）。
+      images: [{ url: `/blog/${slug}/og`, ...OG_IMAGE_SIZE, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
+      images: [{ url: `/blog/${slug}/og`, ...OG_IMAGE_SIZE, alt: post.title }],
     },
   };
 }

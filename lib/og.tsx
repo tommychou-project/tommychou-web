@@ -1,9 +1,7 @@
 import { ImageResponse } from "next/og";
-import { SITE_NAME, SITE_URL } from "./site";
+import { SITE_NAME, SITE_URL, OG_IMAGE_SIZE } from "./site";
 
-// 共用的 OG 卡片設定與渲染器。root 與文章頁的 opengraph-image 都用它。
-export const OG_SIZE = { width: 1200, height: 630 };
-export const OG_CONTENT_TYPE = "image/png";
+// 共用的 OG 卡片渲染器。root 與文章頁的 OG 圖路由都用它。
 
 // 從 Google Fonts 取得可被 satori 解析的 CJK 字型（truetype/opentype，非 woff2）。
 // 全程包在 try/catch：取不到就回 null，改用內建字型，絕不讓 build 失敗。
@@ -91,7 +89,7 @@ export async function renderBrandCard(title: string, subtitle: string) {
       </div>
     ),
     {
-      ...OG_SIZE,
+      ...OG_IMAGE_SIZE,
       fonts: font
         ? [{ name: "Noto Sans TC", data: font, weight: 700, style: "normal" }]
         : undefined,
