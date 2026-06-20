@@ -2,6 +2,7 @@ import Link from "next/link";
 import { marked } from "marked";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllPosts } from "@/lib/posts";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
@@ -58,6 +59,15 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
       }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(post)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(post)) }}
+      />
+
       <Navbar />
 
       <article style={{ maxWidth: "1200px", margin: "0 auto", padding: "120px 48px 100px" }}>
