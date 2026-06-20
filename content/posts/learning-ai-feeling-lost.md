@@ -1,9 +1,13 @@
 ---
 title: "在學 AI 卻越來越迷惘？也許你該先停下來"
-date: "2026年5月"
-tag: "AI 反思"
+date: "2026-05-01"
+displayDate: "2026年5月"
+category: "思考與成長"
+tags: ["AI 反思"]
 readTime: "3 min"
 excerpt: "AI 越學卻越焦慮。問題可能不在你不夠努力，而是你忘了問自己：到底想解決什麼？"
+author: "Tommy Chou"
+coverImage: "/images/posts/learning-ai-feeling-lost.jpg"
 ---
 
 學了越多，好像越不知道自己在幹嘛

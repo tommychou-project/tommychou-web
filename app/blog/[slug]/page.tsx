@@ -64,10 +64,10 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
               borderRadius: "5px",
             }}
           >
-            {post.tag}
+            {post.category}
           </span>
           <span style={{ color: "#888888", fontSize: "12px" }}>
-            {post.date} · {post.readTime} read
+            {post.displayDate} · {post.readTime} read
           </span>
         </div>
 

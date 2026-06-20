@@ -4,14 +4,17 @@ import { getAllPosts } from "@/lib/posts";
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
 
-  const blogUrls = posts
-    .filter((post) => post.date && !isNaN(new Date(post.date).getTime()))
-    .map((post) => ({
+  // 解析失敗時退回今天日期，絕不因日期問題把整篇文章排除在 sitemap 之外。
+  const blogUrls = posts.map((post) => {
+    const parsed = new Date(post.date);
+    const lastModified = isNaN(parsed.getTime()) ? new Date() : parsed;
+    return {
       url: `https://www.tommychou.com/blog/${post.slug}`,
-      lastModified: new Date(post.date),
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
-    }));
+    };
+  });
 
   return [
     {

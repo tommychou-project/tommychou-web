@@ -12,7 +12,8 @@ export default function BlogClient({ posts }: { posts: PostMeta[] }) {
     return posts.filter(
       (p) =>
         p.title.toLowerCase().includes(q) ||
-        p.tag.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.tags.some((t) => t.toLowerCase().includes(q)) ||
         (p.excerpt && p.excerpt.toLowerCase().includes(q))
     );
   }, [query, posts]);
@@ -128,7 +129,7 @@ export default function BlogClient({ posts }: { posts: PostMeta[] }) {
                     </div>
                   )}
                   <div style={{ color: "#888888", fontSize: "12px" }}>
-                    {post.date} · {post.readTime} read
+                    {post.displayDate} · {post.readTime} read
                   </div>
                 </div>
                 {/* Tag badge */}
@@ -145,7 +146,7 @@ export default function BlogClient({ posts }: { posts: PostMeta[] }) {
                     marginTop: "4px",
                   }}
                 >
-                  {post.tag}
+                  {post.category}
                 </div>
               </div>
             </Link>

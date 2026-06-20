@@ -148,7 +148,7 @@ export default function Ch04Blog({ posts }: { posts: PostMeta[] }) {
                     letterSpacing: "0.06em",
                   }}
                 >
-                  {post.tag}
+                  {post.category}
                 </div>
 
                 {/* Title — 30% larger */}
@@ -190,7 +190,7 @@ export default function Ch04Blog({ posts }: { posts: PostMeta[] }) {
                     color: "rgba(240,240,240,0.22)",
                   }}
                 >
-                  {post.date} · {post.readTime} read
+                  {post.displayDate} · {post.readTime} read
                 </div>
               </div>
             </Link>
